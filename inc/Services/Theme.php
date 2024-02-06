@@ -36,6 +36,7 @@ class Theme implements Service {
 		 */
 		$this->add_theme_supports();
 		$this->remove_theme_supports();
+		$this->add_images_sizes();
 
 		/**
 		 * Load translations.
@@ -59,10 +60,12 @@ class Theme implements Service {
 		add_theme_support( 'yoast-seo-breadcrumbs' );
 		add_theme_support( 'block-template-parts' );
 		add_post_type_support( 'page', 'excerpt' );
+
 	}
 
 	/**
 	 * Remove theme supports
+	 * @return void
 	 */
 	private function remove_theme_supports(): void {
 		// remove the theme support basic elements
@@ -75,5 +78,12 @@ class Theme implements Service {
 	private function i18n(): void {
 		// Load theme texdomain
 		load_theme_textdomain( 'framework-textdomain', \get_theme_file_path( '/languages' ) );
+	}
+
+	/**
+	 * Register custom images sizes
+	 */
+	private function add_images_sizes(): void {
+		add_image_size( 'large-square', 1024, 1024, true );
 	}
 }

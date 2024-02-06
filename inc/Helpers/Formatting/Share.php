@@ -50,7 +50,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 	$networks = [
 		'facebook'  => [
 			'attributes' => [
-				'title' => __( 'Share on Facebook', 'beapi-frontend-framework' ),
+				'title' => __( 'Share on Facebook', 'beapi-blocks-theme' ),
 				'href'  => 'http://www.facebook.com/sharer.php',
 				'class' => 'share__link',
 			],
@@ -61,7 +61,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 		],
 		'x'         => [
 			'attributes' => [
-				'title' => __( 'Share on X', 'beapi-frontend-framework' ),
+				'title' => __( 'Share on X', 'beapi-blocks-theme' ),
 				'href'  => 'https://twitter.com/intent/tweet',
 				'class' => 'share__link',
 			],
@@ -72,7 +72,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 		],
 		'linkedin'  => [
 			'attributes' => [
-				'title' => __( 'Share on Linkedin', 'beapi-frontend-framework' ),
+				'title' => __( 'Share on Linkedin', 'beapi-blocks-theme' ),
 				'href'  => 'https://www.linkedin.com/shareArticle',
 				'class' => 'share__link',
 			],
@@ -83,7 +83,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 		],
 		'instagram' => [
 			'attributes' => [
-				'title' => __( 'Share on Instagram', 'beapi-frontend-framework' ),
+				'title' => __( 'Share on Instagram', 'beapi-blocks-theme' ),
 				'href'  => 'https://www.instagram.com/',
 				'class' => 'share__link',
 			],
@@ -94,7 +94,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 		],
 		'email'     => [
 			'attributes' => [
-				'title' => __( 'Share on Email', 'beapi-frontend-framework' ),
+				'title' => __( 'Share on Email', 'beapi-blocks-theme' ),
 				'href'  => 'mailto:',
 				'class' => 'share__link',
 			],

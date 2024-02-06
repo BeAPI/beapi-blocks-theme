@@ -52,6 +52,12 @@ class Editor implements Service {
 		 * Load editor JS for ADMIN
 		 */
 		add_action( 'enqueue_block_editor_assets', [ $this, 'admin_editor_script' ] );
+
+		/**
+		 * Register custom images sizes
+		 */
+		add_filter( 'image_size_names_choose', [ $this, 'gutenberg_images_sizes' ] );
+
 		/**
 		 * White list of gutenberg blocks
 		 */
@@ -118,7 +124,7 @@ class Editor implements Service {
 		//          'core/button',
 		//          [
 		//              'name'  => 'reverse',
-		//              'label' => __( 'Reverse', 'beapi-frontend-framework' ),
+		//              'label' => __( 'Reverse', 'beapi-blocks-theme' ),
 		//          ]
 		//      );
 
@@ -128,7 +134,7 @@ class Editor implements Service {
 			'core/paragraph',
 			[
 				'name'  => 'small',
-				'label' => __( 'Small', 'beapi-frontend-framework' ),
+				'label' => __( 'Small', 'beapi-blocks-theme' ),
 			]
 		);
 
@@ -136,7 +142,7 @@ class Editor implements Service {
 			'core/paragraph',
 			[
 				'name'  => 'large',
-				'label' => __( 'Large', 'beapi-frontend-framework' ),
+				'label' => __( 'Large', 'beapi-blocks-theme' ),
 			]
 		);
 
@@ -144,7 +150,7 @@ class Editor implements Service {
 			'core/paragraph',
 			[
 				'name'  => 'huge',
-				'label' => __( 'Huge', 'beapi-frontend-framework' ),
+				'label' => __( 'Huge', 'beapi-blocks-theme' ),
 			]
 		);
 	}
@@ -166,6 +172,21 @@ class Editor implements Service {
 		// return the difference between the allowed blocks and the excluded ones
 		return ( array_diff( $allowed_blocks, $excluded ) );
 
+	}
+
+	/**
+	 * Display custom images sizes in Editor
+	 *
+	 * @param array $sizes Existing imgages sizes
+	 * @return array
+	 */
+	public function gutenberg_images_sizes( $sizes ) : array {
+		return array_merge(
+			$sizes,
+			[
+				'large-square'   =>  __( 'Large square', 'beapi-blocks-theme' ),
+			]
+		);
 	}
 
 }

@@ -143,7 +143,7 @@ function get_the_link( array $attributes, array $settings = [] ): string {
 		$attributes['rel']      = 'noopener';
 		$settings['new_window'] = ! empty( $settings['new_window'] ) ? $settings['new_window'] : '<span class="sr-only">' . esc_html__(
 			'New window',
-			'beapi-frontend-framework'
+			'beapi-blocks-theme'
 		) . '</span>';
 	}
 

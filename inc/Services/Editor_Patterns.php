@@ -34,10 +34,10 @@ class Editor_Patterns implements Service {
 	public function register_categories(): void {
 
 		/**
-		 * usage : 'common' => [ 'label' => __( 'Common', 'beapi-frontend-framework' ) ]
+		 * usage : 'common' => [ 'label' => __( 'Common', 'beapi-blocks-theme' ) ]
 		 */
 		$pattern_categories = [
-			'common' => [ 'label' => __( 'Common', 'beapi-frontend-framework' ) ],
+			'common' => [ 'label' => __( 'Common', 'beapi-blocks-theme' ) ],
 		];
 
 		foreach ( $pattern_categories as $name => $properties ) {
