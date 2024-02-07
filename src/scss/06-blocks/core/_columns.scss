@@ -1,0 +1,26 @@
+.wp-block-columns {
+    @include block-vertical-spacing();
+    gap: get-gutter-width() !important;
+
+    .wp-block-column {
+        &.has-background {
+            padding: var(--theme--spacing--300);
+        }
+    }
+
+    &:not(.is-not-stacked-on-mobile) {
+        .wp-block-column {
+            margin-left: 0 !important;
+        }
+
+        @include breakpoints(md, max) {
+            flex-wrap: wrap !important;
+
+            .wp-block-column {
+                &:not(:only-child) {
+                    flex-basis: 100% !important;
+                }
+            }
+        }
+    }
+}

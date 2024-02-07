@@ -1,0 +1,74 @@
+/**
+ * Button
+ */
+
+@mixin btn {
+    display: inline;
+    padding: 0;
+    font-family: inherit;
+    color: inherit;
+    vertical-align: middle;
+    cursor: pointer;
+    background-color: transparent;
+    border: none;
+    appearance: none;
+}
+
+// ----
+// button block
+// ----
+
+@mixin btn-block {
+    position: relative;
+    z-index: 1;
+    display: inline-block;
+    min-width: 90px;
+    padding: 15px 25px;
+    overflow: hidden;
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+    color: var(--theme--preset--color--dark);
+    text-align: center;
+    background-color: var(--theme--preset--color--primary);
+    border-radius: 10px;
+
+    @include hover {
+        @include btn-block-hover;
+    }
+}
+
+// hover of the button block
+
+@mixin btn-block-hover {
+    color: var(--theme--preset--color--primary);
+    background-color: var(--theme--preset--color--dark);
+}
+
+// Coloring
+
+@mixin btn-block-colored($background-color, $color) {
+    color: $color;
+    background-color: $background-color;
+
+    @include hover {
+        color: $background-color;
+        background-color: $color;
+    }
+}
+
+// Outline style
+
+@mixin btn-block-outline {
+    padding: 13px 23px;
+    background-color: transparent;
+    border: 2px solid currentColor; // Force button width VS Gutenberg CSS
+
+    @include hover {
+        @include btn-block-outline-hover;
+    }
+}
+
+@mixin btn-block-outline-hover {
+    background-color: transparent;
+}

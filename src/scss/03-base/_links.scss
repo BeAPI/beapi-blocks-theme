@@ -1,0 +1,9 @@
+a {
+    color: currentColor;
+    text-decoration: underline;
+    cursor: pointer;
+
+    @include hover {
+        text-decoration: none;
+    }
+}

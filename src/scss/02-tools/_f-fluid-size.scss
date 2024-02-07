@@ -1,0 +1,19 @@
+/**
+ * Fluid size
+ *
+ * convert value px to fluid typography and spacing using clamp
+ */
+@use "sass:math";
+
+@function fluid-size($min-size, $max-size, $fluid-breakpoint-start: 0, $fluid-breakpoint-end: 991) {
+    $view_port_width_offset : math.div($fluid-breakpoint-end, 100) * 1px;
+    $linear_factor : 100 * math.div(( $max-size - $min-size ), ( $fluid-breakpoint-end - $fluid-breakpoint-start ));
+    $linear_factor_scaled : strip-units($linear_factor);
+    $fluid_target_font_size : #{$min-size}#{" + ((1vw - "}#{$view_port_width_offset}#{") * "}#{$linear_factor_scaled}#{")"};
+
+    @return clamp(
+        #{$min-size},
+        #{$fluid_target_font_size},
+        #{$max-size}
+    );
+}

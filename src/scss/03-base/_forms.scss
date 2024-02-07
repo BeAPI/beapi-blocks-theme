@@ -1,0 +1,110 @@
+@use "sass:color";
+
+// All inputs variables
+$text-inputs-list: 'input[type="color"]', 'input[type="date"]',
+    'input[type="datetime"]', 'input[type="datetime-local"]',
+    'input[type="email"]', 'input[type="month"]', 'input[type="number"]',
+    'input[type="password"]', 'input[type="search"]', 'input[type="tel"]',
+    'input[type="text"]', 'input[type="time"]', 'input[type="url"]',
+    'input[type="week"]', "input:not([type])", "textarea";
+
+$all-text-inputs: assign-inputs($text-inputs-list);
+
+// Not apply style to ACF fields
+@include not-acf {
+    // Textarea
+    textarea {
+        resize: vertical;
+    }
+
+    #{$all-text-inputs},
+    textarea {
+        box-sizing: border-box;
+        width: 100%;
+        padding: 15px 25px;
+        font-family: var(--theme--preset--font-family--primary);
+        line-height: 1;
+        color: var(--theme--forms--color);
+        background: var(--theme--forms--background);
+        border: 1px solid var(--theme--forms--border-color);
+        border-radius: 10px; //reset border radius for ios
+        transition: border-color .5s ease;
+        appearance: none;
+
+        &::placeholder {
+            color: var(--theme--forms--placeholder--color);
+        }
+
+        &:hover {
+            border-color: var(--theme--forms--border-color--hover);
+        }
+
+        &:focus {
+            color: var(--theme--forms--color--hover);
+            border-color: var(--theme--forms--border-color--hover);
+        }
+    }
+
+    // Label
+    label {
+        display: inline-block;
+        font-weight: var(--theme--forms--label--font-weight);
+    }
+
+    // Custom select
+    select {
+        @include select-custom;
+    }
+
+    input[type="checkbox"],
+    input[type="radio"] {
+        @include checkbox-custom;
+
+        &:checked {
+            @include checkbox-custom-checked;
+        }
+    }
+
+    input[type="radio"] {
+        @include radio-custom(true);
+    }
+
+    /*
+    // For complianz plugin
+    *:not(.cmplz-banner-checkbox) > {
+        input[type="checkbox"],
+        input[type="radio"] {
+            @include checkbox-custom;
+
+            &:checked {
+                @include checkbox-custom-checked;
+            }
+        }
+
+        input[type="radio"] {
+            @include radio-custom(true);
+        }
+    }
+    */
+
+    input[type="submit"] {
+        @extend %btn-block;
+    }
+
+    input[type="reset"] {
+        @extend %btn-block-outline;
+    }
+
+    input[type="search"] {
+        &::-webkit-search-cancel-button {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+            background-image: get-svg-url("close");
+            background-size: contain;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+    }
+}

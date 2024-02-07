@@ -1,0 +1,11 @@
+/**
+ * Container
+ */
+
+@mixin container {
+    width: var(--theme--preset--align-wide);
+    max-width: calc(100% - var(--wp--style--root--padding-left) - var(--wp--style--root--padding-right));
+    padding: 0;
+    margin-right: auto;
+    margin-left: auto;
+}

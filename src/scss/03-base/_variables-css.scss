@@ -1,0 +1,113 @@
+:root {
+    // preset align - see theme.json
+    --theme--preset--align-default: 700px;
+    --theme--preset--align-wide: 1140px;
+    --theme--preset--align-full: 100%;
+
+    // preset colors
+    --theme--preset--color--dark: #000;
+    --theme--preset--color--light: #fff;
+    --theme--preset--color--yellow: #ffe600;
+    --theme--preset--color--grey-100: #eee;
+    --theme--preset--color--grey-200: #ccc;
+    --theme--preset--color--grey-300: #aaa;
+    --theme--preset--color--grey-400: #999;
+    --theme--preset--color--grey-700: #777;
+    --theme--preset--color--text: var(--theme--preset--color--dark);
+    --theme--preset--color--background: var(--theme--preset--color--light);
+    --theme--preset--color--primary: var(--theme--preset--color--yellow);
+    --theme--preset--color--secondary: var(--theme--preset--color--grey-700);
+
+    //preset font sizes
+    --theme--preset--font-size--200: 14px;
+    --theme--preset--font-size--300: 16px;
+    --theme--preset--font-size--400: 24px;
+    --theme--preset--font-size--500: #{fluid-size(32px, 46px)};
+    --theme--preset--font-size--600: #{fluid-size(46px, 52px)};
+    --theme--preset--font-size--700: #{fluid-size(46px, 52px)};
+    --theme--preset--font-size--800: #{fluid-size(52px, 64px)};
+    --theme--preset--font-size--900: #{fluid-size(64px, 80px)};
+    --theme--preset--font-size--default: var(--theme--preset--font-size--300);
+
+    // preset typography line height
+    --theme--preset--line-height--100: 1.1;
+    --theme--preset--line-height--200: 1.2;
+    --theme--preset--line-height--300: 1.25;
+    --theme--preset--line-height--400: 1.5;
+    --theme--preset--line-height--500: 1.75;
+    --theme--preset--line-height--default: var(--theme--preset--line-height--400);
+
+    // Spacings
+    --theme--spacing--100: .5rem;
+    --theme--spacing--200: 1rem;
+    --theme--spacing--300: #{fluid-size(16px, 24px)};
+    --theme--spacing--400: #{fluid-size(24px, 32px)};
+    --theme--spacing--500: #{fluid-size(32px, 40px)};
+    --theme--spacing--600: #{fluid-size(40px, 48px)};
+    --theme--spacing--700: #{fluid-size(48px, 64px)};
+    --theme--spacing--800: #{fluid-size(64px, 80px)};
+
+    // Headings
+    --theme--heading--color: var(--theme--preset--color--dark);
+    --theme--heading--font-family: var(--wp--preset--font-family--secondary);
+    --theme--heading--line-height: var(--theme--preset--line-height--400);
+    --theme--heading--font-weight: 700;
+    --theme--heading--h1--font-size: var(--theme--preset--font-size--800);
+    --theme--heading--h2--font-size: var(--theme--preset--font-size--700);
+    --theme--heading--h3--font-size: var(--theme--preset--font-size--600);
+    --theme--heading--h4--font-size: var(--theme--preset--font-size--500);
+    --theme--heading--h5--font-size: var(--theme--preset--font-size--400);
+    --theme--heading--h6--font-size: var(--theme--preset--font-size--300);
+
+    // Paragraphs
+    --theme--paragraph--font-size-default: var(--theme--preset--font-size--300);
+    --theme--paragraph--line-height-default: var(--theme--preset--line-height--300);
+    --theme--paragraph--small--font-size: var(--theme--preset--font-size--200);
+    --theme--paragraph--small--line-height: var(--theme--preset--line-height--200);
+    --theme--paragraph--large--font-size: var(--theme--preset--font-size--400);
+    --theme--paragraph--large--line-height: var(--theme--preset--line-height--400);
+    --theme--paragraph--huge--font-size: var(--theme--preset--font-size--500);
+    --theme--paragraph--huge--line-height: var(--theme--preset--line-height--500);
+
+    // Buttons
+    --theme--buttons--font-family: var(--wp--preset--font-family--primary);
+    --theme--buttons--font-size: var(--theme--preset--font-size--300);
+    --theme--buttons--color: var(--theme--preset--color--text);
+    --theme--buttons--background: var(--theme--preset--color--background);
+    --theme--buttons--border-color: transparent;
+    --theme--buttons--border-width: 0px;
+    --theme--buttons--border-style: solid;
+    --theme--buttons--radius: 0px;
+    --theme--buttons--color-hover: var(--theme--preset--color--light);
+    --theme--buttons--background-hover: var(--theme--preset--color--text);
+    --theme--buttons--border-color-hover: transparent;
+
+    // Forms
+    --theme--forms--font-family: var(--wp--preset--font-family--primary);
+    --theme--forms--color: var(--wp--preset--color--text);
+    --theme--forms--background: var(--wp--preset--color--background);
+    --theme--forms--border-color: var(--wp--preset--color--border);
+    --theme--forms--border-color--hover: var(--wp--preset--color--border--hover);
+    --theme--forms--placeholder--color: var(--wp--preset--color--placeholder);
+    --theme--forms--label--font-weight: 700;
+
+    // Animation speeds
+    --speed: 1s;
+
+    // Admin bar
+    --wp-admin-bar-height: var(--wp-admin--admin-bar--height, 0rem);
+
+    //A11y reduced motion
+    @include reduced-motion {
+        --speed: 0s;
+    }
+
+    @include breakpoints(s, max) {
+        // Admin bar
+        &:not(.scroll-top) {
+            .admin-bar {
+                --wp-admin-bar-height: 0px;
+            }
+        }
+    }
+}

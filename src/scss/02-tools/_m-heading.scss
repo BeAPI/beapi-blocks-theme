@@ -1,0 +1,39 @@
+/**
+ * Heading mixins
+ */
+
+@mixin heading($name: h1, $style: default) {
+    font-family: var(--theme--heading--font-family);
+    font-weight: var(--theme--heading--font-weight);
+    line-height: var(--theme--heading--line-height);
+
+    @if $name == h1 {
+        font-size: var(--theme--heading--h1--font-size);
+        line-height: var(--theme--heading--h1--line-height);
+    }
+
+    @if $name == h2 {
+        font-size: var(--theme--heading--h2--font-size);
+        line-height: var(--theme--heading--h2--line-height);
+    }
+
+    @if $name == h3 {
+        font-size: var(--theme--heading--h3--font-size);
+        line-height: var(--theme--heading--h3--line-height);
+    }
+
+    @if $name == h4 {
+        font-size: var(--theme--heading--h4--font-size);
+        line-height: var(--theme--heading--h4--line-height);
+    }
+
+    @if $name == h5 {
+        font-size: var(--theme--heading--h5--font-size);
+        line-height: var(--theme--heading--h5--line-height);
+    }
+
+    @if $name == h6 {
+        font-size: var(--theme--heading--h6--font-size);
+        line-height: var(--theme--heading--h6--line-height);
+    }
+}

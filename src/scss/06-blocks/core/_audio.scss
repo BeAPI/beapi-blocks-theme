@@ -1,0 +1,12 @@
+.wp-block-audio {
+    audio {
+        &::-webkit-media-controls-panel {
+            background-color: var(--theme--preset--color--light);
+        }
+
+        &:focus {
+            outline: 2px solid var(--theme--preset--color--dark);
+            outline-offset: 5px;
+        }
+    }
+}

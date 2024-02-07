@@ -62,8 +62,7 @@ module.exports = {
                   plugins: {
                     'postcss-import': {},
                     'postcss-preset-env': {
-                      browsers: 'last 2 versions, > 2%, not dead',
-                      stage: 2,
+                      browsers: 'last 2 versions, > 1%, not dead',
                     },
                     'postcss-pxtorem': { propWhiteList: [] },
                     'postcss-sort-media-queries': {},

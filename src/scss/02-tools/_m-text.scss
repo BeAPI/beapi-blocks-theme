@@ -1,0 +1,29 @@
+/**
+ * Text mixins
+ */
+
+@mixin text($name: default) {
+    @if $name == default {
+        font-size: var(--theme--paragraph--font-size-default);
+        font-weight: 400;
+        line-height: var(--theme--paragraph--line-height-default);
+    }
+
+    @if $name == small {
+        font-size: var(--theme--paragraph--small--font-size);
+        font-weight: 400;
+        line-height: var(--theme--paragraph--small--line-height);
+    }
+
+    @if $name == large {
+        font-size: var(--theme--paragraph--large--font-size);
+        font-weight: 400;
+        line-height: var(--theme--paragraph--large--line-height);
+    }
+
+    @if $name == huge {
+        font-size: var(--theme--paragraph--huge--font-size);
+        font-weight: 400;
+        line-height: var(--theme--paragraph--huge--line-height);
+    }
+}
