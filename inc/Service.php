@@ -1,31 +1,26 @@
 <?php
 namespace BEA\Theme\Framework;
 
+use Pimple\Container;
+
 /**
  * Interface Service
  *
  * @package BEA\Theme\Framework
  */
-interface Service extends Interface_Module {
+interface Service {
 
 	/**
 	 * Register the service
 	 *
-	 * @param Service_Container $container
+	 * @param Container $container
 	 */
-	public function register( Service_Container $container ): void;
+	public function register( Container $container ): void;
 
 	/**
 	 * Boot the service
 	 *
-	 * @param Service_Container $container
+	 * @param Container $container
 	 */
-	public function boot( Service_Container $container ): void;
-
-	/**
-	 * Get the service's name
-	 *
-	 * @return string
-	 */
-	public function get_service_name(): string;
+	public function boot( Container $container ): void;
 }

@@ -1,16 +1,13 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
-
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
+namespace BEA\Theme\Framework\Services\Acf;
 
 /**
  * Class Acf
  *
  * @package BEA\Theme\Framework
  */
-class Acf implements Service {
+class Acf {
 
 	/**
 	 * @var array
@@ -21,28 +18,6 @@ class Acf implements Service {
 	 * @var string
 	 */
 	private $path = 'assets/acf/php/';
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-		add_action( 'template_redirect', [ $this, 'warning' ], 0 );
-		add_action( 'init', [ $this, 'init' ], 0 );
-		add_action( 'init', [ $this, 'init_acf' ] );
-	}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'acf';
-	}
 
 	/**
 	 * Show warning message if ACF plugin not activate

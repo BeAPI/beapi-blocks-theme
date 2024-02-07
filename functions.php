@@ -14,8 +14,15 @@
 add_action(
 	'after_setup_theme',
 	function () {
-		// Boot the service, at after_setup_theme.
-		\BEA\Theme\Framework\Framework::get_container()->boot_services();
+		$service_collection = new \BEA\Theme\Framework\ServiceCollection();
+		$service_collection
+			->add( new \BEA\Theme\Framework\Services\Acf\AcfService() )
+			->add( new \BEA\Theme\Framework\Services\Assets\AssetsService() )
+			->add( new \BEA\Theme\Framework\Services\Editor\EditorService() )
+			->add( new \BEA\Theme\Framework\Services\Svg\SvgService() )
+			->add( new \BEA\Theme\Framework\Services\Theme\ThemeService() );
+
+		( new \BEA\Theme\Framework\Theme( wp_get_theme(), $service_collection ) )->boot();
 	}
 );
 require_once __DIR__ . '/inc/Helpers/Svg.php';

@@ -1,46 +1,13 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
-
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
+namespace BEA\Theme\Framework\Services\Theme;
 
 /**
  * Class Performance
  *
  * @package BEA\Theme\Framework
  */
-class Performance implements Service {
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {
-	}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-		/**
-		 * Add hooks for the scripts and styles to hook on
-		 */
-		add_action( 'wp', [ $this, 'register_assets' ] );
-
-		/**
-		 * Optimize srcset maximum width contextually
-		 * @see https://developer.wordpress.org/reference/hooks/wp_calculate_image_sizes/
-		 * instead of using the default max_srcset_image_width of 2048px, we can use a custom value
-		 */
-		add_filter( 'max_srcset_image_width', [ $this, 'optimize_srcset_maximum_width' ], 10, 2 );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'performance';
-	}
+class Performance {
 
 	/**
 	 * Register all the Theme assets

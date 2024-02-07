@@ -1,31 +1,12 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BEA\Theme\Framework\Services\Theme;
 
 use BEA\Theme\Framework\Service;
 use BEA\Theme\Framework\Service_Container;
 
 
-class Theme implements Service {
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-		$this->after_setup_theme();
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'theme';
-	}
+class Theme {
 
 	/**
 	 * After setup theme

@@ -1,67 +1,21 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BEA\Theme\Framework\Services\Editor;
 
 use BEA\Theme\Framework\Framework;
-use BEA\Theme\Framework\Service;
 use BEA\Theme\Framework\Service_Container;
-use BEA\Theme\Framework\Tools\Assets as Assets_Tools;
+use BEA\Theme\Framework\Services\Assets\Assets;
+use BEA\Theme\Framework\Tools\Assets as AssetsTools;
 
-class Editor implements Service {
-	/**
-	 * @var Assets_Tools $assets_tools
-	 */
-	private $assets_tools;
+class Editor {
 
-	/**
-	 * @var Assets;
-	 */
 	private $assets;
 
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {
-		$this->assets_tools = new Assets_Tools();
-		$this->assets       = Framework::get_container()->get_service( 'assets' );
-	}
+	private $assets_tools;
 
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'editor';
-	}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-		$this->after_theme_setup();
-		/**
-		 * Load editor style css for admin and frontend
-		 */
-		$this->style();
-
-		/**
-		 * Register custom block style
-		 */
-		$this->register_custom_block_styles();
-
-		/**
-		 * Load editor JS for ADMIN
-		 */
-		add_action( 'enqueue_block_editor_assets', [ $this, 'admin_editor_script' ] );
-
-		/**
-		 * Register custom images sizes
-		 */
-		add_filter( 'image_size_names_choose', [ $this, 'gutenberg_images_sizes' ] );
-
-		/**
-		 * White list of gutenberg blocks
-		 */
-		add_filter( 'allowed_block_types_all', [ $this, 'gutenberg_blocks_allowed' ], 10, 2 );
+	public function __construct( Assets $assets, AssetsTools $assets_tools ) {
+		$this->assets       = $assets;
+		$this->assets_tools = $assets_tools;
 	}
 
 	/**
@@ -72,13 +26,13 @@ class Editor implements Service {
 	 *  - etc.
 	 *
 	 */
-	private function after_theme_setup(): void {
+	public function after_theme_setup(): void {
 	}
 
 	/**
 	 * editor style
 	 */
-	private function style(): void {
+	public function style(): void {
 		$file = $this->assets->is_minified() ? $this->assets->get_min_file( 'editor.css' ) : 'editor.css';
 
 		/**
@@ -117,7 +71,7 @@ class Editor implements Service {
 	 * Register custom block styles
 	 */
 
-	private function register_custom_block_styles() {
+	public function register_custom_block_styles() {
 		// Buttons
 		//      register_block_style(
 		//          'core/button',
@@ -176,6 +130,7 @@ class Editor implements Service {
 	 * Display custom images sizes in Editor
 	 *
 	 * @param array $sizes Existing imgages sizes
+	 *
 	 * @return array
 	 */
 	public function gutenberg_images_sizes( $sizes ): array {

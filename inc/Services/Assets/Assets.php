@@ -1,51 +1,23 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BEA\Theme\Framework\Services\Assets;
 
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
-use BEA\Theme\Framework\Tools\Assets as Assets_Tools;
-use function json_last_error;
-use const JSON_ERROR_NONE;
+use BEA\Theme\Framework\Tools\Assets as AssetsTools;
 
 /**
  * Class Assets
  *
  * @package BEA\Theme\Framework
  */
-class Assets implements Service {
+class Assets {
 
 	/**
-	 * @var Assets_Tools
+	 * @var AssetsTools
 	 */
 	private $assets_tools;
 
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {
-		$this->assets_tools = new Assets_Tools();
-	}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-		/**
-		 * Add hooks for the scripts and styles to hook on
-		 */
-		add_action( 'wp', [ $this, 'register_assets' ] );
-		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
-		add_action( 'wp_print_styles', [ $this, 'enqueue_styles' ] );
-		add_filter( 'stylesheet_uri', [ $this, 'stylesheet_uri' ] );
-		add_filter( 'wp_login_page_theme_css', [ $this, 'login_stylesheet_uri' ] );
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'assets';
+	public function __construct( AssetsTools $assets_tools ) {
+		$this->assets_tools = $assets_tools;
 	}
 
 	/**

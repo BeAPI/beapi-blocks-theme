@@ -1,36 +1,13 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
-
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
+namespace BEA\Theme\Framework\Services\Svg;
 
 /**
  * Class Svg
  *
  * @package BEA\Theme\Framework
  */
-class Svg implements Service {
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function register( Service_Container $container ): void {
-		add_filter( 'wp_kses_allowed_html', [ $this, 'allow_svg_tag' ] );
-	}
-
-	/**
-	 * @param Service_Container $container
-	 */
-	public function boot( Service_Container $container ): void {
-	}
-
-	/**
-	 * @return string
-	 */
-	public function get_service_name(): string {
-		return 'svg';
-	}
+class Svg {
 
 	/**
 	 * @param string $icon_class
