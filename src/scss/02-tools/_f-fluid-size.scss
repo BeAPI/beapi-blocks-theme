@@ -5,10 +5,12 @@
  */
 @use "sass:math";
 
-@function fluid-size($min-size, $max-size, $fluid-breakpoint-start: 0, $fluid-breakpoint-end: 991) {
-    $view_port_width_offset : math.div($fluid-breakpoint-end, 100) * 1px;
+@function fluid-size($min-size, $max-size, $fluid-breakpoint-start: 320, $fluid-breakpoint-end: 1600) {
+
+    $default_scale_factor : 1;
+    $view_port_width_offset : math.div($fluid-breakpoint-start, 100) * 1px;
     $linear_factor : 100 * math.div(( $max-size - $min-size ), ( $fluid-breakpoint-end - $fluid-breakpoint-start ));
-    $linear_factor_scaled : strip-units($linear_factor);
+    $linear_factor_scaled : strip-units($linear_factor * $default_scale_factor);
     $fluid_target_font_size : #{$min-size}#{" + ((1vw - "}#{$view_port_width_offset}#{") * "}#{$linear_factor_scaled}#{")"};
 
     @return clamp(

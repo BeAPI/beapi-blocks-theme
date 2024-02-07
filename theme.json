@@ -143,42 +143,42 @@
 			],
 			"fontSizes": [
 				{
-					"name": "X Small (14px)",
+					"name": "X Small",
 					"size": "var(--theme--preset--font-size--200)",
 					"slug": "x-small"
 				},
 				{
-					"name": "Small (16px)",
+					"name": "Small",
 					"size": "var(--theme--preset--font-size--300)",
 					"slug": "small",
 					"fluid": false
 				},
 				{
-					"name": "Medium (24px)",
+					"name": "Medium",
 					"size": "var(--theme--preset--font-size--400)",
 					"slug": "medium",
 					"fluid": false
 				},
 				{
-					"name": "Large (32px)",
+					"name": "Large",
 					"size": "var(--theme--preset--font-size--500)",
 					"slug": "large",
 					"fluid": false
 				},
 				{
-					"name": "X Large (40px)",
+					"name": "X Large",
 					"size": "var(--theme--preset--font-size--600)",
 					"slug": "x-large",
 					"fluid": false
 				},
 				{
-					"name": "XX Large (48px)",
+					"name": "XX Large",
 					"size": "var(--theme--preset--font-size--700)",
 					"slug": "xx-large",
 					"fluid": false
 				},
 				{
-					"name": "XXX Large (72px)",
+					"name": "XXX Large",
 					"size": "var(--theme--preset--font-size--800)",
 					"slug": "xxx-large",
 					"fluid": false
@@ -209,27 +209,32 @@
 			},
 			"h2": {
 				"typography": {
-					"fontSize": "var(--theme--heading--h2--font-size)"
+					"fontSize": "var(--theme--heading--h2--font-size)",
+					"lineHeight": "var(--theme--heading--h2--line-height)"
 				}
 			},
 			"h3": {
 				"typography": {
-					"fontSize": "var(--theme--heading--h3--font-size)"
+					"fontSize": "var(--theme--heading--h3--font-size)",
+					"lineHeight": "var(--theme--heading--h3--line-height)"
 				}
 			},
 			"h4": {
 				"typography": {
-					"fontSize": "var(--theme--heading--h4--font-size)"
+					"fontSize": "var(--theme--heading--h4--font-size)",
+					"lineHeight": "var(--theme--heading--h4--line-height)"
 				}
 			},
 			"h5": {
 				"typography": {
-					"fontSize": "var(--theme--heading--h5--font-size)"
+					"fontSize": "var(--theme--heading--h5--font-size)",
+					"lineHeight": "var(--theme--heading--h5--line-height)"
 				}
 			},
 			"h6": {
 				"typography": {
-					"fontSize": "var(--theme--heading--h6--font-size)"
+					"fontSize": "var(--theme--heading--h6--font-size)",
+					"lineHeight": "var(--theme--heading--h6--line-height)"
 				}
 			},
 			"button": {

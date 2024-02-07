@@ -52,20 +52,44 @@
     --theme--heading--font-family: var(--wp--preset--font-family--secondary);
     --theme--heading--line-height: var(--theme--preset--line-height--400);
     --theme--heading--font-weight: 700;
+
+    // Headings - H1
     --theme--heading--h1--font-size: var(--theme--preset--font-size--800);
+    --theme--heading--h1--line-height: var(--theme--preset--line-height--300);
+
+    // Headings - H2
     --theme--heading--h2--font-size: var(--theme--preset--font-size--700);
+    --theme--heading--h2--line-height: var(--theme--preset--line-height--300);
+
+    // Headings - H3
     --theme--heading--h3--font-size: var(--theme--preset--font-size--600);
+    --theme--heading--h3--line-height: var(--theme--preset--line-height--300);
+
+    // Headings - H4
     --theme--heading--h4--font-size: var(--theme--preset--font-size--500);
+    --theme--heading--h5--line-height: var(--theme--preset--line-height--300);
+
+    // Headings - H5
     --theme--heading--h5--font-size: var(--theme--preset--font-size--400);
+    --theme--heading--h5--line-height: var(--theme--preset--line-height--300);
+
+    // Headings - H6
     --theme--heading--h6--font-size: var(--theme--preset--font-size--300);
+    --theme--heading--h6--line-height: var(--theme--preset--line-height--300);
 
     // Paragraphs
     --theme--paragraph--font-size-default: var(--theme--preset--font-size--300);
     --theme--paragraph--line-height-default: var(--theme--preset--line-height--300);
+
+    // Paragraphs - Small
     --theme--paragraph--small--font-size: var(--theme--preset--font-size--200);
     --theme--paragraph--small--line-height: var(--theme--preset--line-height--200);
+
+    // Paragraphs - Large
     --theme--paragraph--large--font-size: var(--theme--preset--font-size--400);
     --theme--paragraph--large--line-height: var(--theme--preset--line-height--400);
+
+    // Paragraphs - Huge
     --theme--paragraph--huge--font-size: var(--theme--preset--font-size--500);
     --theme--paragraph--huge--line-height: var(--theme--preset--line-height--500);
 
