@@ -79,13 +79,13 @@ class Body_Class implements Service {
 	/**
 	 * Filter method which handle to delete wanted body_class
 	 *
-	 * @param string $class
+	 * @param string $classes
 	 *
 	 * @author Maxime CULEA
 	 *
 	 * @return bool
 	 */
-	private function filter( string $class ): bool {
-		return ! in_array( $class, $this->unwanted_classes, true );
+	private function filter( string $classes ): bool {
+		return ! in_array( $classes, $this->unwanted_classes, true );
 	}
 }

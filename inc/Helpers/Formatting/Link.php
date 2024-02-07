@@ -282,5 +282,4 @@ function get_acf_link_classes( $field, array $classes ): string {
 	}
 
 	return implode( ' ', $classes );
-
 }

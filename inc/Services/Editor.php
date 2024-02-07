@@ -73,7 +73,6 @@ class Editor implements Service {
 	 *
 	 */
 	private function after_theme_setup(): void {
-
 	}
 
 	/**
@@ -171,7 +170,6 @@ class Editor implements Service {
 
 		// return the difference between the allowed blocks and the excluded ones
 		return ( array_diff( $allowed_blocks, $excluded ) );
-
 	}
 
 	/**
@@ -180,13 +178,12 @@ class Editor implements Service {
 	 * @param array $sizes Existing imgages sizes
 	 * @return array
 	 */
-	public function gutenberg_images_sizes( $sizes ) : array {
+	public function gutenberg_images_sizes( $sizes ): array {
 		return array_merge(
 			$sizes,
 			[
-				'large-square'   =>  __( 'Large square', 'beapi-blocks-theme' ),
+				'large-square' => __( 'Large square', 'beapi-blocks-theme' ),
 			]
 		);
 	}
-
 }

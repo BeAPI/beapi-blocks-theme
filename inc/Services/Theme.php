@@ -60,7 +60,6 @@ class Theme implements Service {
 		add_theme_support( 'yoast-seo-breadcrumbs' );
 		add_theme_support( 'block-template-parts' );
 		add_post_type_support( 'page', 'excerpt' );
-
 	}
 
 	/**

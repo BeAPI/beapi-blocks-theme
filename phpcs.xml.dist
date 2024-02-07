@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         name="Beapi frontend framework"
+         name="Beapi Blocks Theme"
          xsi:noNamespaceSchemaLocation="https://raw.githubusercontent.com/squizlabs/PHP_CodeSniffer/master/phpcs.xsd">
 
     <description>A custom set of rules to check for a WPized WordPress project</description>
@@ -15,6 +15,9 @@
     <exclude-pattern>src/</exclude-pattern>
     <exclude-pattern>vendor/</exclude-pattern>
     <exclude-pattern>dist/</exclude-pattern>
+    <exclude-pattern>node_modules/</exclude-pattern>
+    <exclude-pattern>autoload.php</exclude-pattern>
+    <exclude-pattern>assets/acf/</exclude-pattern>
 
     <rule ref="WordPress-Extra">
         <!-- Exclude as we use a custom autoloader. -->
@@ -25,12 +28,16 @@
 
         <!-- Exclude as we use the short array syntax over the long one. -->
         <exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+        <exclude name="Universal.Arrays.DisallowShortArraySyntax.Found"/>
 
         <!-- Allow to use short ternary operators since they are very usefull. -->
         <exclude name="WordPress.PHP.DisallowShortTernary.Found"/>
     </rule>
 
-    <rule ref="Generic.Arrays.DisallowLongArraySyntax"/>
+    <config name="minimum_supported_wp_version" value="6.3"/>
+
+    <rule ref="PHPCompatibility"/>
+    <config name="testVersion" value="8.0-"/>
 
     <!-- Show sniff name in report. -->
     <arg value="sp"/>
@@ -44,12 +51,11 @@
     <!-- Set ini. -->
     <ini name="memory_limit" value="512M"/>
     <ini name="max_execution_time" value="-1"/>
-    <rule ref="PHPCompatibility"/>
 
     <rule ref="WordPress.Security.EscapeOutput">
         <properties>
             <property name="customAutoEscapedFunctions" type="array">
-                <element value="bea_get_attachment_image" />
+                <element value="bea_get_attachment_image"/>
                 <element value="get_the_icon"/>
                 <element value="get_the_image"/>
                 <element value="get_the_image"/>
