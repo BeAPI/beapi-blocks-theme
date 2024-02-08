@@ -1,8 +1,8 @@
 <?php
-namespace BEA\Theme\Framework\Helpers\Formatting\Image;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Image;
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Image\get_the_image( 1, [  'data-location' => 'image-size' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Image\get_the_image( 1, [  'data-location' => 'image-size' ] );
  *
  * @param int $image_id Attachment post ID
  *
@@ -78,7 +78,7 @@ function get_the_image( int $image_id, array $attributes, array $settings = [] )
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Image\the_image( 1, [  'data-location' => 'image-size' ], ['before'  => '');
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Image\the_image( 1, [  'data-location' => 'image-size' ], ['before'  => '');
  *
  * @param int $image_id Attachment post ID
  *

@@ -1,5 +1,5 @@
 <?php
-namespace BEA\Theme\Framework\Helpers\Formatting\Escape;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Escape;
 
 /**
  * Method for escaping attributes

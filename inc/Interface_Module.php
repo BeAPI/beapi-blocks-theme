@@ -1,10 +1,10 @@
 <?php
-namespace BEA\Theme\Framework;
+namespace BeAPI\Theme\Framework;
 
 /**
  * Interface Interface_Module
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 interface Interface_Module {
 

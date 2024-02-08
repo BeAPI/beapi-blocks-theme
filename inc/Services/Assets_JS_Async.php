@@ -1,14 +1,14 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BeAPI\Theme\Framework\Services;
 
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
+use BeAPI\Theme\Framework\Service;
+use BeAPI\Theme\Framework\Service_Container;
 
 /**
  * Class Assets_JS_Async
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 class Assets_JS_Async implements Service {
 

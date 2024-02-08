@@ -9,8 +9,16 @@
     // button
     // ----
     &-button {
-        &.is-style-outline .wp-block-button__link {
-            @extend %btn-block-outline;
+        &.is-style-border .wp-block-button__link {
+            --theme--buttons--color: var(--theme--preset--color--contrast);
+            --theme--buttons--background: transparent;
+            --theme--buttons--border-color: currentColor;
+            --theme--buttons--border-width: 2px;
+            --theme--buttons--border-style: solid;
+            --theme--buttons--radius: 0px;
+            --theme--buttons--color-hover: var(--theme--preset--color--contrast);
+            --theme--buttons--background-hover: var(--theme--preset--color--primary);
+            --theme--buttons--border-color-hover: var(--theme--preset--color--primary);
         }
 
         &.has-custom-font-size .wp-block-button__link {

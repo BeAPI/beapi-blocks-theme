@@ -1,9 +1,9 @@
 <?php
 
-namespace BEA\Theme\Framework\Helpers\Pattern_Content;
+namespace BeAPI\Theme\Framework\Helpers\Pattern_Content;
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Pattern_Content\maybe_term( 'slug','taxonomy' );
+ * @usage BeAPI\Theme\Framework\Helpers\Pattern_Content\maybe_term( 'slug','taxonomy' );
  *
  * @param string $slug
  * @param string $taxonomy

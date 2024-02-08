@@ -1,10 +1,10 @@
 <?php
-namespace BEA\Theme\Framework;
+namespace BeAPI\Theme\Framework;
 
 /**
  * Interface Service
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 interface Service extends Interface_Module {
 

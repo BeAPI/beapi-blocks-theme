@@ -1,11 +1,11 @@
 <?php
 
-namespace BEA\Theme\Framework\Tools;
+namespace BeAPI\Theme\Framework\Tools;
 
 /**
  * Class Assets
  *
- * @package BEA\Theme\Framework\Tools
+ * @package BeAPI\Theme\Framework\Tools
  */
 class Assets {
 

@@ -1,11 +1,11 @@
 <?php
 
-namespace BEA\Theme\Framework;
+namespace BeAPI\Theme\Framework;
 
 /**
  * Class Service_Container
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 class Service_Container {
 

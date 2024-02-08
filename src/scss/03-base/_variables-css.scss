@@ -13,10 +13,14 @@ body {
     --theme--preset--color--grey-300: #aaa;
     --theme--preset--color--grey-400: #999;
     --theme--preset--color--grey-700: #777;
-    --theme--preset--color--text: var(--theme--preset--color--dark);
-    --theme--preset--color--background: var(--theme--preset--color--light);
+    --theme--preset--color--contrast: var(--theme--preset--color--dark);
+    --theme--preset--color--base: var(--theme--preset--color--light);
     --theme--preset--color--primary: var(--theme--preset--color--yellow);
     --theme--preset--color--secondary: var(--theme--preset--color--grey-700);
+
+    // Body
+    --theme--body--color--text: var(--theme--preset--color--contrast);
+    --theme--body--color--background: var(--theme--preset--color--base);
 
     // Spacings - preset
     --theme--preset--spacing--100: .5rem;
@@ -51,7 +55,7 @@ body {
     --theme--heading--font-family: var(--wp--preset--font-family--secondary);
     --theme--heading--line-height: var(--theme--preset--line-height--400);
     --theme--heading--font-weight: 700;
-    --theme--heading--color: var(--theme--preset--color--dark);
+    --theme--heading--color: var(--theme--preset--color--contrast);
 
     // Headings - H1
     --theme--heading--h1--font-size: var(--theme--preset--font-size--800);
@@ -96,15 +100,17 @@ body {
     // Buttons
     --theme--buttons--font-family: var(--wp--preset--font-family--primary);
     --theme--buttons--font-size: var(--theme--preset--font-size--300);
-    --theme--buttons--color: var(--theme--preset--color--text);
+    --theme--buttons--font-weight: 400;
+    --theme--buttons--color: var(--theme--preset--color--contrast);
     --theme--buttons--background: var(--theme--preset--color--primary);
     --theme--buttons--border-color: transparent;
     --theme--buttons--border-width: 0px;
     --theme--buttons--border-style: solid;
     --theme--buttons--radius: 0px;
-    --theme--buttons--color-hover: var(--theme--preset--color--light);
-    --theme--buttons--background-hover: var(--theme--preset--color--text);
+    --theme--buttons--color-hover: var(--theme--preset--color--base);
+    --theme--buttons--background-hover: var(--theme--preset--color--contrast);
     --theme--buttons--border-color-hover: transparent;
+    --theme--buttons--padding: var(--theme--preset--spacing--200) var(--theme--preset--spacing--300);
 
     // Forms
     --theme--forms--font-family: var(--wp--preset--font-family--primary);

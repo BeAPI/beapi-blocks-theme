@@ -1,14 +1,14 @@
 <?php
 
-namespace BEA\Theme\Framework\Tools;
+namespace BeAPI\Theme\Framework\Tools;
 
-use BEA\Theme\Framework\Service_Container;
-use BEA\Theme\Framework\Service;
+use BeAPI\Theme\Framework\Service_Container;
+use BeAPI\Theme\Framework\Service;
 
 /**
  * Class Body_Class
  *
- * @package BEA\Theme\Framework\Tools
+ * @package BeAPI\Theme\Framework\Tools
  */
 class Body_Class implements Service {
 	/**

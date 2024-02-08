@@ -1,10 +1,10 @@
 <?php
 
 
-namespace BEA\Theme\Framework\Services;
+namespace BeAPI\Theme\Framework\Services;
 
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
+use BeAPI\Theme\Framework\Service;
+use BeAPI\Theme\Framework\Service_Container;
 
 class Editor_Patterns implements Service {
 	/**
@@ -25,7 +25,6 @@ class Editor_Patterns implements Service {
 	 */
 	public function boot( Service_Container $container ): void {
 		\add_action( 'init', [ $this, 'register_categories' ], 10 );
-		\add_action( 'init', [ $this, 'register_patterns' ], 11 );
 	}
 
 	/**

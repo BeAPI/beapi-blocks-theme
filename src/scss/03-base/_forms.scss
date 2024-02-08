@@ -92,7 +92,7 @@ $all-text-inputs: assign-inputs($text-inputs-list);
     }
 
     input[type="reset"] {
-        @extend %btn-block-outline;
+        @extend %btn-block-border;
     }
 
     input[type="search"] {

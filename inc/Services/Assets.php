@@ -1,17 +1,17 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BeAPI\Theme\Framework\Services;
 
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
-use BEA\Theme\Framework\Tools\Assets as Assets_Tools;
+use BeAPI\Theme\Framework\Service;
+use BeAPI\Theme\Framework\Service_Container;
+use BeAPI\Theme\Framework\Tools\Assets as Assets_Tools;
 use function json_last_error;
 use const JSON_ERROR_NONE;
 
 /**
  * Class Assets
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 class Assets implements Service {
 

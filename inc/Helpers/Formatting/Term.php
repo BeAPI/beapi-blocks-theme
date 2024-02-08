@@ -1,9 +1,9 @@
 <?php
-namespace BEA\Theme\Framework\Helpers\Formatting\Term;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Term;
 
-use function BEA\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
+use function BeAPI\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Term\get_terms_name( $terms );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Term\get_terms_name( $terms );
  *
  * @param \WP_Term[] $terms list of terms
  *
@@ -14,7 +14,7 @@ function get_terms_name( array $terms ): array {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Term\get_terms_list( $terms ,['items'  => '<span>%s</span>', 'separator' => ' ', 'wrapper' => '<p>%s</p>'] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Term\get_terms_list( $terms ,['items'  => '<span>%s</span>', 'separator' => ' ', 'wrapper' => '<p>%s</p>'] );
  *
  * @param \WP_Term[] $terms list of terms
  *
@@ -70,7 +70,7 @@ function get_terms_list( array $terms, array $settings = [] ): string {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Term\the_terms_list( $terms ,['items'  => '<span>%s</span>', 'separator' => ' ', 'wrapper' => '<p>%s</p>'] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Term\the_terms_list( $terms ,['items'  => '<span>%s</span>', 'separator' => ' ', 'wrapper' => '<p>%s</p>'] );
  *
  * @param \WP_Term[] $terms list of terms
  *

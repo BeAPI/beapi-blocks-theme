@@ -28,7 +28,7 @@
     font-size: 12px;
     font-weight: 700;
     line-height: 16px;
-    color: var(--theme--preset--color--dark);
+    color: var(--theme--preset--color--contrast);
     text-align: center;
     background-color: var(--theme--preset--color--primary);
     border-radius: 10px;
@@ -42,7 +42,7 @@
 
 @mixin btn-block-hover {
     color: var(--theme--preset--color--primary);
-    background-color: var(--theme--preset--color--dark);
+    background-color: var(--theme--preset--color--contrast);
 }
 
 // Coloring

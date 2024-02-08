@@ -7,9 +7,8 @@
     @include btn-block;
 }
 
-%btn-block-outline {
+%btn-block-border {
     @extend %btn-block;
-    @include btn-block-outline;
 }
 
 .btn {
@@ -20,6 +19,6 @@
     @extend %btn-block;
 }
 
-.btn-outline {
-    @extend %btn-block-outline;
+.btn-border {
+    @extend %btn-block-border;
 }
