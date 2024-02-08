@@ -1,10 +1,10 @@
-:root {
-    // preset align - see theme.json
+body {
+    // Align - preset
     --theme--preset--align-default: 700px;
     --theme--preset--align-wide: 1140px;
     --theme--preset--align-full: 100%;
 
-    // preset colors
+    // Colors - preset
     --theme--preset--color--dark: #000;
     --theme--preset--color--light: #fff;
     --theme--preset--color--yellow: #ffe600;
@@ -18,7 +18,17 @@
     --theme--preset--color--primary: var(--theme--preset--color--yellow);
     --theme--preset--color--secondary: var(--theme--preset--color--grey-700);
 
-    //preset font sizes
+    // Spacings - preset
+    --theme--preset--spacing--100: .5rem;
+    --theme--preset--spacing--200: 1rem;
+    --theme--preset--spacing--300: #{fluid-size(16px, 24px)};
+    --theme--preset--spacing--400: #{fluid-size(24px, 32px)};
+    --theme--preset--spacing--500: #{fluid-size(32px, 40px)};
+    --theme--preset--spacing--600: #{fluid-size(40px, 48px)};
+    --theme--preset--spacing--700: #{fluid-size(48px, 64px)};
+    --theme--preset--spacing--800: #{fluid-size(64px, 80px)};
+
+    // Font sizes - preset
     --theme--preset--font-size--200: 14px;
     --theme--preset--font-size--300: 16px;
     --theme--preset--font-size--400: 24px;
@@ -29,7 +39,7 @@
     --theme--preset--font-size--900: #{fluid-size(76px, 92px)};
     --theme--preset--font-size--default: var(--theme--preset--font-size--300);
 
-    // preset typography line height
+    // Line height - preset
     --theme--preset--line-height--100: 1.1;
     --theme--preset--line-height--200: 1.2;
     --theme--preset--line-height--300: 1.25;
@@ -37,21 +47,11 @@
     --theme--preset--line-height--500: 1.75;
     --theme--preset--line-height--default: var(--theme--preset--line-height--400);
 
-    // Spacings
-    --theme--spacing--100: .5rem;
-    --theme--spacing--200: 1rem;
-    --theme--spacing--300: #{fluid-size(16px, 24px)};
-    --theme--spacing--400: #{fluid-size(24px, 32px)};
-    --theme--spacing--500: #{fluid-size(32px, 40px)};
-    --theme--spacing--600: #{fluid-size(40px, 48px)};
-    --theme--spacing--700: #{fluid-size(48px, 64px)};
-    --theme--spacing--800: #{fluid-size(64px, 80px)};
-
     // Headings
-    --theme--heading--color: var(--theme--preset--color--dark);
     --theme--heading--font-family: var(--wp--preset--font-family--secondary);
     --theme--heading--line-height: var(--theme--preset--line-height--400);
     --theme--heading--font-weight: 700;
+    --theme--heading--color: var(--theme--preset--color--dark);
 
     // Headings - H1
     --theme--heading--h1--font-size: var(--theme--preset--font-size--800);
@@ -67,7 +67,7 @@
 
     // Headings - H4
     --theme--heading--h4--font-size: var(--theme--preset--font-size--500);
-    --theme--heading--h5--line-height: var(--theme--preset--line-height--300);
+    --theme--heading--h4--line-height: var(--theme--preset--line-height--300);
 
     // Headings - H5
     --theme--heading--h5--font-size: var(--theme--preset--font-size--400);
@@ -115,23 +115,12 @@
     --theme--forms--placeholder--color: var(--wp--preset--color--placeholder);
     --theme--forms--label--font-weight: 700;
 
-    // Animation speeds
-    --speed: 1s;
-
     // Admin bar
     --wp-admin-bar-height: var(--wp-admin--admin-bar--height, 0rem);
 
-    //A11y reduced motion
+    // Animation speeds
+    --speed: 1s;
     @include reduced-motion {
         --speed: 0s;
-    }
-
-    @include breakpoints(s, max) {
-        // Admin bar
-        &:not(.scroll-top) {
-            .admin-bar {
-                --wp-admin-bar-height: 0px;
-            }
-        }
     }
 }
