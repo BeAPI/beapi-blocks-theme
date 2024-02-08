@@ -189,8 +189,8 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var(--theme--body--color--background)",
-			"text": "var(--theme--body--color--text)"
+			"background": "var(--theme--body--background)",
+			"text": "var(--theme--body--color)"
 		},
 		"elements": {
 			"heading": {
