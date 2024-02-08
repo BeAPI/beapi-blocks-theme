@@ -9,10 +9,6 @@
     // button
     // ----
     &-button {
-        .wp-block-button__link {
-            @extend %btn-block;
-        }
-
         &.is-style-outline .wp-block-button__link {
             @extend %btn-block-outline;
         }

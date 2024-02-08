@@ -302,7 +302,7 @@
 			}
 		},
 		"spacing": {
-			"blockGap": "var(--theme--preset--spacing--200)",
+			"blockGap": "var(--theme--preset--spacing--300)",
 			"padding": {
 				"right": "var(--theme--preset--spacing--200)",
 				"left": "var(--theme--preset--spacing--200)"
