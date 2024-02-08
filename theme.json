@@ -11,12 +11,12 @@
 			"palette": [
 				{
 					"slug": "base",
-					"color": "var(--theme--preset--color--light)",
+					"color": "var(--theme--preset--color--base)",
 					"name": "Base"
 				},
 				{
 					"slug": "contrast",
-					"color": "var(--theme--preset--color--dark)",
+					"color": "var(--theme--preset--color--contrast)",
 					"name": "Contrast"
 				},
 				{
@@ -189,8 +189,8 @@
 	},
 	"styles": {
 		"color": {
-			"background": "var(--theme--preset--color--background)",
-			"text": "var(--theme--preset--color--text)"
+			"background": "var(--theme--body--color--background)",
+			"text": "var(--theme--body--color--text)"
 		},
 		"elements": {
 			"heading": {
@@ -238,32 +238,30 @@
 				}
 			},
 			"button": {
-				"spacing": {
-					"padding": {
-						"top": "var(--theme--preset--spacing--200)",
-						"right": "var(--theme--preset--spacing--300)",
-						"bottom": "var(--theme--preset--spacing--200)",
-						"left": "var(--theme--preset--spacing--300)"
-					}
+			"spacing": {
+				"padding": "var(--theme--buttons--padding)"
 				},
 				"border": {
 					"width": "var(--theme--buttons--border-width)",
 					"radius": "var(--theme--buttons--radius)",
-					"style": "var(--theme--buttons--border-style)"
+					"style": "var(--theme--buttons--border-style)",
+					"color": "var(--theme--buttons--border-color)"
 				},
 				"color": {
 					"background": "var(--theme--buttons--background)",
-					"text": "var(--theme--buttons--color)",
-					"border": "var(--theme--buttons--border-color)"
+					"text": "var(--theme--buttons--color)"
 				},
 				"typography": {
-					"fontSize": "var(--theme--buttons--font-size)"
+					"fontSize": "var(--theme--buttons--font-size)",
+					"fontWeight": "var(--theme--buttons--font-weight)"
 				},
 				":hover": {
 					"color": {
 						"background": "var(--theme--buttons--background-hover)",
-						"text": "var(--theme--buttons--color-hover)",
-						"border": "var(--theme--buttons--border-color-hover)"
+						"text": "var(--theme--buttons--color-hover)"
+					},
+					"border": {
+						"color": "var(--theme--buttons--border-color-hover)"
 					}
 				}
 			},

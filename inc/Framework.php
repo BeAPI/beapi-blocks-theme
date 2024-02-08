@@ -1,24 +1,24 @@
 <?php
 
-namespace BEA\Theme\Framework;
+namespace BeAPI\Theme\Framework;
 
-use BEA\Theme\Framework\Services\Acf;
-use BEA\Theme\Framework\Services\Assets;
-use BEA\Theme\Framework\Services\Performance;
-use BEA\Theme\Framework\Services\Assets_JS_Async;
-use BEA\Theme\Framework\Services\Editor;
-use BEA\Theme\Framework\Services\Editor_Patterns;
-use BEA\Theme\Framework\Services\Menu;
-use BEA\Theme\Framework\Services\Sidebar;
-use BEA\Theme\Framework\Services\Svg;
-use BEA\Theme\Framework\Services\Theme;
-use BEA\Theme\Framework\Tools\Body_Class;
-use BEA\Theme\Framework\Tools\Template_Parts;
+use BeAPI\Theme\Framework\Services\Acf;
+use BeAPI\Theme\Framework\Services\Assets;
+use BeAPI\Theme\Framework\Services\Performance;
+use BeAPI\Theme\Framework\Services\Assets_JS_Async;
+use BeAPI\Theme\Framework\Services\Editor;
+use BeAPI\Theme\Framework\Services\Editor_Patterns;
+use BeAPI\Theme\Framework\Services\Menu;
+use BeAPI\Theme\Framework\Services\Sidebar;
+use BeAPI\Theme\Framework\Services\Svg;
+use BeAPI\Theme\Framework\Services\Theme;
+use BeAPI\Theme\Framework\Tools\Body_Class;
+use BeAPI\Theme\Framework\Tools\Template_Parts;
 
 /**
  * Class Framework
  *
- * @package BEA\Theme\Framework
+ * @package BeAPI\Theme\Framework
  */
 class Framework {
 	/**

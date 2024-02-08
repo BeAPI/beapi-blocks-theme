@@ -1,10 +1,10 @@
 <?php
-namespace BEA\Theme\Framework\Helpers\Formatting\Text;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Text;
 
-use function BEA\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
+use function BeAPI\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Text\the_text( 'text' => 'Lorem ipsum', [ 'before' => '<p>', 'after' => '</p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Text\the_text( 'text' => 'Lorem ipsum', [ 'before' => '<p>', 'after' => '</p>' ] );
  *
  * @param string $value Text to display
  * @param array $settings {
@@ -24,7 +24,7 @@ function the_text( string $value, array $settings = [] ): void {
 
 /**
  * Get the text
- * @usage BEA\Theme\Framework\Helpers\Formatting\Text\get_the_text( 'Lorem ipsum', [ 'before' => '<p>', 'after' => '</p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Text\get_the_text( 'Lorem ipsum', [ 'before' => '<p>', 'after' => '</p>' ] );
  *
  * @param string $value Text to display
  * @param array $settings {

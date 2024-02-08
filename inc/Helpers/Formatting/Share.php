@@ -1,12 +1,12 @@
 <?php
-namespace BEA\Theme\Framework\Helpers\Formatting\Share;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Share;
 
-use function BEA\Theme\Framework\Helpers\Formatting\Link\get_the_link;
-use function BEA\Theme\Framework\Helpers\Svg\get_the_icon;
+use function BeAPI\Theme\Framework\Helpers\Formatting\Link\get_the_link;
+use function BeAPI\Theme\Framework\Helpers\Svg\get_the_icon;
 
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Share\get_share_link( 'facebook', "https://......", ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], [ 'before' => '', 'after' => ''] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Share\get_share_link( 'facebook', "https://......", ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], [ 'before' => '', 'after' => ''] );
  *
  * @param string $name The network name ( example : "facebook", "linkedin", etc....).
  * @param string $link_to_share The sharing link.
@@ -150,7 +150,7 @@ function get_share_link( string $name, string $link_to_share, array $share_attri
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Share\get_share_link( 'facebook', "https://......", ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], [ 'before' => '', 'after' => ''] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Share\get_share_link( 'facebook', "https://......", ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], ['title' => 'My title', 'class' => "...", 'href' => 'http://www.facebook.com/sharer.php'  ], [ 'before' => '', 'after' => ''] );
  *
  * @param string $name The network name ( example : "facebook", "linkedin", etc....).
  * @param string $link_to_share The sharing link.

@@ -1,12 +1,12 @@
 <?php
 
-namespace BEA\Theme\Framework\Helpers\Formatting\Link;
+namespace BeAPI\Theme\Framework\Helpers\Formatting\Link;
 
-use function BEA\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
-use function BEA\Theme\Framework\Helpers\Formatting\Escape\escape_attribute_value;
+use function BeAPI\Theme\Framework\Helpers\Formatting\Escape\escape_content_value;
+use function BeAPI\Theme\Framework\Helpers\Formatting\Escape\escape_attribute_value;
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Link\get_acf_link( ['field' => ..., 'class' => ...], [ 'before' => '<p>%s', 'after' => '</p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Link\get_acf_link( ['field' => ..., 'class' => ...], [ 'before' => '<p>%s', 'after' => '</p>' ] );
  *
  * @param array $attributes {
  *    Attributes for the acf link markup.
@@ -66,7 +66,7 @@ function get_acf_link( array $attributes, array $settings = [] ): string {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Link\the_custom_link( ['url' => ..., 'title' => ...], [ 'wrapper' => '<p></p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Link\the_custom_link( ['url' => ..., 'title' => ...], [ 'wrapper' => '<p></p>' ] );
  *
  * @param array $attributes {
  *    Attributes for the acf link markup.
@@ -96,7 +96,7 @@ function the_acf_link( array $attributes, array $settings = [] ): void {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Link\get_link( ['href' => ..., 'title' => ...], [ 'wrapper' => '<p>%s</p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Link\get_link( ['href' => ..., 'title' => ...], [ 'wrapper' => '<p>%s</p>' ] );
  *
  * @param array $attributes {
  *    Attributes for the acf link markup.
@@ -215,7 +215,7 @@ function get_the_link( array $attributes, array $settings = [] ): string {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Link\the_link( ['href' => ..., 'title' => ...], [ 'wrapper' => '<p></p>' ] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Link\the_link( ['href' => ..., 'title' => ...], [ 'wrapper' => '<p></p>' ] );
  *
  * @param array $attributes {
  *    Attributes for the link markup.
@@ -247,7 +247,7 @@ function the_link( array $attributes, array $settings = [] ): void {
 }
 
 /**
- * @usage BEA\Theme\Framework\Helpers\Formatting\Link\get_acf_link_classes( ['url' => ...], [ 'menu-item'] );
+ * @usage BeAPI\Theme\Framework\Helpers\Formatting\Link\get_acf_link_classes( ['url' => ...], [ 'menu-item'] );
  *
  * @param array|null $field {
  *

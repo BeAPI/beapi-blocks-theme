@@ -1,11 +1,11 @@
 <?php
 
-namespace BEA\Theme\Framework\Services;
+namespace BeAPI\Theme\Framework\Services;
 
-use BEA\Theme\Framework\Framework;
-use BEA\Theme\Framework\Service;
-use BEA\Theme\Framework\Service_Container;
-use BEA\Theme\Framework\Tools\Assets as Assets_Tools;
+use BeAPI\Theme\Framework\Framework;
+use BeAPI\Theme\Framework\Service;
+use BeAPI\Theme\Framework\Service_Container;
+use BeAPI\Theme\Framework\Tools\Assets as Assets_Tools;
 
 class Editor implements Service {
 	/**
@@ -61,7 +61,7 @@ class Editor implements Service {
 		/**
 		 * White list of gutenberg blocks
 		 */
-		add_filter( 'allowed_block_types_all', [ $this, 'gutenberg_blocks_allowed' ], 10, 2 );
+		//add_filter( 'allowed_block_types_all', [ $this, 'gutenberg_blocks_allowed' ], 10, 2 );
 	}
 
 	/**
@@ -119,16 +119,22 @@ class Editor implements Service {
 
 	private function register_custom_block_styles() {
 		// Buttons
-		//      register_block_style(
-		//          'core/button',
-		//          [
-		//              'name'  => 'reverse',
-		//              'label' => __( 'Reverse', 'beapi-blocks-theme' ),
-		//          ]
-		//      );
+		register_block_style(
+			'core/button',
+			[
+				'name'  => 'border',
+				'label' => __( 'Border', 'beapi-blocks-theme' ),
+			]
+		);
+		register_block_style(
+			'core/button',
+			[
+				'name'  => 'download',
+				'label' => __( 'Download', 'beapi-blocks-theme' ),
+			]
+		);
 
 		// Paragraph
-
 		register_block_style(
 			'core/paragraph',
 			[
@@ -136,7 +142,6 @@ class Editor implements Service {
 				'label' => __( 'Small', 'beapi-blocks-theme' ),
 			]
 		);
-
 		register_block_style(
 			'core/paragraph',
 			[
@@ -144,7 +149,6 @@ class Editor implements Service {
 				'label' => __( 'Large', 'beapi-blocks-theme' ),
 			]
 		);
-
 		register_block_style(
 			'core/paragraph',
 			[
@@ -163,6 +167,9 @@ class Editor implements Service {
 	 * @return array
 	 */
 	public function gutenberg_blocks_allowed( $allowed_blocks, \WP_Block_Editor_Context $block_editor_context ): array {
+		if ( ! is_array( $allowed_blocks ) ) {
+			return [];
+		}
 
 		$excluded = [
 			'core/more',

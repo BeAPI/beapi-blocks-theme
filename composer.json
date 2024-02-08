@@ -23,7 +23,7 @@
     },
     "autoload": {
         "psr-4": {
-            "BEA\\Theme\\Framework\\": "inc/"
+            "BeAPI\\Theme\\Framework\\": "inc/"
         }
     },
     "config": {

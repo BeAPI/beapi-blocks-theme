@@ -1,11 +1,11 @@
 .wp-block-audio {
     audio {
         &::-webkit-media-controls-panel {
-            background-color: var(--theme--preset--color--light);
+            background-color: var(--theme--preset--color--base);
         }
 
         &:focus {
-            outline: 2px solid var(--theme--preset--color--dark);
+            outline: 2px solid var(--theme--preset--color--contrast);
             outline-offset: 5px;
         }
     }

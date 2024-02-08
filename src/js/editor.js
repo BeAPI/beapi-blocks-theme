@@ -5,6 +5,9 @@ import { unregisterBlockStyle, getBlockVariations, unregisterBlockVariation } fr
 // Native Gutenberg
 domReady(() => {
   unregisterBlockStyle('core/separator', ['wide', 'dots'])
+
+  unregisterBlockStyle('core/button', 'outline')
+
   // whitelist core embeds
   const allowedEmbedVariants = ['youtube', 'vimeo', 'dailymotion']
   getBlockVariations('core/embed').forEach((variant) => {
