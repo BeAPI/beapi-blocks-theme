@@ -129,8 +129,8 @@ class Editor implements Service {
 		register_block_style(
 			'core/button',
 			[
-				'name'  => 'download',
-				'label' => __( 'Download', 'beapi-blocks-theme' ),
+				'name'  => 'external',
+				'label' => __( 'External', 'beapi-blocks-theme' ),
 			]
 		);
 

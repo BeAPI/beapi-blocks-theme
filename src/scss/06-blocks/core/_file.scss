@@ -2,6 +2,6 @@
     $el: &;
 
     #{$el}__button {
-        @extend %btn-block;
+        @include btn-block-icon("download", .8em, before);
     }
 }

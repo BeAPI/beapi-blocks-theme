@@ -72,3 +72,24 @@
 @mixin btn-block-outline-hover {
     background-color: transparent;
 }
+
+// Outline style
+
+@mixin btn-block-icon($icon, $size: .8em, $position: after) {
+    &::#{$position} {
+        display: inline-block;
+        width: $size;
+        height: $size;
+        content: "";
+        background-color: currentColor;
+        mask-size: contain;
+        mask-position: center;
+        mask-repeat: no-repeat;
+        @if $position == "before" {
+            margin-right: 1em;
+        }@else {
+            margin-left: 1em;
+        }
+        @include svg-mask($icon);
+    }
+}

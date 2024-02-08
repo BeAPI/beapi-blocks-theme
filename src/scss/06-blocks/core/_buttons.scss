@@ -24,5 +24,9 @@
         &.has-custom-font-size .wp-block-button__link {
             font-size: inherit;
         }
+
+        &.is-style-external .wp-block-button__link {
+            @include btn-block-icon("external", .8em, after);
+        }
     }
 }

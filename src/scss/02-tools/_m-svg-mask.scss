@@ -1,0 +1,7 @@
+/*Svg mask mixin
+usage example:
+@include svg-mask("shape");
+*/
+@mixin svg-mask($name) {
+    mask-image: url(../img/static/#{$name}.svg);
+}
