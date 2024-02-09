@@ -4,6 +4,10 @@ body {
     --theme--preset--align-wide: 1140px;
     --theme--preset--align-full: 100%;
 
+    // Fonts - preset
+    --theme--font-family--primary: var(--wp--preset--font-family--primary);
+    --theme--font-family--secondary: var(--wp--preset--font-family--secondary);
+
     // Colors - preset
     --theme--preset--color--dark: #000;
     --theme--preset--color--light: #fff;
@@ -23,14 +27,14 @@ body {
     --theme--body--background: var(--theme--preset--color--base);
 
     // Spacings - preset
-    --theme--preset--spacing--100: .5rem;
-    --theme--preset--spacing--200: 1rem;
-    --theme--preset--spacing--300: #{fluid-size(16px, 24px)};
-    --theme--preset--spacing--400: #{fluid-size(24px, 32px)};
-    --theme--preset--spacing--500: #{fluid-size(32px, 40px)};
-    --theme--preset--spacing--600: #{fluid-size(40px, 48px)};
-    --theme--preset--spacing--700: #{fluid-size(48px, 64px)};
-    --theme--preset--spacing--800: #{fluid-size(64px, 80px)};
+    --theme--preset--spacing--10: .5rem;
+    --theme--preset--spacing--20: 1rem;
+    --theme--preset--spacing--30: #{fluid-size(16px, 24px)};
+    --theme--preset--spacing--40: #{fluid-size(24px, 32px)};
+    --theme--preset--spacing--50: #{fluid-size(32px, 40px)};
+    --theme--preset--spacing--60: #{fluid-size(40px, 48px)};
+    --theme--preset--spacing--70: #{fluid-size(48px, 64px)};
+    --theme--preset--spacing--80: #{fluid-size(64px, 80px)};
 
     // Font sizes - preset
     --theme--preset--font-size--200: 14px;
@@ -98,7 +102,7 @@ body {
     --theme--paragraph--huge--line-height: var(--theme--preset--line-height--500);
 
     // Buttons
-    --theme--buttons--font-family: var(--wp--preset--font-family--primary);
+    --theme--buttons--font-family: var(--theme--preset--font-family--primary);
     --theme--buttons--font-size: var(--theme--preset--font-size--300);
     --theme--buttons--font-weight: 400;
     --theme--buttons--color: var(--theme--preset--color--contrast);
@@ -113,12 +117,12 @@ body {
     --theme--buttons--padding: var(--theme--preset--spacing--200) var(--theme--preset--spacing--300);
 
     // Forms
-    --theme--forms--font-family: var(--wp--preset--font-family--primary);
-    --theme--forms--color: var(--wp--preset--color--text);
-    --theme--forms--background: var(--wp--preset--color--background);
-    --theme--forms--border-color: var(--wp--preset--color--border);
-    --theme--forms--border-color--hover: var(--wp--preset--color--border--hover);
-    --theme--forms--placeholder--color: var(--wp--preset--color--placeholder);
+    --theme--forms--font-family: var(--theme--preset--font-family--primary);
+    --theme--forms--color: var(--theme--preset--color--text);
+    --theme--forms--background: var(--theme--preset--color--background);
+    --theme--forms--border-color: var(--theme--preset--color--border);
+    --theme--forms--border-color--hover: var(--theme--preset--color--border--hover);
+    --theme--forms--placeholder--color: var(--theme--preset--color--placeholder);
     --theme--forms--label--font-weight: 700;
 
     // Admin bar
