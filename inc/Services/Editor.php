@@ -61,7 +61,7 @@ class Editor implements Service {
 		/**
 		 * White list of gutenberg blocks
 		 */
-		//add_filter( 'allowed_block_types_all', [ $this, 'gutenberg_blocks_allowed' ], 10, 2 );
+		add_filter( 'allowed_block_types_all', [ $this, 'gutenberg_blocks_allowed' ], 10, 2 );
 	}
 
 	/**
@@ -167,22 +167,37 @@ class Editor implements Service {
 	 * @return array
 	 */
 	public function gutenberg_blocks_allowed( $allowed_blocks, \WP_Block_Editor_Context $block_editor_context ): array {
-		if ( ! is_array( $allowed_blocks ) ) {
-			return [];
-		}
 
-		$excluded = [
+		$all_blocks = array_keys( \WP_Block_Type_Registry::get_instance()->get_all_registered() );
+
+		$exclude = [
 			'core/more',
+			'core/legacy-widget',
+			'core/widget-group',
+			'core/comment-author-name',
+			'core/comment-content',
+			'core/comment-date',
+			'core/comment-edit-link',
+			'core/comment-reply-link',
+			'core/comment-template',
+			'core/comments',
+			'core/comments-pagination',
+			'core/comments-pagination-next',
+			'core/comments-pagination-numbers',
+			'core/comments-pagination-previous',
+			'core/comments-title',
+			'core/latest-comments',
+			'core/post-comments',
 		];
 
-		// return the difference between the allowed blocks and the excluded ones
-		return ( array_diff( $allowed_blocks, $excluded ) );
+		return array_values( array_diff( $all_blocks, $exclude ) );
 	}
 
 	/**
 	 * Display custom images sizes in Editor
 	 *
 	 * @param array $sizes Existing imgages sizes
+	 *
 	 * @return array
 	 */
 	public function gutenberg_images_sizes( $sizes ): array {
