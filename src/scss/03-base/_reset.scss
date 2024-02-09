@@ -41,15 +41,9 @@ h6 {
 html {
     /* Apply border-box across the entire page. */
     box-sizing: border-box;
-
-    // HTML resets
-    font-family: var(--wp--preset--font-family--primary);
-    line-height: var(--wp--custom--typography--line-height--300);
-
     // Scroll resets
     -webkit-overflow-scrolling: touch;
     scroll-behavior: smooth;
-
     // Fonts resets
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -68,14 +62,6 @@ html {
 }
 
 // body resets
-body {
-    font-family: var(--wp--preset--font-family--primary);
-    font-size: $font-size-base;
-    font-weight: normal;
-    color: $color-text;
-    background-color: $color-light;
-}
-
 button {
     cursor: pointer;
 

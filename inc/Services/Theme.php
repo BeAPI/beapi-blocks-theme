@@ -11,12 +11,18 @@ class Theme implements Service {
 	/**
 	 * @param Service_Container $container
 	 */
-	public function register( Service_Container $container ): void {}
+	public function register( Service_Container $container ): void {
+	}
 
 	/**
 	 * @param Service_Container $container
 	 */
 	public function boot( Service_Container $container ): void {
+
+		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_block_template_skip_link' );
+		remove_action( 'wp_footer', 'the_block_template_skip_link' );
+		add_action( 'wp_body_open', [ $this, 'template_skip_link' ] );
+
 		$this->after_setup_theme();
 	}
 
@@ -54,7 +60,18 @@ class Theme implements Service {
 		add_theme_support( 'editor-styles' );
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'post-thumbnails' );
-		add_theme_support( 'html5', [ 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'script', 'style' ] );
+		add_theme_support(
+			'html5',
+			[
+				'comment-list',
+				'comment-form',
+				'search-form',
+				'gallery',
+				'caption',
+				'script',
+				'style',
+			]
+		);
 		add_theme_support( 'title-tag' );
 		add_theme_support( 'async-js' );
 		add_theme_support( 'yoast-seo-breadcrumbs' );
@@ -84,5 +101,14 @@ class Theme implements Service {
 	 */
 	private function add_images_sizes(): void {
 		add_image_size( 'large-square', 1024, 1024, true );
+	}
+
+	/** Add Custom Skip links
+	 * @return void
+	 */
+	public function template_skip_link(): void {
+		ob_start();
+		get_template_part( 'components/parts/common/skip-links' );
+		echo wp_kses_post( ob_get_clean() );
 	}
 }
