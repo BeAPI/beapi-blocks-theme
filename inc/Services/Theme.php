@@ -93,7 +93,7 @@ class Theme implements Service {
 	 */
 	private function i18n(): void {
 		// Load theme texdomain
-		load_theme_textdomain( 'framework-textdomain', \get_theme_file_path( '/languages' ) );
+		load_theme_textdomain( 'beapi-blocks-theme', \get_theme_file_path( '/languages' ) );
 	}
 
 	/**
