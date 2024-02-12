@@ -1,0 +1,8 @@
+.wp-block-post-title {
+    &,
+    &.editor-post-title {
+        @include heading(h1);
+        max-width: var(--theme--preset--align-wide);
+        margin-bottom: var(--theme--preset--spacing--40);
+    }
+}

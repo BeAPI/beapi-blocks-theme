@@ -8,25 +8,26 @@
 			"defaultGradients": false,
 			"defaultDuotone": false,
 			"custom": false,
+			"gradients": [],
 			"palette": [
 				{
 					"slug": "base",
-					"color": "var(--theme--preset--color--base)",
+					"color": "var(--theme--preset--color--base, #fff)",
 					"name": "Base"
 				},
 				{
 					"slug": "contrast",
-					"color": "var(--theme--preset--color--contrast)",
+					"color": "var(--theme--preset--color--contrast, #000)",
 					"name": "Contrast"
 				},
 				{
 					"slug": "primary",
-					"color": "var(--theme--preset--color--primary)",
+					"color": "var(--theme--preset--color--primary, #ffe600)",
 					"name": "Primary"
 				},
 				{
 					"slug": "secondary",
-					"color": "var(--theme--preset--color--secondary)",
+					"color": "var(--theme--preset--color--secondary, #777)",
 					"name": "Secondary"
 				}
 			]
