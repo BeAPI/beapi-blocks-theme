@@ -1,0 +1,17 @@
+#{context-selector('.wp-block-post-content', '.is-root-container')} {
+    ol {
+        &.wp-block-footnotes {
+            font-size: var(--wp--preset--font-size--xs);
+
+            li::marker {
+                font-size: var(--wp--preset--font-size--xs);
+            }
+        }
+    }
+    // scroll offset for footnotes
+    .wp-block-footnotes li,
+    sup[data-fn] a {
+        scroll-margin-top: var(--theme--scroll-offset);
+    }
+}
+

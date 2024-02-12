@@ -132,9 +132,28 @@ body {
     // Admin bar
     --wp-admin-bar-height: var(--wp-admin--admin-bar--height, 0rem);
 
+    // Scroll offset
+    --theme--scroll-offset: calc(var(--theme--preset--spacing--30, 1.5rem) + var(--wp-admin-bar-height));
+
     // Animation speeds
     --theme--speed: 1s;
+
     @include reduced-motion {
         --theme--speed: 0s;
+    }
+
+    @include breakpoints(sm, max) {
+        .admin-bar {
+            --wp-admin-bar-height: 32px;
+        }
+    }
+
+    @include breakpoints(sm) {
+        /*
+         * Admin bar
+         */
+        .admin-bar {
+            --wp-admin-bar-height: 32px;
+        }
     }
 }
