@@ -33,5 +33,15 @@ function gutenberg_images_sizes( $sizes ) : array {
     );
 }
 ```
+## Skip links
+Full custom implementation of skip links. Simply add a new item to the list.
+in ``components/parts/common/skip-links.php`` for example:
 
+```html
+    ...
+    <li>
+        <a href="#search-toggle"><?php esc_html_e( 'Search button', 'beapi-blocks-theme' ); ?></a>
+    </li>
+    ...
+```
 
