@@ -4,6 +4,10 @@ body {
     --theme--preset--align-wide: 1140px;
     --theme--preset--align-full: 100%;
 
+    // Spacings
+    --theme--spacing--block-gap: var(--theme--preset--spacing--30, 1.5rem);
+    --theme--spacing--gutter: var(--theme--preset--spacing--20, 1rem);
+
     // Fonts - preset
     --theme--font-family--primary: var(--wp--preset--font-family--primary);
     --theme--font-family--secondary: var(--wp--preset--font-family--secondary);
@@ -114,7 +118,7 @@ body {
     --theme--buttons--color-hover: var(--theme--preset--color--base);
     --theme--buttons--background-hover: var(--theme--preset--color--contrast);
     --theme--buttons--border-color-hover: transparent;
-    --theme--buttons--padding: var(--theme--preset--spacing--200) var(--theme--preset--spacing--300);
+    --theme--buttons--padding: var(--theme--preset--spacing--20) var(--theme--preset--spacing--30);
 
     // Forms
     --theme--forms--font-family: var(--theme--preset--font-family--primary);

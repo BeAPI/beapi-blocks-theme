@@ -1,3 +1,7 @@
 .wp-block-group {
     $el: &;
+    @include block-vertical-spacing();
+    &.has-background {
+        padding: var(--theme--preset--spacing--20);
+    }
 }

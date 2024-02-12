@@ -9,6 +9,7 @@
 			"defaultDuotone": false,
 			"custom": false,
 			"gradients": [],
+			"duotone": [],
 			"palette": [
 				{
 					"slug": "base",
@@ -309,10 +310,10 @@
 			}
 		},
 		"spacing": {
-			"blockGap": "var(--theme--preset--spacing--30)",
+			"blockGap": "var(--theme--spacing--block-gap)",
 			"padding": {
-				"right": "var(--theme--preset--spacing--20)",
-				"left": "var(--theme--preset--spacing--20)"
+				"right": "var(--theme--spacing--gutter)",
+				"left": "var(--theme--spacing--gutter)"
 			}
 		},
 		"typography": {
