@@ -22,6 +22,7 @@ class Theme implements Service {
 		remove_action( 'wp_enqueue_scripts', 'wp_enqueue_block_template_skip_link' );
 		remove_action( 'wp_footer', 'the_block_template_skip_link' );
 		add_action( 'wp_body_open', [ $this, 'template_skip_link' ] );
+		add_action( 'wp_head', [ $this, 'dark_mode' ] );
 
 		$this->after_setup_theme();
 	}
@@ -110,5 +111,31 @@ class Theme implements Service {
 		ob_start();
 		get_template_part( 'components/parts/common/skip-links' );
 		echo wp_kses_post( ob_get_clean() );
+	}
+
+	/** Add Custom Dark mode
+	 * @return void
+	 */
+
+	function dark_mode() {
+		/**
+		 * Enqueue the skip-link script.
+		 */
+		ob_start();
+		?>
+		<script>
+			( function() {
+				const darkMode = localStorage.getItem( 'theme-dark-mode' ) || 'auto';
+				if ( darkMode === 'true' || darkMode === 'auto' && window.matchMedia( '(prefers-color-scheme: dark)' ).matches) {
+					document.body.classList.add( 'dark-mode' );
+				}
+			}() );
+		</script>
+		<?php
+		$dark_mode_script = wp_remove_surrounding_empty_script_tags( ob_get_clean() );
+		$dark_mode_script_handle    = 'theme-dark-mode';
+		wp_register_script( $dark_mode_script_handle, false, array(), false, array( 'in_footer' => false ) );
+		wp_add_inline_script( $dark_mode_script_handle, $dark_mode_script );
+		wp_enqueue_script( $dark_mode_script_handle );
 	}
 }

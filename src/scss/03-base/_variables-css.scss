@@ -26,6 +26,11 @@ body {
     --theme--preset--color--primary: var(--theme--preset--color--yellow, #ffe600);
     --theme--preset--color--secondary: var(--theme--preset--color--grey-700, #777);
 
+    &.dark-mode {
+        --theme--preset--color--contrast: var(--theme--preset--color--light, #fff);
+        --theme--preset--color--base: var(--theme--preset--color--dark, #000);
+    }
+
     // Body
     --theme--body--color: var(--theme--preset--color--contrast);
     --theme--body--background: var(--theme--preset--color--base);
@@ -137,6 +142,7 @@ body {
 
     // Animation speeds
     --theme--speed: 1s;
+
 
     @include reduced-motion {
         --theme--speed: 0s;
