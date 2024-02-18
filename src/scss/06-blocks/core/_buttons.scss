@@ -9,24 +9,45 @@
     // button
     // ----
     &-button {
+        // Outline
         &.is-style-border .wp-block-button__link {
-            --theme--buttons--color: var(--theme--preset--color--contrast);
-            --theme--buttons--background: transparent;
-            --theme--buttons--border-color: currentColor;
-            --theme--buttons--border-width: 2px;
-            --theme--buttons--border-style: solid;
-            --theme--buttons--radius: 0px;
-            --theme--buttons--color-hover: var(--theme--preset--color--contrast);
-            --theme--buttons--background-hover: var(--theme--preset--color--primary);
-            --theme--buttons--border-color-hover: var(--theme--preset--color--primary);
+            --theme--button--color: var(--theme--preset--color--contrast);
+            --theme--button--background: transparent;
+            --theme--button--border-color: currentColor;
+            --theme--button--border-width: 2px;
+            --theme--button--border-style: solid;
+            --theme--button--border-radius: 0px;
+            --theme--button--color-hover: var(--theme--preset--color--contrast);
+            --theme--button--background-hover: var(--theme--preset--color--primary);
+            --theme--button--border-color-hover: var(--theme--preset--color--primary);
         }
-
+        // Custom font size
         &.has-custom-font-size .wp-block-button__link {
             font-size: inherit;
         }
-
+        // External
         &.is-style-external .wp-block-button__link {
             @include btn-block-icon("external", .8em, after);
+        }
+        // Dark mode
+        &.dark-mode-toggle .wp-block-button__link {
+            --theme--button--border-radius: 2em;
+
+            @include btn-block-icon("dark_mode", 1em, before);
+            @include style-only {
+                --theme--button--padding: 0;
+                position: relative;
+                width: 2em;
+                height: 2em;
+                overflow: hidden;
+                text-indent: -999px;
+                &::before {
+                    position: absolute;
+                    top: 50%;
+                    left: 50%;
+                    margin: -.5em;
+                }
+            }
         }
     }
 }

@@ -1,6 +1,11 @@
 import domReady from '@wordpress/dom-ready'
 import { addFilter } from '@wordpress/hooks'
-import { unregisterBlockStyle, getBlockVariations, unregisterBlockVariation } from '@wordpress/blocks'
+import {
+  unregisterBlockStyle,
+  getBlockVariations,
+  unregisterBlockVariation,
+  registerBlockVariation,
+} from '@wordpress/blocks'
 
 // Native Gutenberg
 domReady(() => {
@@ -21,6 +26,17 @@ domReady(() => {
 if (window.acf) {
   // Do stuff
 }
+
+// register custom block variations
+registerBlockVariation('core/button', {
+  name: 'dark-mode',
+  title: 'Dark Mode Toggle',
+  description: 'A dark mode toggle button',
+  isDefault: false,
+  attributes: {
+    className: 'dark-mode-toggle',
+  },
+})
 
 addFilter('blocks.registerBlockType', 'beapi-framework', function (settings, name) {
   if (name === 'core/separator' || name === 'core/quote' || name === 'core/pullquote' || name === 'core/table') {

@@ -249,30 +249,33 @@
 			},
 			"button": {
 			"spacing": {
-				"padding": "var(--theme--buttons--padding)"
+				"padding": "var(--theme--button--padding)"
 				},
 				"border": {
-					"width": "var(--theme--buttons--border-width)",
-					"radius": "var(--theme--buttons--radius)",
-					"style": "var(--theme--buttons--border-style)",
-					"color": "var(--theme--buttons--border-color)"
+					"width": "var(--theme--button--border-width)",
+					"radius": "var(--theme--button--radius)",
+					"style": "var(--theme--button--border-style)",
+					"color": "var(--theme--button--border-color)"
 				},
 				"color": {
-					"background": "var(--theme--buttons--background)",
-					"text": "var(--theme--buttons--color)"
+					"background": "var(--theme--button--background)",
+					"text": "var(--theme--button--color)"
 				},
 				"typography": {
-					"fontSize": "var(--theme--buttons--font-size)",
-					"fontWeight": "var(--theme--buttons--font-weight)"
+					"fontSize": "var(--theme--button--font-size)",
+					"fontWeight": "var(--theme--button--font-weight)"
 				},
 				":hover": {
 					"color": {
-						"background": "var(--theme--buttons--background-hover)",
-						"text": "var(--theme--buttons--color-hover)"
+						"background": "var(--theme--button--background-hover)",
+						"text": "var(--theme--button--color-hover)"
 					},
 					"border": {
-						"color": "var(--theme--buttons--border-color-hover)"
+						"color": "var(--theme--button--border-color-hover)"
 					}
+				},
+				"border": {
+					"radius": "var(--theme--button--border-radius)"
 				}
 			},
 			"caption": {
