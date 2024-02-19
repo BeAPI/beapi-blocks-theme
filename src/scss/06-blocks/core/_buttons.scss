@@ -29,7 +29,8 @@
         &.is-style-external .wp-block-button__link {
             @include btn-block-icon("external", .8em, after);
         }
-        // Dark mode
+
+        /* Dark mode
         &.dark-mode-toggle .wp-block-button__link {
             --theme--button--border-radius: 2em;
 
@@ -49,5 +50,6 @@
                 }
             }
         }
+        */
     }
 }
