@@ -12,21 +12,59 @@
  */
 
 ?>
-<!-- wp:group {"align":"full","layout":{"type":"default"}} -->
+<!-- wp:group {
+	"align": "full",
+	"layout": {
+		"type": "default"
+	}
+} -->
 <div class="wp-block-group alignfull">
-	<!-- wp:group {"className":"has-background-color","style":{"spacing":{"padding":{"top":"var:preset|spacing|md","bottom":"var:preset|spacing|md"}}},"backgroundColor":"white","layout":{"type":"constrained"}} -->
+	<!-- wp:group {
+		"className": "has-background-color",
+		"style": {
+			"spacing": {
+				"padding": {
+					"top": "var:preset|spacing|md",
+					"bottom": "var:preset|spacing|md"
+				}
+			}
+		},
+		"backgroundColor": "white",
+		"layout": {
+			"type": "constrained"
+		}
+	} -->
 	<div class="wp-block-group has-background-color has-white-background-color has-background" style="padding-top:var(--wp--preset--spacing--md);padding-bottom:var(--wp--preset--spacing--md)">
-		<!-- wp:group {"align":"wide","layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"space-between"}} -->
+		<!-- wp:group {
+			"align": "wide",
+			"layout": {
+				"type": "flex",
+				"flexWrap": "nowrap",
+				"justifyContent": "space-between"
+			}
+		} -->
 		<div class="wp-block-group alignwide">
-			<!-- wp:group {"layout":{"type":"flex","flexWrap":"nowrap"}} -->
+			<!-- wp:group {
+				"layout": {
+					"type": "flex",
+					"flexWrap": "nowrap"
+				}
+			} -->
 			<div class="wp-block-group">
-				<!-- wp:site-logo {"style":{"layout":{"selfStretch":"fixed","flexSize":"80px"}}} /-->
-				<!-- wp:site-title {"level":0} /-->
-			</div>
-			<!-- /wp:group -->
+				<!-- /wp:group -->
 
-			<!-- wp:group {"style":{"spacing":{"blockGap":"var:preset|spacing|10"}},"layout":{"type":"flex","flexWrap":"nowrap","justifyContent":"right"}} -->
-			<div class="wp-block-group"><!-- wp:navigation {"ref":7,"overlayBackgroundColor":"base","overlayTextColor":"contrast","layout":{"type":"flex","justifyContent":"right","flexWrap":"wrap"}} /--></div>
+			<!-- wp:group {
+				"style": {
+					"spacing": {
+						"blockGap": "var:preset|spacing|10"
+					}
+				},
+				"layout": {
+					"type": "flex",
+					"flexWrap": "nowrap",
+					"justifyContent": "right"
+				}
+			} -->
 			<!-- /wp:group -->
 		</div>
 		<!-- /wp:group -->
