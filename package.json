@@ -15,7 +15,8 @@
 		"lint:js": "node_modules/.bin/eslint \"src/js/**/*.js\"",
 		"lint": "node_modules/.bin/concurrently \"npx yarn lint:css\" \"npx yarn lint:js\"",
 		"format": "wp-scripts format",
-		"bundle-report": "yarn build && yarn webpack-bundle-analyzer dist/stats.json"
+		"bundle-report": "yarn build && yarn webpack-bundle-analyzer dist/stats.json",
+		"test": "wp-scripts test-playwright"
 	},
 	"license": "GPL-2.0",
 	"dependencies": {
@@ -24,6 +25,7 @@
 		"oneloop.js": "^5.2.1"
 	},
 	"devDependencies": {
+		"@playwright/test": "^1.52.0",
 		"@wordpress/blocks": "^11.16.0",
 		"@wordpress/browserslist-config": "^6.21.0",
 		"@wordpress/dependency-extraction-webpack-plugin": "^4.0.0",

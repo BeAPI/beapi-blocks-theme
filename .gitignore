@@ -19,3 +19,8 @@ assets/conf-img/image-sizes.json
 dist/
 src/scss/00-variables/_theme-json.scss
 theme.json
+
+## Playwright
+artifacts/
+playwright-report/
+test-results/
