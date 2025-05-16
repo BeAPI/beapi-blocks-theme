@@ -86,7 +86,7 @@ test.describe('ScrollDirection Component', () => {
 				const scrollHeight =
 					document.documentElement.scrollHeight ||
 					document.body.scrollHeight;
-				const clientHeight = document.documentElement.clientHeight;
+				const {clientHeight} = document.documentElement;
 				const isAtBottom =
 					Math.abs(scrollHeight - clientHeight - scrollTop) <= 1;
 
