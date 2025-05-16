@@ -54,6 +54,7 @@ class Theme implements Service {
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'html5', [ 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'script', 'style' ] );
 		add_theme_support( 'yoast-seo-breadcrumbs' );
+		add_filter( 'login_headerurl', [ $this, 'login_headerurl' ] );
 	}
 
 	/**
@@ -70,5 +71,14 @@ class Theme implements Service {
 	private function i18n(): void {
 		// Load theme textdomain
 		load_theme_textdomain( 'beapi-blocks-theme', \get_theme_file_path( '/languages' ) );
+	}
+
+	/**
+	 * Login header url
+	 *
+	 * @return string
+	 */
+	public function login_headerurl(): string {
+		return home_url();
 	}
 }
