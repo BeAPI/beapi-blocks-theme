@@ -5,7 +5,6 @@
 @use "../common/00-variables/theme-json" as *;
 @use "../common/01-mixins/hover" as *;
 @use "../common/01-mixins/text" as *;
-@use "../common/02-functions/context-selector" as *;
 @use "../common/04-utilities/sr-only" as *;
 
 .wp-block-post-terms {
@@ -35,7 +34,8 @@
 		gap: var(--wp--preset--spacing--s);
 		align-items: center;
 
-		#{context-selector("a", "a, > span:not([class])")} {
+		a,
+		> span:not([class]) {
 			display: inline-block;
 			padding: 4px 8px;
 			overflow: hidden;

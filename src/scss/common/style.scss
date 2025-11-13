@@ -1,6 +1,10 @@
 /**
  * Styles
  */
+@use "00-variables/config" as *;
+
+$entry-file-name: style;
+
 @use "03-base/variables";
 @use "03-base/normalize";
 @use "03-base/reset";

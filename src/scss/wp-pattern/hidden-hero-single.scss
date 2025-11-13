@@ -6,7 +6,6 @@
 @use "../common/00-variables/config" as *;
 @use "../common/00-variables/theme-json" as *;
 @use "../common/01-mixins/breakpoints" as *;
-@use "../common/02-functions/context-selector" as *;
 @use "../common/02-functions/fluid-size" as *;
 
 .wp-pattern-hidden-hero-single {
@@ -23,7 +22,8 @@
 			}
 
 			.wp-block-post-featured-image {
-				#{context-selector("img", "img, .components-placeholder")} {
+				img,
+				.components-placeholder {
 					aspect-ratio: 760/428;
 					object-fit: cover;
 				}
@@ -57,7 +57,8 @@
 		// ----
 		&-2 {
 			.wp-block-post-featured-image {
-				#{context-selector("img", "img, .components-placeholder")} {
+				img,
+				.components-placeholder {
 					aspect-ratio: 375/280;
 					object-fit: cover;
 				}
@@ -83,7 +84,8 @@
 
 			@include breakpoints(md) {
 				.wp-block-post-featured-image {
-					#{context-selector("img", "img, .components-placeholder")} {
+					img,
+					.components-placeholder {
 						aspect-ratio: 1440/404;
 					}
 				}
@@ -97,7 +99,8 @@
 		// ----
 		&-3 {
 			.wp-block-post-featured-image {
-				#{context-selector("img", "img, .components-placeholder")} {
+				img,
+				.components-placeholder {
 					aspect-ratio: 1200/675;
 					object-fit: cover;
 				}
@@ -128,7 +131,8 @@
 			}
 
 			.wp-block-post-featured-image {
-				#{context-selector("img", "img, .components-placeholder")} {
+				img,
+				.components-placeholder {
 					aspect-ratio: 540/404;
 					object-fit: cover;
 				}
