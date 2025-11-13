@@ -1,0 +1,62 @@
+/**
+ * Beapi Mega Menu
+ */
+
+@use "../common/00-variables/config" as *;
+@use "../common/01-mixins/breakpoints" as *;
+@use "../common/01-mixins/heading" as *;
+@use "../common/01-mixins/style-only" as *;
+@use "../common/01-mixins/text" as *;
+
+.wp-block-beapi-mega-menu {
+	.has-m-font-size {
+		@include heading(h4);
+	}
+
+	.wp-block-mega-menu-list-item__text {
+		@include text(label);
+	}
+
+	ul + ul {
+		margin-top: var(--wp--preset--spacing--md);
+	}
+
+	li + li {
+		margin-top: var(--wp--preset--spacing--s);
+	}
+}
+
+@include style-only {
+	.mega-menu__wrapper {
+		--mega-menu--width: 100%;
+		--mega-menu--radius: 0;
+	}
+
+	.wp-block-beapi-mega-menu {
+		.wp-block-columns,
+		.wp-block-column,
+		.wp-block-group {
+			padding-right: 0 !important;
+			padding-left: 0 !important;
+		}
+	}
+
+	@include breakpoints($mobile-to-desktop-nav-breakpoint, max) {
+		.mega-menu__wrapper {
+			position: relative;
+			box-shadow: none;
+
+			.mega-menu__toggle[aria-expanded="true"] + & {
+				top: 0;
+			}
+		}
+	}
+
+	@include breakpoints($mobile-to-desktop-nav-breakpoint) {
+		.wp-block-beapi-mega-menu {
+			max-width: var(--wp--style--global--wide-size);
+			margin-right: auto;
+			margin-left: auto;
+		}
+	}
+}

@@ -1,0 +1,31 @@
+/**
+ * WP Pattern: Hidden filters
+ */
+
+@use "../common/01-mixins/breakpoints" as *;
+@use "../common/04-utilities/sr-only" as *;
+
+.wp-pattern-hidden-filters {
+	$el: &;
+	$base: ".wp-block-group";
+
+	.wpgb-facet:has(.wpgb-reset) {
+		width: 100%;
+
+		.wpgb-facet-title {
+			@extend %sr-only;
+		}
+	}
+
+	.wp-block-column > & {
+		.wpgb-facet {
+			width: 100%;
+		}
+	}
+
+	@include breakpoints(6xs, max) {
+		.wpgb-facet {
+			width: 100%;
+		}
+	}
+}

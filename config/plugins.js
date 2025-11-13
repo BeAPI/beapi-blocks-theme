@@ -7,6 +7,7 @@ const StyleLintPlugin = require('stylelint-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const WebpackBar = require('webpackbar');
 const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extraction-webpack-plugin');
+const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const BundleAnalyzerPlugin =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
@@ -51,7 +52,8 @@ module.exports = {
 				}),
 				new MiniCssExtractPlugin({
 					filename: '[name].[contenthash:8].min.css',
-				})
+				}),
+				new RemoveEmptyScriptsPlugin()
 			);
 		} else {
 			plugins.push(

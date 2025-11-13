@@ -1,0 +1,50 @@
+/**
+ * Navigation
+ */
+@use "../common/00-variables/config" as *;
+@use "../common/01-mixins/breakpoints" as *;
+
+.wp-block-navigation {
+	position: initial !important;
+
+	&-item__content {
+		cursor: pointer;
+	}
+
+	@include breakpoints($mobile-to-desktop-nav-breakpoint, max) {
+		&.items-justified-right {
+			--navigation-layout-justification-setting: start;
+			--navigation-layout-justify: start;
+		}
+	}
+
+	@include breakpoints(6xs) {
+		/* Change the WordPress default css to match memgamenu breacking points */
+		&__responsive-container-open:not(.always-shown) {
+			display: flex;
+		}
+
+		&__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+			display: none;
+		}
+	}
+
+	@include breakpoints($mobile-to-desktop-nav-breakpoint) {
+		&__responsive-dialog {
+			position: initial !important;
+		}
+
+		/* Change the WordPress default css to match memgamenu breacking points */
+		&__responsive-container-open:not(.always-shown) {
+			display: none !important;
+		}
+
+		&__responsive-container:not(.hidden-by-default):not(.is-menu-open) {
+			position: initial !important;
+			z-index: auto;
+			display: block !important;
+			width: 100%;
+			background-color: inherit;
+		}
+	}
+}

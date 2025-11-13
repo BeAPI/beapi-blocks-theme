@@ -1,0 +1,13 @@
+/**
+ * Editor
+ */
+@use "00-variables/config" as *;
+
+$entry-file-name: editor;
+
+@use "03-base/variables";
+@use "03-base/normalize";
+@use "03-base/reset";
+@use "03-base/icon";
+
+@use "09-template-parts/header";

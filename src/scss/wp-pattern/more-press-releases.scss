@@ -1,0 +1,27 @@
+/**
+ * WP Pattern: More press releases
+ */
+@use "../common/00-variables/config" as *;
+@use "../common/01-mixins/breakpoints" as *;
+@use "./hidden-card" as *;
+
+@if ($has-press-releases-enabled) {
+	.wp-pattern-more-press-releases {
+		.wp-block-post-template {
+			gap: var(--wp--preset--spacing--l);
+
+			> li {
+				.wp-pattern-hidden-card-press-release {
+					@extend %wp-pattern-hidden-card-press-release;
+				}
+			}
+		}
+	}
+
+	@include breakpoints(2xs) {
+		.wp-block-buttons {
+			justify-content: flex-end;
+			margin-bottom: 5px;
+		}
+	}
+}

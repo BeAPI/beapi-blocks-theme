@@ -25,7 +25,7 @@ class WebpackThemeJsonPlugin {
 			options.scssOutput ||
 			path.resolve(
 				__dirname,
-				'../src/scss/00-variables/_theme-json.scss'
+				'../src/scss/common/00-variables/_theme-json.scss'
 			);
 
 		if (options.watch) {

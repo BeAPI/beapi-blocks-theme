@@ -17,5 +17,5 @@ vendor/
 assets/conf-img/image-locations.json
 assets/conf-img/image-sizes.json
 dist/
-src/scss/00-variables/_theme-json.scss
+src/scss/common/00-variables/_theme-json.scss
 theme.json

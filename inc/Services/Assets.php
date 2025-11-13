@@ -20,6 +20,8 @@ class Assets implements Service {
 	 */
 	private $assets_tools;
 
+	public $partial_assets = [];
+
 	/**
 	 * @param Service_Container $container
 	 */
@@ -35,11 +37,14 @@ class Assets implements Service {
 		 * Add hooks for the scripts and styles to hook on
 		 */
 		add_action( 'wp', [ $this, 'register_assets' ] );
+		add_action( 'init', [ $this, 'register_partial_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'add_theme_capabilities_script' ], 0 );
 		add_filter( 'stylesheet_uri', [ $this, 'stylesheet_uri' ] );
 		add_filter( 'wp_login_page_theme_css', [ $this, 'login_stylesheet_uri' ] );
+		add_filter( 'render_block', [ $this, 'enqueue_partial_assets' ], 1000, 2 );
+		add_filter( 'wp_enqueue_scripts', [ $this, 'enqueue_template_assets' ], 1000, 1 );
 	}
 
 	/**
@@ -248,5 +253,119 @@ class Assets implements Service {
 		$this->assets_tools->enqueue_script( $name );
 
 		$this->assets_tools->add_inline_script( $name, "(function() {const html=document.documentElement;html.classList.add('js');if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches && !window.location.hash.includes('no-js-animation')){html.classList.add('js-animation');}})();" );
+	}
+
+	/**
+	 * Load custom block styles only when the block is used.
+	 */
+	public function register_partial_assets(): void {
+		$folders = [
+			'wp-block'   => [ 'prefix' => 'wp-block' ],
+			'wp-pattern' => [ 'prefix' => 'wp-pattern' ],
+			'template'   => [ 'prefix' => '' ],
+		];
+		$exts    = [
+			'css' => function ( $class_name, $file_uri, $version ) {
+				wp_register_style(
+					'theme-' . $class_name,
+					$file_uri,
+					[ 'theme-style' ],
+					$version,
+				);
+			},
+			'js'  => function ( $class_name, $file_uri, $version ) {
+				wp_register_script(
+					'theme-' . $class_name,
+					$file_uri,
+					[ ! is_admin() ? 'scripts' : 'theme-admin-editor-script' ],
+					$version,
+					true
+				);
+			},
+		];
+
+		foreach ( $exts as $ext => $callback ) {
+			if ( ! isset( $this->partial_assets[ $ext ] ) ) {
+				$this->partial_assets[ $ext ] = [];
+			}
+
+			foreach ( $folders as $folder => $options ) {
+				$files = glob( get_template_directory() . '/dist/' . $folder . '/*.' . $ext );
+
+				foreach ( $files as $file ) {
+					if ( empty( $file ) || ! is_readable( $file ) ) {
+						continue;
+					}
+
+					$version = null;
+
+					// take only the first part (remove extension and hash for css files)
+					$name = explode( '.', basename( $file ) )[0];
+					// only js file can have -min suffix
+					if ( str_contains( $name, '-min' ) ) {
+						$version = $this->get_asset_data( $name )['version'];
+						$name    = str_replace( '-min', '', $name );
+					}
+					// class name (ex: button -> wp-block-button)
+					$class_name = ( ! empty( $options['prefix'] ) ? $options['prefix'] . '-' : '' ) . $name;
+					// file uri
+					$file_uri = \get_theme_file_uri( '/dist/' . $folder . '/' . basename( $file ) );
+					// store the class name to detect it later
+					$this->partial_assets[ $ext ][ $class_name ] = 'dist/' . $folder . '/' . basename( $file );
+
+					// enqueue the assets
+					$callback( $class_name, $file_uri, $version );
+				}
+			}
+		}
+	}
+
+	/**
+	 * Register partial assets based on the block class names
+	 */
+	public function enqueue_partial_assets( $block_content, $block ): string {
+		$class_names = [];
+
+		if ( ! empty( $block['blockName'] ) ) {
+			// remove core/ prefix (ex: core/button -> button)
+			$block_name = str_replace( 'core/', '', $block['blockName'] );
+			// replace / with - (ex: beapi/icon -> beapi-icon)
+			$block_name = str_replace( '/', '-', $block_name );
+			// add wp-block- prefix (ex: button -> wp-block-button, beapi-icon -> wp-block-beapi-icon)
+			$class_names[] = 'wp-block-' . $block_name;
+		}
+
+		if ( ! empty( $block['attrs']['className'] ) ) {
+			$class_names = explode( ' ', $block['attrs']['className'] );
+		}
+
+		foreach ( $class_names as $class_name ) {
+			if ( array_key_exists( $class_name, $this->partial_assets['css'] ) ) {
+				wp_enqueue_style( 'theme-' . $class_name );
+			}
+
+			if ( array_key_exists( $class_name, $this->partial_assets['js'] ) ) {
+				wp_enqueue_script( 'theme-' . $class_name );
+			}
+		}
+
+		return $block_content;
+	}
+
+	/**
+	 * Enqueue template assets based on the body class
+	 */
+	public function enqueue_template_assets(): void {
+		$body_classes = get_body_class();
+
+		foreach ( $body_classes as $body_class ) {
+			if ( array_key_exists( $body_class, $this->partial_assets['css'] ) ) {
+				wp_enqueue_style( 'theme-' . $body_class );
+			}
+
+			if ( array_key_exists( $body_class, $this->partial_assets['js'] ) ) {
+				wp_enqueue_script( 'theme-' . $class_name );
+			}
+		}
 	}
 }

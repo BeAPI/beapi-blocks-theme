@@ -1,0 +1,17 @@
+/**
+ * Heading
+ */
+
+@use "../common/01-mixins/heading" as *;
+
+@for $i from 1 through 6 {
+	.is-style-h#{$i} {
+		@include heading(h#{$i});
+	}
+
+	.has-h-#{$i}-font-size {
+		font-size: var(--wp--preset--font-size--h-#{$i});
+		line-height: var(--wp--custom--h-#{$i}--line-height);
+	}
+}
+

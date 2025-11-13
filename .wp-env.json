@@ -1,4 +1,5 @@
 {
+	"core": "WordPress/WordPress#6.7",
 	"plugins": [
 		"./.wp-env/plugins/advanced-custom-fields-pro",
 		"./.wp-env/plugins/beapi-blocks-theme-custom-post-types",

@@ -1,0 +1,104 @@
+/**
+ * Button
+ */
+
+@use "sass:string";
+@use "../01-mixins/hover" as *;
+@use "../01-mixins/text" as *;
+
+@mixin button($style: fill) {
+
+	@if ($style == fill) {
+		// Fill button
+	} @else if ($style == outline) {
+		// Outline button
+	} @else if ($style == email or $style == print) {
+		position: relative;
+		width: 36px;
+		height: 36px;
+		padding: 0;
+		overflow: hidden;
+		line-height: 36px;
+        vertical-align: middle;
+		text-indent: -1000px;
+		background: transparent;
+		border-radius: 0;
+
+		&::before {
+			position: absolute;
+			top: 50%;
+			left: 50%;
+			width: 32px;
+			height: 32px;
+			margin: -16px 0 0 -16px;
+			vertical-align: middle;
+			content: "";
+			background-color: var(--wp--preset--color--gray-100);
+			mask-image: url(../../img/static/#{$style}.svg);
+			mask-repeat: no-repeat;
+			mask-position: center;
+			mask-size: 100%;
+		}
+	} @else if ($style == link) {
+		padding: 0;
+		font-weight: 500;
+		color: inherit;
+		text-decoration: underline;
+		background: transparent;
+		border: none;
+
+		@include hover {
+			text-decoration: none;
+		}
+	} @else if ($style == link-arrow-right or $style == link-arrow-left) {
+		$pseudo: "::after";
+		$icon: string.slice($style, 6);
+
+		@if ($style == link-arrow-left) {
+			$pseudo: "::before";
+		}
+
+		@include text(label);
+
+		display: inline-flex;
+		gap: .5rem;
+		align-items: center;
+		max-height: 24px;
+		padding: 0;
+		font-weight: 600;
+		color: var(--wp--preset--color--gray-100);
+		text-transform: uppercase;
+		background-color: var(--wp--preset--color--white);
+
+		&#{$pseudo} {
+			display: inline-block;
+			width: 24px;
+			height: 24px;
+			content: "";
+			background-color: currentColor;
+			mask-image: url(../../img/static/#{$icon}.svg);
+			mask-size: contain;
+		}
+
+	} @else if ($style == plus) {
+		display: inline-flex;
+		gap: .5rem;
+		align-items: center;
+		font-weight: 600;
+		color: var(--wp--preset--color--gray-100);
+		text-transform: uppercase;
+		background-color: var(--wp--preset--color--white);
+
+		&::before {
+			display: inline-block;
+			width: 16px;
+			height: 16px;
+			content: "";
+			background-color: currentColor;
+			mask-image: url(../../img/static/plus.svg);
+			mask-size: contain;
+		}
+	} @else {
+		@debug "$style:" + $style + "is not a valid argument for button mixin.";
+	}
+}

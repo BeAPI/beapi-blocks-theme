@@ -32,7 +32,6 @@
 				"scss/at-if-no-null": null,
 				"no-invalid-position-at-import-rule": null,
 				"custom-property-pattern": null,
-				"indentation": "tab",
 				"length-zero-no-unit": [
 					true,
 					{

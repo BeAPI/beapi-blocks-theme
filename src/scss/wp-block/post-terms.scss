@@ -1,0 +1,58 @@
+/**
+ * Post terms
+ */
+
+@use "../common/00-variables/theme-json" as *;
+@use "../common/01-mixins/hover" as *;
+@use "../common/01-mixins/text" as *;
+@use "../common/02-functions/context-selector" as *;
+@use "../common/04-utilities/sr-only" as *;
+
+.wp-block-post-terms {
+	$el: &;
+
+	@include text(small);
+
+	&__prefix,
+	&__suffix {
+		@include text(label);
+	}
+
+	&:not([class*="is-style-"]),
+	&.is-style-default {
+		a {
+			text-decoration: none;
+
+			&:hover {
+				text-decoration: underline;
+			}
+		}
+	}
+
+	&.is-style-tag {
+		display: flex;
+		flex-wrap: wrap;
+		gap: var(--wp--preset--spacing--s);
+		align-items: center;
+
+		#{context-selector("a", "a, > span:not([class])")} {
+			display: inline-block;
+			padding: 4px 8px;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			color: inherit;
+			white-space: nowrap;
+			text-decoration: none;
+			border: 1px solid var(--wp--preset--color--gray-75);
+			border-radius: 9999px;
+
+			@include hover {
+				background-color: var(--wp--preset--color--gray-10);
+			}
+		}
+
+		.wp-block-post-terms__separator {
+			@extend %sr-only;
+		}
+	}
+}
