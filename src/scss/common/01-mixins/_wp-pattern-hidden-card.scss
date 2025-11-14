@@ -1,0 +1,103 @@
+/**
+ * WP Pattern: Hidden card
+ */
+@use "../01-mixins/breakpoints" as *;
+@use "../01-mixins/heading" as *;
+
+@mixin wp-pattern-hidden-card-post-2 {
+	@include breakpoints(4xs) {
+		display: flex;
+		gap: var(--wp--preset--spacing--md) var(--wp--custom--layout--fluid-block-horizontal-gap);
+		width: 100%;
+
+		> * {
+			flex-basis: 50%;
+			max-width: none;
+		}
+
+		.wp-block-post-featured-image {
+			margin-bottom: 0 !important;
+		}
+
+		.wp-block-post-title {
+			@include heading(h3);
+		}
+	}
+}
+
+@mixin wp-pattern-hidden-card-event-2 {
+	--card-event-date-direction: row;
+	--card-event-date-size: 80px;
+	--card-event-date-padding: var(--wp--preset--spacing--2-xs) var(--wp--preset--spacing--xs);
+	--card-event-date-font-size: 24px;
+	--card-event-sep-height: 2px;
+	--card-event-sep-width: 24px;
+	--card-event-sep-margin: 0 -8px;
+
+	.wp-pattern-hidden-card-event__content {
+		flex-direction: column;
+	}
+
+	@include breakpoints(s) {
+		--card-event-gap: var(--wp--preset--spacing--2-xl);
+
+		.wp-block-post-title {
+			@include heading(h3);
+		}
+	}
+}
+
+@mixin wp-pattern-hidden-card-event-3 {
+	.wp-block-post-featured-image {
+		display: none;
+	}
+}
+
+@mixin wp-pattern-hidden-card-event-4 {
+	@include wp-pattern-hidden-card-event-2;
+
+	.wp-block-post-featured-image {
+		display: block;
+	}
+
+	@include breakpoints(s) {
+		grid-template-columns: 1fr 2fr;
+		grid-gap: var(--wp--preset--spacing--2-xl);
+	}
+}
+
+@mixin wp-pattern-hidden-card-press-release {
+	> .wp-block-columns {
+		> .wp-block-column:first-child {
+			display: none;
+		}
+	}
+
+	.wp-block-post-excerpt {
+		display: none;
+	}
+}
+
+@mixin wp-pattern-hidden-card-press-release-2 {
+	overflow: hidden;
+
+	@include breakpoints(md, max) {
+		> .wp-block-columns {
+			> .wp-block-column:first-child {
+				display: none;
+			}
+		}
+
+		.wp-block-post-excerpt {
+			display: none;
+		}
+	}
+}
+
+@mixin wp-pattern-hidden-card-job-offer {
+	.wp-block-post-terms {
+		> a {
+			text-decoration: none;
+		}
+	}
+}
