@@ -2,25 +2,24 @@
  * SEO
  */
 
+@use "../01-mixins/seo" as *;
+
 %seo-container {
-	position: relative;
-	z-index: 1;
-	cursor: pointer;
+	@include seo-container;
 }
 
 %seo-target {
-	&::before {
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		z-index: 100;
-		content: "";
-	}
+	@include seo-target;
+}
+
+%seo-target-before {
+	@include seo-target-before;
+}
+
+%seo-target-after {
+	@include seo-target-after;
 }
 
 %seo-over-overlay {
-	position: relative;
-	z-index: 101;
+	@include seo-over-overlay;
 }

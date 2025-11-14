@@ -1,0 +1,36 @@
+/**
+ * SEO
+ */
+
+@mixin seo-container {
+	position: relative;
+	z-index: 1;
+	cursor: pointer;
+}
+
+@mixin seo-target {
+	position: absolute;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 100;
+	content: "";
+}
+
+@mixin seo-target-before {
+	&::before {
+		@include seo-target;
+	}
+}
+
+@mixin seo-target-after {
+	&::after {
+		@include seo-target;
+	}
+}
+
+@mixin seo-over-overlay {
+	position: relative;
+	z-index: 101;
+}

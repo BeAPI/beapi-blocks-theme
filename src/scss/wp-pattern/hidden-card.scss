@@ -8,9 +8,9 @@
 @use "../common/00-variables/theme-json" as *;
 @use "../common/01-mixins/breakpoints" as *;
 @use "../common/01-mixins/heading" as *;
-@use "../common/01-mixins/text" as *;
 @use "../common/01-mixins/hover" as *;
-@use "../common/04-utilities/seo" as *;
+@use "../common/01-mixins/seo" as *;
+@use "../common/01-mixins/text" as *;
 
 %wp-pattern-hidden-card-post-2 {
 	@include breakpoints(4xs) {
@@ -114,7 +114,7 @@
 	$el: &;
 	$base: ".wp-block-group";
 
-	@extend %seo-container;
+	@include seo-container;
 
 	.wp-block-post-featured-image {
 		overflow: hidden;
@@ -126,12 +126,12 @@
 
 	.wp-block-post-title {
 		a {
-			@extend %seo-target;
+			@include seo-target-before;
 		}
 	}
 
 	.wp-block-post-terms {
-		@extend %seo-over-overlay;
+		@include seo-over-overlay;
 	}
 
 	@include hover {
