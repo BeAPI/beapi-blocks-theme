@@ -50,7 +50,47 @@ module.exports = {
 				test: /\.(scss|css)$/,
 				include: srcPath + '/scss',
 				use: [
-					MiniCssExtractPlugin.loader,
+					{
+						loader: MiniCssExtractPlugin.loader,
+						options: {
+							publicPath: (resourcePath) => {
+								// Calculate relative path from output CSS file location to dist root
+								// This ensures images resolve correctly regardless of CSS file depth
+								// The resourcePath is the source SCSS file path
+
+								// Get relative path from src/scss to determine entry structure
+								const relativeToScss = path.relative(
+									path.join(srcPath, 'scss'),
+									resourcePath
+								);
+
+								// Remove file extension and normalize path separators
+								const entryPath = relativeToScss
+									.replace(/\.(scss|css)$/, '')
+									.replace(/\\/g, '/');
+
+								// Check if this is a common file (root level) or nested
+								// Common files like 'common/style.scss' become 'app.css' at root
+								// Nested files like 'wp-block/button.scss' become 'wp-block/button.css'
+								const isCommon =
+									entryPath.startsWith('common/');
+
+								if (isCommon) {
+									// Root-level CSS files (app.css, editor.css, etc.)
+									return './';
+								}
+
+								// Calculate depth for nested CSS files
+								// Entry path like 'wp-block/button' has depth 1
+								const depth = (entryPath.match(/\//g) || [])
+									.length;
+
+								// Return '../' repeated for each level of nesting
+								// This ensures images in dist/images/ resolve correctly
+								return depth > 0 ? '../'.repeat(depth) : './';
+							},
+						},
+					},
 					{
 						loader: 'css-loader',
 						options: {
