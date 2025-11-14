@@ -336,7 +336,7 @@ class Assets implements Service {
 		}
 
 		if ( ! empty( $block['attrs']['className'] ) ) {
-			$class_names = explode( ' ', $block['attrs']['className'] );
+			$class_names = array_merge( $class_names, explode( ' ', $block['attrs']['className'] ) );
 		}
 
 		foreach ( $class_names as $class_name ) {
