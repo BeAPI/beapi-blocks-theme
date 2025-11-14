@@ -292,6 +292,10 @@ class Assets implements Service {
 			foreach ( $folders as $folder => $options ) {
 				$files = glob( get_template_directory() . '/dist/' . $folder . '/*.' . $ext );
 
+				if ( empty( $files ) ) {
+					continue;
+				}
+
 				foreach ( $files as $file ) {
 					if ( empty( $file ) || ! is_readable( $file ) ) {
 						continue;
