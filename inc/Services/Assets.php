@@ -79,11 +79,13 @@ class Assets implements Service {
 
 		wp_add_inline_script(
 			'scripts',
-			'const THEME_DATA = ' . wp_json_encode(
+			'window.beapi = ' . wp_json_encode(
 				[
-					'themeUri' => get_template_directory_uri(),
+					'theme' => [
+						'templateDirectoryUri' => get_template_directory_uri(),
+					]
 				]
-			),
+			) . ';',
 			'before'
 		);
 
