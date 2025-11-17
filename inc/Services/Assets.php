@@ -83,7 +83,7 @@ class Assets implements Service {
 				[
 					'theme' => [
 						'templateDirectoryUri' => get_template_directory_uri(),
-					]
+					],
 				]
 			) . ';',
 			'before'
@@ -267,21 +267,21 @@ class Assets implements Service {
 			'template'   => [ 'prefix' => '' ],
 		];
 		$exts    = [
-			'css' => function ( $class_name, $file_uri, $version ) {
-				wp_register_style(
+			'css' => function ( $class_name, $path_from_theme_root, $version ) {
+				$this->assets_tools->register_style(
 					'theme-' . $class_name,
-					$file_uri,
+					$path_from_theme_root,
 					[ 'theme-style' ],
 					$version,
 				);
 			},
-			'js'  => function ( $class_name, $file_uri, $version ) {
-				wp_register_script(
+			'js'  => function ( $class_name, $path_from_theme_root, $version ) {
+				$this->assets_tools->register_script(
 					'theme-' . $class_name,
-					$file_uri,
+					$path_from_theme_root,
 					[ ! is_admin() ? 'scripts' : 'theme-admin-editor-script' ],
 					$version,
-					true
+					[ 'strategy' => 'defer' ]
 				);
 			},
 		];
@@ -307,20 +307,21 @@ class Assets implements Service {
 
 					// take only the first part (remove extension and hash for css files)
 					$name = explode( '.', basename( $file ) )[0];
+
 					// only js file can have -min suffix
 					if ( str_contains( $name, '-min' ) ) {
 						$version = $this->get_asset_data( $name )['version'];
 						$name    = str_replace( '-min', '', $name );
 					}
+
 					// class name (ex: button -> wp-block-button)
 					$class_name = ( ! empty( $options['prefix'] ) ? $options['prefix'] . '-' : '' ) . $name;
-					// file uri
-					$file_uri = \get_theme_file_uri( '/dist/' . $folder . '/' . basename( $file ) );
+
 					// store the class name to detect it later
 					$this->partial_assets[ $ext ][ $class_name ] = 'dist/' . $folder . '/' . basename( $file );
 
 					// enqueue the assets
-					$callback( $class_name, $file_uri, $version );
+					$callback( $class_name, $this->partial_assets[ $ext ][ $class_name ], $version );
 				}
 			}
 		}
@@ -328,6 +329,8 @@ class Assets implements Service {
 
 	/**
 	 * Register partial assets based on the block class names
+	 * ex: <div class="wp-block-button"> will enqueue the button.css and button.js files if they exist
+	 * ex: <div class="wp-block-group wp-pattern-card"> will enqueue wp-block-group.css, wp-block-group.js, wp-pattern-card.css and wp-pattern-card.js files if they exist
 	 */
 	public function enqueue_partial_assets( $block_content, $block ): string {
 		$class_names = [];
@@ -360,6 +363,8 @@ class Assets implements Service {
 
 	/**
 	 * Enqueue template assets based on the body class
+	 * ex: <body class="home"> will enqueue the home.css file and home.js file if they exist
+	 * @return void
 	 */
 	public function enqueue_template_assets(): void {
 		$body_classes = get_body_class();
