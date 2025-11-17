@@ -58,7 +58,7 @@ class Editor implements Service {
 		/**
 		 * Load editor style css for admin and frontend
 		 */
-		add_action( 'init', [ $this, 'style' ] );
+		$this->style();
 
 		/**
 		 * Register custom block style
