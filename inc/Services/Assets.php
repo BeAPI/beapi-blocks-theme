@@ -20,7 +20,13 @@ class Assets implements Service {
 	 */
 	private $assets_tools;
 
-	public $partial_assets = [];
+	/**
+	 * @var array
+	 */
+	public $partial_assets = [
+		'css' => [],
+		'js'  => [],
+	];
 
 	/**
 	 * @param Service_Container $container
@@ -34,16 +40,22 @@ class Assets implements Service {
 	 */
 	public function boot( Service_Container $container ): void {
 		/**
+		 * Fill partial assets array
+		 */
+		$this->fill_partial_assets_array();
+
+		/**
 		 * Add hooks for the scripts and styles to hook on
 		 */
 		add_action( 'wp', [ $this, 'register_assets' ] );
-		add_action( 'init', [ $this, 'register_partial_assets' ] );
+		add_action( 'init', [ $this, 'register_pattern_and_template_assets' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'enqueue_styles' ] );
 		add_action( 'wp_enqueue_scripts', [ $this, 'add_theme_capabilities_script' ], 0 );
 		add_filter( 'stylesheet_uri', [ $this, 'stylesheet_uri' ] );
 		add_filter( 'wp_login_page_theme_css', [ $this, 'login_stylesheet_uri' ] );
-		add_filter( 'render_block', [ $this, 'enqueue_partial_assets' ], 1000, 2 );
+		add_filter( 'block_type_metadata', [ $this, 'add_block_assets_to_metadata' ], 1000, 1 );
+		add_filter( 'render_block', [ $this, 'enqueue_pattern_assets' ], 1000, 2 );
 		add_filter( 'wp_enqueue_scripts', [ $this, 'enqueue_template_assets' ], 1000, 1 );
 	}
 
@@ -258,39 +270,19 @@ class Assets implements Service {
 	}
 
 	/**
-	 * Load custom block styles only when the block is used.
+	 * fill partials assets array with the css and js files contained in
+	 * the dist/, dist/wp-block, dist/wp-pattern and dist/template folders
+	 * @return void
 	 */
-	public function register_partial_assets(): void {
+	public function fill_partial_assets_array(): void {
+		$exts    = array_keys( $this->partial_assets );
 		$folders = [
 			'wp-block'   => [ 'prefix' => 'wp-block' ],
 			'wp-pattern' => [ 'prefix' => 'wp-pattern' ],
 			'template'   => [ 'prefix' => '' ],
 		];
-		$exts    = [
-			'css' => function ( $class_name, $path_from_theme_root, $version ) {
-				$this->assets_tools->register_style(
-					'theme-' . $class_name,
-					$path_from_theme_root,
-					[ 'theme-style' ],
-					$version,
-				);
-			},
-			'js'  => function ( $class_name, $path_from_theme_root, $version ) {
-				$this->assets_tools->register_script(
-					'theme-' . $class_name,
-					$path_from_theme_root,
-					[ ! is_admin() ? 'scripts' : 'theme-admin-editor-script' ],
-					$version,
-					[ 'strategy' => 'defer' ]
-				);
-			},
-		];
 
-		foreach ( $exts as $ext => $callback ) {
-			if ( ! isset( $this->partial_assets[ $ext ] ) ) {
-				$this->partial_assets[ $ext ] = [];
-			}
-
+		foreach ( $exts as $ext ) {
 			foreach ( $folders as $folder => $options ) {
 				$files = glob( get_template_directory() . '/dist/' . $folder . '/*.' . $ext );
 
@@ -318,31 +310,107 @@ class Assets implements Service {
 					$class_name = ( ! empty( $options['prefix'] ) ? $options['prefix'] . '-' : '' ) . $name;
 
 					// store the class name to detect it later
-					$this->partial_assets[ $ext ][ $class_name ] = 'dist/' . $folder . '/' . basename( $file );
-
-					// enqueue the assets
-					$callback( $class_name, $this->partial_assets[ $ext ][ $class_name ], $version );
+					$this->partial_assets[ $ext ][ $class_name ] = [
+						'path_from_theme_root' => 'dist/' . $folder . '/' . basename( $file ),
+						'version'              => $version,
+					];
 				}
 			}
 		}
 	}
 
 	/**
-	 * Register partial assets based on the block class names
-	 * ex: <div class="wp-block-button"> will enqueue the button.css and button.js files if they exist
-	 * ex: <div class="wp-block-group wp-pattern-card"> will enqueue wp-block-group.css, wp-block-group.js, wp-pattern-card.css and wp-pattern-card.js files if they exist
+	 * Load pattern and template assets
 	 */
-	public function enqueue_partial_assets( $block_content, $block ): string {
-		$class_names = [];
+	public function register_pattern_and_template_assets(): void {
+		foreach ( $this->partial_assets as $ext => $assets ) {
+			$method = 'register_partial_' . $ext . '_assets';
 
-		if ( ! empty( $block['blockName'] ) ) {
-			// remove core/ prefix (ex: core/button -> button)
-			$block_name = str_replace( 'core/', '', $block['blockName'] );
-			// replace / with - (ex: beapi/icon -> beapi-icon)
-			$block_name = str_replace( '/', '-', $block_name );
-			// add wp-block- prefix (ex: button -> wp-block-button, beapi-icon -> wp-block-beapi-icon)
-			$class_names[] = 'wp-block-' . $block_name;
+			if ( ! method_exists( $this, $method ) ) {
+				continue;
+			}
+
+			foreach ( $assets as $class_name => $data ) {
+				if ( str_starts_with( $class_name, 'wp-block-' ) ) {
+					continue;
+				}
+
+				$this->$method( $class_name, $data['path_from_theme_root'], $data['version'] );
+			}
 		}
+	}
+
+	/**
+	 * Add block assets to blocks metadata
+	 * @param array $metadata
+	 * @return array
+	 */
+	public function add_block_assets_to_metadata( $metadata ): array {
+		$class_name = 'wp-block-' . $this->get_block_formated_name( $metadata['name'] );
+		$has_css    = array_key_exists( $class_name, $this->partial_assets['css'] );
+		$has_js     = array_key_exists( $class_name, $this->partial_assets['js'] );
+
+		if ( ! $has_css && ! $has_js ) {
+			return $metadata;
+		}
+
+		if ( $has_css ) {
+			$partial_css_data = $this->partial_assets['css'][ $class_name ];
+
+			$this->register_partial_css_assets(
+				$class_name,
+				$partial_css_data['path_from_theme_root'],
+				$partial_css_data['version']
+			);
+
+			wp_style_add_data(
+				'theme-' . $class_name,
+				'path',
+				get_theme_file_path( $partial_css_data['path_from_theme_root'] )
+			);
+
+			$style = ! empty( $metadata['style'] ) ? $metadata['style'] : [];
+
+			if ( ! is_array( $style ) ) {
+				$style = [ $style ];
+			}
+
+			$metadata['style'] = \array_merge( $style, [ 'theme-' . $class_name ] );
+		}
+
+		if ( $has_js ) {
+			$partial_js_data = $this->partial_assets['js'][ $class_name ];
+
+			$this->register_partial_js_assets(
+				$class_name,
+				$partial_js_data['path_from_theme_root'],
+				$partial_js_data['version']
+			);
+
+			wp_script_add_data(
+				'theme-' . $class_name,
+				'path',
+				get_theme_file_path( $partial_js_data['path_from_theme_root'] )
+			);
+
+			$view_script = ! empty( $metadata['viewScript'] ) ? $metadata['viewScript'] : [];
+
+			if ( ! is_array( $view_script ) ) {
+				$view_script = [ $view_script ];
+			}
+
+			$metadata['viewScript'] = \array_merge( $view_script, [ 'theme-' . $class_name ] );
+		}
+
+		return $metadata;
+	}
+
+	/**
+	 * Enqueue pattern assets based on the block class names
+	 * ex: <div class="wp-block-group wp-pattern-card"> will enqueue wp-pattern-card.css and wp-pattern-card.js files if they exist
+	 */
+	public function enqueue_pattern_assets( $block_content, $block ): string {
+		$class_names = [];
 
 		if ( ! empty( $block['attrs']['className'] ) ) {
 			$class_names = array_merge( $class_names, explode( ' ', $block['attrs']['className'] ) );
@@ -378,5 +446,59 @@ class Assets implements Service {
 				wp_enqueue_script( 'theme-' . $class_name );
 			}
 		}
+	}
+
+	/**
+	 * Get the formated block name
+	 * ex: core/button -> button
+	 * ex: beapi/icon -> beapi-icon
+	 * @param string $block_name
+	 * @return string
+	 */
+	private function get_block_formated_name( string $block_name ): string {
+		if ( empty( $block_name ) ) {
+			return '';
+		}
+
+		// remove core/ prefix (ex: core/button -> button)
+		$block_name = str_replace( 'core/', '', $block_name );
+
+		// replace / with - (ex: beapi/icon -> beapi-icon)
+		$block_name = str_replace( '/', '-', $block_name );
+
+		return $block_name;
+	}
+
+	/**
+	 * Register partial CSS assets
+	 * @param string $class_name
+	 * @param string $path_from_theme_root
+	 * @param string $version
+	 * @return void
+	 */
+	private function register_partial_css_assets( $class_name, $path_from_theme_root, $version ): void {
+		$this->assets_tools->register_style(
+			'theme-' . $class_name,
+			$path_from_theme_root,
+			[ 'theme-style' ],
+			$version,
+		);
+	}
+
+	/**
+	 * Register partial JS assets
+	 * @param string $class_name
+	 * @param string $path_from_theme_root
+	 * @param string $version
+	 * @return void
+	 */
+	private function register_partial_js_assets( $class_name, $path_from_theme_root, $version ): void {
+		$this->assets_tools->register_script(
+			'theme-' . $class_name,
+			$path_from_theme_root,
+			[ ! is_admin() ? 'scripts' : 'theme-admin-editor-script' ],
+			$version,
+			[ 'strategy' => 'defer' ]
+		);
 	}
 }

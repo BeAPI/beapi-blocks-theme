@@ -204,7 +204,7 @@ class Editor implements Service {
 	/**
 	 * Editor style
 	 */
-	public function style(): void {
+	private function style(): void {
 		$file = $this->assets->is_minified() ? $this->assets->get_min_file( 'editor.css' ) : 'editor.css';
 
 		/**
@@ -219,10 +219,8 @@ class Editor implements Service {
 		/**
 		 * Load all partial assets
 		 */
-		if ( ! empty( $this->assets->partial_assets['css'] ) ) {
-			foreach ( $this->assets->partial_assets['css'] as $class_name => $file ) {
-				add_editor_style( $file );
-			}
+		foreach ( $this->assets->partial_assets['css'] as $class_name => $data ) {
+			add_editor_style( $data['path_from_theme_root'] );
 		}
 	}
 
@@ -287,7 +285,7 @@ class Editor implements Service {
 
 		$this->assets_tools->enqueue_script( 'theme-admin-editor-script' );
 
-		foreach ( $this->assets->partial_assets['js'] as $class_name => $file ) {
+		foreach ( $this->assets->partial_assets['js'] as $class_name => $data ) {
 			$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 		}
 	}
