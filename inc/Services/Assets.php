@@ -24,7 +24,11 @@ class Assets implements Service {
 	 * @var array
 	 */
 	public $partial_assets = [
+		// css array will contain [ 'wp-block-button' => [ 'path_from_theme_root' => 'dist/wp-block/button.css', 'version' => null ] ]
+		// version is null because hash is already in file name
 		'css' => [],
+		// js array will contain [ 'wp-block-button' => [ 'path_from_theme_root' => 'dist/wp-block/button.js', 'version' => '360bb6f45cb7dbc6a187' ] ]
+		// version is extracted from block-name.asset.php file
 		'js'  => [],
 	];
 
@@ -271,20 +275,20 @@ class Assets implements Service {
 
 	/**
 	 * fill partials assets array with the css and js files contained in
-	 * the dist/, dist/wp-block, dist/wp-pattern and dist/template folders
+	 * the dist/wp-block, dist/wp-pattern and dist/template folders
 	 * @return void
 	 */
 	public function fill_partial_assets_array(): void {
-		$exts    = array_keys( $this->partial_assets );
-		$folders = [
+		$extensions = array_keys( $this->partial_assets );
+		$folders    = [
 			'wp-block'   => [ 'prefix' => 'wp-block' ],
 			'wp-pattern' => [ 'prefix' => 'wp-pattern' ],
 			'template'   => [ 'prefix' => '' ],
 		];
 
-		foreach ( $exts as $ext ) {
+		foreach ( $extensions as $extension ) {
 			foreach ( $folders as $folder => $options ) {
-				$files = glob( get_template_directory() . '/dist/' . $folder . '/*.' . $ext );
+				$files = glob( get_template_directory() . '/dist/' . $folder . '/*.' . $extension );
 
 				if ( empty( $files ) ) {
 					continue;
@@ -295,22 +299,27 @@ class Assets implements Service {
 						continue;
 					}
 
+					// use null for css files because hash is already in file name in minified mode
 					$version = null;
 
 					// take only the first part (remove extension and hash for css files)
 					$name = explode( '.', basename( $file ) )[0];
 
 					// only js file can have -min suffix
+					// version is extracted from block-name.asset.php file
 					if ( str_contains( $name, '-min' ) ) {
 						$version = $this->get_asset_data( $name )['version'];
 						$name    = str_replace( '-min', '', $name );
 					}
 
-					// class name (ex: button -> wp-block-button)
+					// set class name key
+					// ex: button -> wp-block-button
+					// ex: hidden-share -> wp-pattern-hidden-share
+					// ex: home -> home
 					$class_name = ( ! empty( $options['prefix'] ) ? $options['prefix'] . '-' : '' ) . $name;
 
 					// store the class name to detect it later
-					$this->partial_assets[ $ext ][ $class_name ] = [
+					$this->partial_assets[ $extension ][ $class_name ] = [
 						'path_from_theme_root' => 'dist/' . $folder . '/' . basename( $file ),
 						'version'              => $version,
 					];
@@ -320,11 +329,12 @@ class Assets implements Service {
 	}
 
 	/**
-	 * Load pattern and template assets
+	 * Register pattern and template assets stored in the partial_assets array
+	 * @return void
 	 */
 	public function register_pattern_and_template_assets(): void {
-		foreach ( $this->partial_assets as $ext => $assets ) {
-			$method = 'register_partial_' . $ext . '_assets';
+		foreach ( $this->partial_assets as $extension => $assets ) {
+			$method = 'register_partial_' . $extension . '_assets';
 
 			if ( ! method_exists( $this, $method ) ) {
 				continue;
@@ -341,7 +351,7 @@ class Assets implements Service {
 	}
 
 	/**
-	 * Add block assets to blocks metadata
+	 * Add block assets to blocks metadata stored in the partial_assets array
 	 * @param array $metadata
 	 * @return array
 	 */
