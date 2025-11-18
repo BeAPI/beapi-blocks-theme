@@ -357,8 +357,8 @@ class Assets implements Service {
 	 */
 	public function add_block_assets_to_metadata( $metadata ): array {
 		$class_name = 'wp-block-' . $this->get_block_formated_name( $metadata['name'] );
-		$has_css    = array_key_exists( $class_name, $this->partial_assets['css'] );
-		$has_js     = array_key_exists( $class_name, $this->partial_assets['js'] );
+		$has_css    = isset( $this->partial_assets['css'][ $class_name ] );
+		$has_js     = isset( $this->partial_assets['js'][ $class_name ] );
 
 		if ( ! $has_css && ! $has_js ) {
 			return $metadata;
@@ -415,11 +415,11 @@ class Assets implements Service {
 		}
 
 		foreach ( $class_names as $class_name ) {
-			if ( array_key_exists( $class_name, $this->partial_assets['css'] ) ) {
+			if ( isset( $this->partial_assets['css'][ $class_name ] ) ) {
 				$this->assets_tools->enqueue_style( 'theme-' . $class_name );
 			}
 
-			if ( array_key_exists( $class_name, $this->partial_assets['js'] ) ) {
+			if ( isset( $this->partial_assets['js'][ $class_name ] ) ) {
 				$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 			}
 		}
@@ -436,11 +436,11 @@ class Assets implements Service {
 		$body_classes = get_body_class();
 
 		foreach ( $body_classes as $body_class ) {
-			if ( array_key_exists( $body_class, $this->partial_assets['css'] ) ) {
+			if ( isset( $this->partial_assets['css'][ $body_class ] ) ) {
 				$this->assets_tools->enqueue_style( 'theme-' . $body_class );
 			}
 
-			if ( array_key_exists( $body_class, $this->partial_assets['js'] ) ) {
+			if ( isset( $this->partial_assets['js'][ $body_class ] ) ) {
 				$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 			}
 		}
