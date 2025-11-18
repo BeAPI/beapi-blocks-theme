@@ -1,6 +1,6 @@
 const path = require('path');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
-const { WebpackManifestPlugin } = require('webpack-manifest-plugin');
+const WebpackPHPManifestPlugin = require('webpack-php-manifest');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
@@ -61,8 +61,8 @@ module.exports = {
 		}
 
 		plugins.push(
-			new WebpackManifestPlugin({
-				fileName: 'assets.json',
+			new WebpackPHPManifestPlugin({
+				output: 'assets',
 			})
 		);
 
