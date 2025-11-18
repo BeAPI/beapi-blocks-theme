@@ -363,12 +363,6 @@ class Assets implements Service {
 				$partial_css_data['version']
 			);
 
-			wp_style_add_data(
-				'theme-' . $class_name,
-				'path',
-				get_theme_file_path( $partial_css_data['path_from_theme_root'] )
-			);
-
 			$style = ! empty( $metadata['style'] ) ? $metadata['style'] : [];
 
 			if ( ! is_array( $style ) ) {
@@ -385,12 +379,6 @@ class Assets implements Service {
 				$class_name,
 				$partial_js_data['path_from_theme_root'],
 				$partial_js_data['version']
-			);
-
-			wp_script_add_data(
-				'theme-' . $class_name,
-				'path',
-				get_theme_file_path( $partial_js_data['path_from_theme_root'] )
 			);
 
 			$view_script = ! empty( $metadata['viewScript'] ) ? $metadata['viewScript'] : [];
@@ -418,11 +406,11 @@ class Assets implements Service {
 
 		foreach ( $class_names as $class_name ) {
 			if ( array_key_exists( $class_name, $this->partial_assets['css'] ) ) {
-				wp_enqueue_style( 'theme-' . $class_name );
+				$this->assets_tools->enqueue_style( 'theme-' . $class_name );
 			}
 
 			if ( array_key_exists( $class_name, $this->partial_assets['js'] ) ) {
-				wp_enqueue_script( 'theme-' . $class_name );
+				$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 			}
 		}
 
@@ -439,11 +427,11 @@ class Assets implements Service {
 
 		foreach ( $body_classes as $body_class ) {
 			if ( array_key_exists( $body_class, $this->partial_assets['css'] ) ) {
-				wp_enqueue_style( 'theme-' . $body_class );
+				$this->assets_tools->enqueue_style( 'theme-' . $body_class );
 			}
 
 			if ( array_key_exists( $body_class, $this->partial_assets['js'] ) ) {
-				wp_enqueue_script( 'theme-' . $class_name );
+				$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 			}
 		}
 	}
@@ -483,6 +471,12 @@ class Assets implements Service {
 			[ 'theme-style' ],
 			$version,
 		);
+
+		wp_style_add_data(
+			'theme-' . $class_name,
+			'path',
+			get_theme_file_path( $path_from_theme_root )
+		);
 	}
 
 	/**
@@ -499,6 +493,12 @@ class Assets implements Service {
 			[ ! is_admin() ? 'scripts' : 'theme-admin-editor-script' ],
 			$version,
 			[ 'strategy' => 'defer' ]
+		);
+
+		wp_script_add_data(
+			'theme-' . $class_name,
+			'path',
+			get_theme_file_path( $path_from_theme_root )
 		);
 	}
 }

@@ -47,9 +47,6 @@ module.exports = {
 				})
 			);
 			plugins.push(
-				new WebpackManifestPlugin({
-					fileName: 'assets.json',
-				}),
 				new MiniCssExtractPlugin({
 					filename: '[name].[contenthash:8].min.css',
 				}),
@@ -62,6 +59,12 @@ module.exports = {
 				})
 			);
 		}
+
+		plugins.push(
+			new WebpackManifestPlugin({
+				fileName: 'assets.json',
+			})
+		);
 
 		return plugins;
 	},
