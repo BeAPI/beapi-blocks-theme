@@ -98,13 +98,14 @@ class Editor implements Service {
 	 *  - font sizes
 	 *  - etc.
 	 */
-	private function after_theme_setup(): void {}
+	private function after_theme_setup(): void {
+	}
 
 	/**
 	 * Register custom block styles
 	 */
 	private function register_custom_block_styles() {
-		for ( $i = 1; $i <= 6; $i++ ) {
+		foreach ( range( 1, 6 ) as $i ) {
 			$style = [
 				'name'  => 'h' . (string) $i,
 				'label' => sprintf( 'Style H%s', (string) $i ),
@@ -205,22 +206,22 @@ class Editor implements Service {
 	 * Editor style
 	 */
 	private function style(): void {
-		$file = $this->assets->is_minified() ? $this->assets->get_min_file( 'editor.css' ) : 'editor.css';
+		$editor_asset = $this->assets->get_asset_file( 'editor', 'css' );
 
 		/**
-		 * Do not enqueue a inexistant file on admin
+		 * Do not enqueue a nonexistent file on admin
 		 */
-		if ( ! is_file( get_theme_file_path( 'dist/' . $file ) ) ) {
+		if ( ! $editor_asset ) {
 			return;
 		}
 
-		add_editor_style( 'dist/' . $file );
+		add_editor_style( $editor_asset['file'] );
 
 		/**
 		 * Load all partial assets
 		 */
-		foreach ( $this->assets->partial_assets['css'] as $class_name => $data ) {
-			add_editor_style( $data['path_from_theme_root'] );
+		foreach ( $this->assets->partial_assets['css'] as $asset ) {
+			add_editor_style( $asset['path_from_theme_root'] );
 		}
 	}
 
@@ -228,9 +229,9 @@ class Editor implements Service {
 	 * Theme.json settings
 	 * See https://developer.wordpress.org/block-editor/reference-guides/theme-json-reference/theme-json-living/
 	 *
-	 * @param WP_Theme_JSON_Data $theme_json Class to access and update the underlying data.
+	 * @param \WP_Theme_JSON_Data $theme_json Class to access and update the underlying data.
 	 *
-	 * @return WP_Theme_JSON_Data
+	 * @return \WP_Theme_JSON_Data
 	 */
 	public function filter_theme_json_theme( \WP_Theme_JSON_Data $theme_json ): \WP_Theme_JSON_Data {
 		$custom_theme_json = [];
@@ -242,19 +243,20 @@ class Editor implements Service {
 	 * Editor script
 	 */
 	public function admin_editor_script(): void {
-		$file     = $this->assets->is_minified() ? $this->assets->get_min_file( 'editor.js' ) : 'editor.js';
-		$filepath = 'dist/' . $file;
+		$editor_asset = $this->assets->get_asset_file( 'editor', 'js' );
 
-		if ( ! file_exists( get_theme_file_path( $filepath ) ) ) {
+		/**
+		 * Do not enqueue a nonexistent file on admin
+		 */
+		if ( ! $editor_asset ) {
 			return;
 		}
 
-		$asset_data = $this->assets->get_asset_data( $file );
 		$this->assets_tools->register_script(
 			'theme-admin-editor-script',
-			$filepath,
-			$asset_data['dependencies'],
-			$asset_data['version'],
+			$editor_asset['file'],
+			$editor_asset['dependencies'],
+			$editor_asset['version'],
 			[ 'in_footer' => true ]
 		);
 
@@ -285,7 +287,7 @@ class Editor implements Service {
 
 		$this->assets_tools->enqueue_script( 'theme-admin-editor-script' );
 
-		foreach ( $this->assets->partial_assets['js'] as $class_name => $data ) {
+		foreach ( $this->assets->partial_assets['js'] as $class_name => $asset ) {
 			$this->assets_tools->enqueue_script( 'theme-' . $class_name );
 		}
 	}
@@ -293,7 +295,7 @@ class Editor implements Service {
 	/**
 	 * Allow some core Gutenberg blocks
 	 *
-	 * @param bool|array               $allowed_blocks The allowed blocks.
+	 * @param bool|array $allowed_blocks The allowed blocks.
 	 * @param \WP_Block_Editor_Context $block_editor_context The block editor context.
 	 *
 	 * @return array The allowed blocks.

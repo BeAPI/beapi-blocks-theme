@@ -7,16 +7,9 @@
  * @since      BeAPI Blocks Theme 1.0
  */
 
-if ( 'localhost' === $_SERVER['SERVER_NAME'] ) {
-	// autoload.
-	$autoload_path = __DIR__ . '/vendor/autoload.php';
-
-	if ( file_exists( $autoload_path ) ) {
-		require_once $autoload_path;
-	}
-
-	// clear cache for patterns.
-	wp_get_theme()->delete_pattern_cache();
+$autoload_path = __DIR__ . '/vendor/autoload.php';
+if ( is_readable( $autoload_path ) ) {
+	require_once $autoload_path;
 }
 
 /**

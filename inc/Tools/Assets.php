@@ -23,6 +23,7 @@ class Assets {
 	 */
 	public function register_script( string $handle, string $src, array $deps = [], $ver = false, array $strategy = [] ): bool {
 		$src = ! empty( $src ) ? \get_theme_file_uri( $src ) : '';
+
 		return \wp_register_script( $handle, $src, $deps, $ver, $strategy );
 	}
 
@@ -52,8 +53,8 @@ class Assets {
 	 *
 	 * @param string $handle
 	 * @param string $src : Have to be a relative filename
-	 * @param array  $deps
-	 * @param bool   $ver
+	 * @param array $deps
+	 * @param bool|null|string $ver
 	 * @param string $media
 	 *
 	 * @return bool

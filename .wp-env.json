@@ -20,5 +20,8 @@
 	"mappings": {
 		"wp-content/mu-plugins": "./.wp-env/mu-plugins",
 		"wp-content/plugins": "./.wp-env/plugins"
+	},
+	"config": {
+		"WP_DEVELOPMENT_MODE": "all"
 	}
 }
