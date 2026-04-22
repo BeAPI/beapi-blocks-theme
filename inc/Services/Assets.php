@@ -84,7 +84,7 @@ class Assets implements Service {
 			$this->assets_tools->register_script(
 				'scripts',
 				$asset['file'],
-				array_merge( [ 'jquery' ], $asset['dependencies'] ), // ensure jQuery dependency is set even if not declared explicitly in the JS
+				$asset['dependencies'],
 				$asset['version'],
 				[ 'strategy' => 'defer' ]
 			);
@@ -103,7 +103,7 @@ class Assets implements Service {
 		}
 
 		// Do not add a versioning query param in assets URLs if minified
-		$style = $this->get_asset_file( 'app', 'css' );
+		$style = $this->get_asset_file( './style-app', 'css' );
 		if ( $style ) {
 			$version = $this->is_dev() ? filemtime( get_theme_file_path( $style['file'] ) ) : null;
 			wp_register_style( 'theme-style', get_stylesheet_uri(), [], $version );
@@ -145,7 +145,7 @@ class Assets implements Service {
 	 * @author Nicolas Juen
 	 */
 	public function stylesheet_uri( string $stylesheet_uri ): string {
-		$asset = $this->get_asset_file( 'app', 'css' );
+		$asset = $this->get_asset_file( './style-app', 'css' );
 
 		return $asset ? \get_theme_file_uri( $asset['file'] ) : $stylesheet_uri;
 	}
