@@ -18,7 +18,8 @@ const BundleAnalyzerPlugin =
 module.exports = (env, argv) => {
 	const mode = argv && argv.mode ? argv.mode : 'production';
 	const isProduction = mode === 'production';
-	const analyze = process.env.ANALYZE === 'true' || process.env.ANALYZE === '1';
+	const analyze =
+		process.env.ANALYZE === 'true' || process.env.ANALYZE === '1';
 
 	const config = merge(defaultConfig, {
 		mode,
@@ -28,7 +29,7 @@ module.exports = (env, argv) => {
 			publicPath: '',
 			clean: true,
 			assetModuleFilename: 'assets/[hash][ext][query]',
-			filename: isProduction ? '[name]-min.js' : '[name].js',
+			filename: '[name].js',
 		},
 		externals: {
 			...(defaultConfig.externals || {}),

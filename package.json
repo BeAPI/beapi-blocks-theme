@@ -7,6 +7,7 @@
 		"url": "https://github.com/BeAPI/beapi-blocks-theme"
 	},
 	"scripts": {
+		"preinstall": "npx only-allow npm",
 		"start": "wp-scripts start",
 		"build": "wp-scripts build",
 		"env:start": "wp-env start",
@@ -58,7 +59,7 @@
 		"webpack-watched-glob-entries-plugin": "^3.1.0"
 	},
 	"volta": {
-		"node": "22.13.1",
+		"node": "24.14.1",
 		"npm": "10.9.0"
 	},
 	"packageManager": "npm@10.9.0"
