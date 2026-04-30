@@ -8,6 +8,7 @@
 !.yarn/versions
 node_modules/
 package-lock.json
+composer.lock
 
 .wp-env/mu-plugins/
 .wp-env/plugins/*
