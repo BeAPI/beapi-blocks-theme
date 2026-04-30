@@ -16,8 +16,6 @@ const {
 module.exports = (env, argv) => {
 	const mode = argv && argv.mode ? argv.mode : 'production';
 	const isProduction = mode === 'production';
-	const analyze =
-		process.env.ANALYZE === 'true' || process.env.ANALYZE === '1';
 
 	const config = merge(defaultConfig, {
 		mode,
@@ -45,7 +43,7 @@ module.exports = (env, argv) => {
 	config.module.rules.push(getSvgStaticAssetRule());
 
 	config.plugins = config.plugins || [];
-	config.plugins.push(...getBuildPlugins({ isProduction, analyze }));
+	config.plugins.push(...getBuildPlugins({ isProduction }));
 
 	// Skip *-rtl.css emit from @wordpress/scripts default RtlCssPlugin.
 	config.plugins = config.plugins.filter(

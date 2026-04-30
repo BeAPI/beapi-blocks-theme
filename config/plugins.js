@@ -11,8 +11,6 @@ const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
 const WebpackThemeJsonPlugin = require('./webpack-theme-json-plugin');
-const BundleAnalyzerPlugin =
-	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 
 /**
  * Plugins appended to the merged webpack config.
@@ -22,7 +20,7 @@ const BundleAnalyzerPlugin =
  * @param {boolean} options.analyze      Whether bundle analysis is enabled (ANALYZE env).
  * @return {import('webpack').WebpackPluginInstance[]} Plugins to append to the config.
  */
-const getBuildPlugins = ({ isProduction, analyze }) => {
+const getBuildPlugins = ({ isProduction }) => {
 	const list = [
 		new WebpackThemeJsonPlugin({
 			watch: !isProduction,
@@ -38,15 +36,6 @@ const getBuildPlugins = ({ isProduction, analyze }) => {
 
 	if (!isProduction) {
 		list.push(new WatchedGlobEntriesPlugin());
-	}
-
-	if (analyze) {
-		list.push(
-			new BundleAnalyzerPlugin({
-				analyzerMode: 'json',
-				generateStatsFile: true,
-			})
-		);
 	}
 
 	return list;
