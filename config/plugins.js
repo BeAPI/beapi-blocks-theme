@@ -10,8 +10,7 @@ const WatchedGlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
 const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const SpriteLoaderPlugin = require('svg-sprite-loader/plugin');
-const WebpackThemeJsonPlugin = require('./WebpackThemeJsonPlugin');
-
+const WebpackThemeJsonPlugin = require('./webpack-theme-json-plugin');
 const BundleAnalyzerPlugin =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 

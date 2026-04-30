@@ -36,7 +36,7 @@ grumphp:
     npm_script:
       script: lint
       triggered_by: ['js', 'scss']
-      working_directory: "./web/app/themes/theme-name" # Change theme name here
+      working_directory: "."
       is_run_task: true
       silent: false
   testsuites: []

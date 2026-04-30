@@ -77,7 +77,7 @@ class WebpackThemeJsonPlugin {
 
 		fs.writeFileSync(this._output, JSON.stringify(themeJson, null, 2));
 		// eslint-disable-next-line no-console
-		console.log(logId, 'JSON files successfully generated !');
+		console.info(logId, 'JSON files successfully generated !');
 
 		return this;
 	}
