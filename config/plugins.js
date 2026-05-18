@@ -10,7 +10,7 @@ const DependencyExtractionWebpackPlugin = require('@wordpress/dependency-extract
 const RemoveEmptyScriptsPlugin = require('webpack-remove-empty-scripts');
 const BundleAnalyzerPlugin =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-const WebpackThemeJsonPlugin = require('./WebpackThemeJsonPlugin');
+const WebpackThemeJsonPlugin = require('./webpack-theme-json-plugin');
 const WatchedGlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
 const SpriteHashPlugin = require('./webpack-sprite-hash-plugin');
 
