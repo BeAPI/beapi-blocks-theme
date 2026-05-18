@@ -103,4 +103,37 @@ class Svg implements Service {
 
 		return $tags;
 	}
+
+	/**
+	 * Get the hash of the sprite
+	 *
+	 * @param string $sprite_name
+	 *
+	 * @return string | null
+	 */
+	public function get_sprite_hash( string $sprite_name ): ?string {
+		static $sprite_hashes = null;
+
+		if ( null === $sprite_hashes ) {
+			$sprite_hash_file = get_theme_file_path( '/dist/sprite-hashes.asset.php' );
+
+			if ( ! is_readable( $sprite_hash_file ) ) {
+				$sprite_hashes = [];
+
+				return null;
+			}
+
+			$sprite_hash = require $sprite_hash_file;
+
+			if ( ! is_array( $sprite_hash ) ) {
+				$sprite_hashes = [];
+
+				return null;
+			}
+
+			$sprite_hashes = $sprite_hash;
+		}
+
+		return $sprite_hashes[ sprintf( 'icons/%s.svg', $sprite_name ) ] ?? null;
+	}
 }

@@ -12,6 +12,7 @@ const BundleAnalyzerPlugin =
 	require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 const WebpackThemeJsonPlugin = require('./WebpackThemeJsonPlugin');
 const WatchedGlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
+const SpriteHashPlugin = require('./webpack-sprite-hash-plugin');
 
 module.exports = {
 	get(mode) {
@@ -19,6 +20,7 @@ module.exports = {
 			new WebpackThemeJsonPlugin({
 				watch: mode !== 'production',
 			}),
+			new SpriteHashPlugin(),
 			new CleanWebpackPlugin(),
 			new ESLintPlugin({
 				overrideConfigFile: path.resolve(__dirname, '../.eslintrc'),
