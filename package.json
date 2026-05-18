@@ -62,7 +62,6 @@
 		"prettier": "^2.2.1",
 		"sass": "^1.52.3",
 		"sass-loader": "^16.0.5",
-		"style-loader": "^2.0.0",
 		"stylelint": "^16.17.0",
 		"stylelint-config-recess-order": "^6.0.0",
 		"stylelint-webpack-plugin": "^5.0.1",
