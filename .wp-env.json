@@ -12,9 +12,7 @@
 		"./.wp-env/plugins/wp-grid-builder",
 		"./.wp-env/plugins/wordpress-seo"
 	],
-	"themes": [
-		"."
-	],
+	"themes": ["."],
 	"mappings": {
 		"wp-content/mu-plugins": "./.wp-env/mu-plugins",
 		"wp-content/plugins": "./.wp-env/plugins"

@@ -6,7 +6,7 @@
 			"customFontSize": false,
 			"defaultFontSizes": false,
 			"dropCap": true,
-			"fluid":  {
+			"fluid": {
 				"minViewportWidth": "540px",
 				"maxViewportWidth": "1280px"
 			},

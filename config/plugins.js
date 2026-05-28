@@ -21,7 +21,6 @@ module.exports = {
 			}),
 			new CleanWebpackPlugin(),
 			new ESLintPlugin({
-				overrideConfigFile: path.resolve(__dirname, '../.eslintrc'),
 				context: path.resolve(__dirname, '../src/js'),
 				files: '**/*.js',
 			}),

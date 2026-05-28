@@ -1,43 +1,43 @@
 # grumphp.yml
 grumphp:
-  tasks:
-    git_blacklist:
-      keywords:
-        - "var_dump("
-        - "console.log("
-        - "log("
-        - "<<<<<<< HEAD"
-        - "beapi.top"
-        - "beapi.space"
-        - "beapi.science"
-        - "beapi.xyz"
-        - "lndo.site"
-      whitelist_patterns: []
-      triggered_by: ['php', 'js', 'scss', 'css']
-      regexp_type: G
-    phplint:
-      exclude: ['vendor']
-      jobs: ~
-      triggered_by: ['php', 'phtml', 'php3', 'php4', 'php5', 'php7']
-    phpcs:
-      standard: ['phpcs.xml.dist']
-      triggered_by: [php]
-    composer:
-      no_check_all: true
-      no_check_publish: true
-      no_local_repository: true
-    jsonlint:
-      ignore_patterns: []
-      detect_key_conflicts: false
-    psalm:
-      config: psalm.xml
-      triggered_by: ['php']
-      show_info: true
-    npm_script:
-      script: lint
-      triggered_by: ['js', 'scss']
-      working_directory: "./web/app/themes/theme-name" # Change theme name here
-      is_run_task: true
-      silent: false
-  testsuites: []
-  extensions: []
+    tasks:
+        git_blacklist:
+            keywords:
+                - 'var_dump('
+                - 'console.log('
+                - 'log('
+                - '<<<<<<< HEAD'
+                - 'beapi.top'
+                - 'beapi.space'
+                - 'beapi.science'
+                - 'beapi.xyz'
+                - 'lndo.site'
+            whitelist_patterns: []
+            triggered_by: ['php', 'js', 'scss', 'css']
+            regexp_type: G
+        phplint:
+            exclude: ['vendor']
+            jobs: ~
+            triggered_by: ['php', 'phtml', 'php3', 'php4', 'php5', 'php7']
+        phpcs:
+            standard: ['phpcs.xml.dist']
+            triggered_by: [php]
+        composer:
+            no_check_all: true
+            no_check_publish: true
+            no_local_repository: true
+        jsonlint:
+            ignore_patterns: []
+            detect_key_conflicts: false
+        psalm:
+            config: psalm.xml
+            triggered_by: ['php']
+            show_info: true
+        npm_script:
+            script: lint
+            triggered_by: ['js', 'scss']
+            working_directory: './web/app/themes/theme-name' # Change theme name here
+            is_run_task: true
+            silent: false
+    testsuites: []
+    extensions: []

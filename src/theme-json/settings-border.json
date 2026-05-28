@@ -3,10 +3,10 @@
 	"$schema": "https://schemas.wp.org/trunk/theme.json",
 	"settings": {
 		"border": {
-            "radius": true,
-            "color": true,
-            "style": true,
-            "width": true
-        }
+			"radius": true,
+			"color": true,
+			"style": true,
+			"width": true
+		}
 	}
 }
