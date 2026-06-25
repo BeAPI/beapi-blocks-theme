@@ -18,3 +18,6 @@ assets/conf-img/image-sizes.json
 dist/
 src/scss/common/00-variables/_theme-json.scss
 theme.json
+
+# Composer
+composer.lock

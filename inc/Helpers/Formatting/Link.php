@@ -143,7 +143,7 @@ function get_the_link( array $attributes, array $settings = [] ): string {
 		$attributes['rel']      = 'noopener';
 		$settings['new_window'] = ! empty( $settings['new_window'] ) ? $settings['new_window'] : '<span class="sr-only">' . esc_html__(
 			'New window',
-			'beapi-frontend-framework'
+			'beapi-blocks-theme'
 		) . '</span>';
 	}
 
@@ -244,7 +244,7 @@ function get_the_link( array $attributes, array $settings = [] ): string {
  * @return void Echo of the link markup
  */
 function the_link( array $attributes, array $settings = [] ): void {
-	echo get_the_link( $attributes, $settings );
+	echo get_the_link( $attributes, $settings ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
 }
 
 /**
@@ -283,5 +283,4 @@ function get_acf_link_classes( $field, array $classes ): string {
 	}
 
 	return implode( ' ', $classes );
-
 }

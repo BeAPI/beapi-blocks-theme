@@ -7,9 +7,9 @@ use BEA\Theme\Framework\Service;
 use BEA\Theme\Framework\Service_Container;
 use BEA\Theme\Framework\Tools\Assets as Assets_Tools;
 
-use Beapi\IconBlock\Icon\Collection;
-use Beapi\IconBlock\Icon\CollectionItemsFactory;
-use function Beapi\IconBlock\register_icon_collection;
+use Blockparty\Icons\Icon\Collection;
+use Blockparty\Icons\Icon\CollectionItemsFactory;
+use function Blockparty\Icons\register_icon_collection;
 
 /**
  * The editor service
@@ -136,7 +136,7 @@ class Editor implements Service {
 				$block_name,
 				[
 					'name'  => 'label',
-					'label' => __( 'Label', 'beapi-frontend-framework' ),
+					'label' => __( 'Label', 'beapi-blocks-theme' ),
 				]
 			);
 		}
@@ -146,7 +146,7 @@ class Editor implements Service {
 				$block_name,
 				[
 					'name'  => 'small',
-					'label' => __( 'Small', 'beapi-frontend-framework' ),
+					'label' => __( 'Small', 'beapi-blocks-theme' ),
 				]
 			);
 
@@ -154,7 +154,7 @@ class Editor implements Service {
 				$block_name,
 				[
 					'name'  => 'large',
-					'label' => __( 'Large', 'beapi-frontend-framework' ),
+					'label' => __( 'Large', 'beapi-blocks-theme' ),
 				]
 			);
 
@@ -162,7 +162,7 @@ class Editor implements Service {
 				$block_name,
 				[
 					'name'  => 'huge',
-					'label' => __( 'Huge', 'beapi-frontend-framework' ),
+					'label' => __( 'Huge', 'beapi-blocks-theme' ),
 				]
 			);
 		}
@@ -172,14 +172,14 @@ class Editor implements Service {
 			'core/post-terms',
 			[
 				'name'  => 'tag',
-				'label' => __( 'Tag', 'beapi-frontend-framework' ),
+				'label' => __( 'Tag', 'beapi-blocks-theme' ),
 			]
 		);
 		register_block_style(
 			'core/post-terms',
 			[
 				'name'  => 'label',
-				'label' => __( 'Label', 'beapi-frontend-framework' ),
+				'label' => __( 'Label', 'beapi-blocks-theme' ),
 			]
 		);
 
@@ -356,44 +356,44 @@ class Editor implements Service {
 	 * @return void
 	 */
 	public function register_icon_block_collections(): void {
-		if ( ! defined( 'BEAPI_ICON_DIR' ) ) {
+		if ( ! defined( 'BLOCKPARTY_ICONS_VERSION' ) ) {
 			return;
 		}
 
-		// Register icon theme.
-		$sprite_file = get_theme_file_path( '/dist/icons/sprite.svg' );
+		$collections = [
+			[
+				'name'  => 'icon-sprite',
+				'file'  => get_theme_file_path( '/dist/icons/sprite.svg' ),
+				'label' => __( 'General', 'beapi-blocks-theme' ),
+			],
+			[
+				'name'  => 'icon-social',
+				'file'  => get_theme_file_path( '/dist/icons/social.svg' ),
+				'label' => __( 'Social', '3is-uas' ),
+			],
+		];
 
-		if ( is_readable( $sprite_file ) ) {
-			try {
-				$theme_collection = Collection::from_sprite(
-					'icon-theme',
-					$sprite_file,
-					[
-						'label' => __( 'Theme', 'beapi-frontend-framework' ),
-					]
-				);
+		/** @var Svg $svg_service */
+		$svg_service = Framework::get_container()->get_service( 'svg' );
 
-				register_icon_collection( $theme_collection );
-			} catch ( \Exception $e ) { // phpcs:ignore
+		foreach ( $collections as $collection ) {
+			if ( ! is_readable( $collection['file'] ) ) {
+				continue;
 			}
-		}
 
-		// Register icon theme.
-		$social_file = get_theme_file_path( '/dist/icons/social.svg' );
+			$file        = $collection['file'];
+			$label       = $collection['label'] ?? __( 'Unknown', 'cci-hdf-events' );
+			$sprite_name = pathinfo( $file, PATHINFO_FILENAME );
 
-		if ( is_readable( $social_file ) ) {
-			try {
-				$theme_collection = Collection::from_sprite(
-					'icon-social',
-					$social_file,
-					[
-						'label' => __( 'Social', 'beapi-frontend-framework' ),
-					]
-				);
-
-				register_icon_collection( $theme_collection );
-			} catch ( \Exception $e ) { // phpcs:ignore
-			}
+			register_icon_collection(
+				$collection['name'],
+				[
+					'label'   => $label,
+					'type'    => 'sprite',
+					'source'  => $file,
+					'version' => $svg_service->get_sprite_hash( $sprite_name ),
+				]
+			);
 		}
 
 		// Register collections with icons from media library.
@@ -406,8 +406,9 @@ class Editor implements Service {
 				'no_found_rows'  => true,
 			]
 		);
+
 		if ( $query->have_posts() ) {
-			$media_collection = new Collection( 'mediatheque', __( 'Media library', 'beapi-frontend-framework' ) );
+			$media_collection = new Collection( 'mediatheque', __( 'Media library', 'cci-hdf-events' ) );
 			foreach ( $query->posts as $svg ) {
 				$path = get_attached_file( $svg->ID );
 
@@ -427,6 +428,7 @@ class Editor implements Service {
 				} catch ( \Exception $e ) { // phpcs:ignore
 				}
 			}
+
 			register_icon_collection( $media_collection );
 		}
 	}
