@@ -369,7 +369,7 @@ class Editor implements Service {
 			[
 				'name'  => 'icon-social',
 				'file'  => get_theme_file_path( '/dist/icons/social.svg' ),
-				'label' => __( 'Social', '3is-uas' ),
+				'label' => __( 'Social', 'beapi-blocks-theme' ),
 			],
 		];
 
@@ -382,7 +382,7 @@ class Editor implements Service {
 			}
 
 			$file        = $collection['file'];
-			$label       = $collection['label'] ?? __( 'Unknown', 'cci-hdf-events' );
+			$label       = $collection['label'] ?? __( 'Unknown', 'beapi-blocks-theme' );
 			$sprite_name = pathinfo( $file, PATHINFO_FILENAME );
 
 			register_icon_collection(
@@ -408,7 +408,7 @@ class Editor implements Service {
 		);
 
 		if ( $query->have_posts() ) {
-			$media_collection = new Collection( 'mediatheque', __( 'Media library', 'cci-hdf-events' ) );
+			$media_collection = new Collection( 'media', __( 'Media library', 'beapi-blocks-theme' ) );
 			foreach ( $query->posts as $svg ) {
 				$path = get_attached_file( $svg->ID );
 
