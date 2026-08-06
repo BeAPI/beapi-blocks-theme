@@ -101,12 +101,21 @@ class SpriteHashPlugin {
 					'return ' + this.formatPhpArray(hashes) + ';',
 					'',
 				];
-				fs.writeFileSync(outputFile, phpLines.join('\n'));
+				const nextContent = phpLines.join('\n');
+
+				if (
+					fs.existsSync(outputFile) &&
+					fs.readFileSync(outputFile, 'utf8') === nextContent
+				) {
+					callback();
+					return;
+				}
+
+				fs.writeFileSync(outputFile, nextContent);
 
 				// eslint-disable-next-line no-console
 				console.log(
-					`SpriteHashPlugin: Generated ${
-						this.options.outputFilename
+					`SpriteHashPlugin: Generated ${this.options.outputFilename
 					} with ${Object.keys(hashes).length} sprites`
 				);
 
