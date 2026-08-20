@@ -1,7 +1,6 @@
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const srcPath = path.resolve(__dirname, '../src');
-const nodeModulesPath = path.resolve(__dirname, '../node_modules');
 const browserslistConfig = require('@wordpress/browserslist-config');
 
 function isEditor(loaderContext) {
@@ -16,11 +15,7 @@ module.exports = {
 			{
 				test: /\.(woff|woff2)$/,
 				type: 'asset/resource',
-				include: [
-					srcPath + '/fonts',
-					nodeModulesPath + '/@fontsource-variable',
-					nodeModulesPath + '/@fontsource',
-				],
+				include: [srcPath + '/fonts'],
 				generator: {
 					filename: 'fonts/[name][ext][query]',
 				},
