@@ -7,7 +7,6 @@
 !.yarn/sdks
 !.yarn/versions
 node_modules/
-package-lock.json
 
 .wp-env/mu-plugins/
 .wp-env/plugins/*
