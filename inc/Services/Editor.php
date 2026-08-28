@@ -400,15 +400,6 @@ class Editor implements Service {
 			'core/post-comments-count',
 			'core/post-comments-form',
 			'core/post-comments-link',
-			// Query loop (unused).
-			'core/query',
-			'core/query-no-results',
-			'core/query-pagination',
-			'core/query-pagination-next',
-			'core/query-pagination-numbers',
-			'core/query-pagination-previous',
-			'core/query-title',
-			'core/query-total',
 			'core/post-template',
 			// Terms (unused).
 			'core/term-count',
