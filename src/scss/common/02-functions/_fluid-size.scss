@@ -1,6 +1,3 @@
-@use "../01-abstract/variables" as *;
-@use "f-strip-units" as *;
-
 /**
  * Fluid size
  *
@@ -32,8 +29,10 @@
 
 @use "sass:map";
 @use "sass:math";
+@use "../00-variables/config" as *;
+@use "../02-functions/strip-units" as *;
 
-@function fluid-size($from, $to, $start: xs, $end: l) {
+@function fluid-size($from, $to, $start: 7xs, $end: l) {
 	$start: math.div(map.get($breakpoints, $start), 100);
 	$end: math.div(map.get($breakpoints, $end), 100);
 	$lower: math.min($from, $to);
