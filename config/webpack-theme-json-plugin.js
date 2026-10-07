@@ -40,7 +40,7 @@ class WebpackThemeJsonPlugin {
 	/**
 	 * apply
 	 */
-	apply() {}
+	apply() { }
 
 	/**
 	 * Generate theme json file
@@ -105,7 +105,7 @@ class WebpackThemeJsonPlugin {
 						'settings-color-' + color.slug
 					);
 					result += `${colorVar}: ${color.color};\n`;
-					palette.push(`${color.slug}: ${colorVar}`);
+					palette.push(`${formatMapKey(color.slug)}: ${colorVar}`);
 				}
 
 				return (
@@ -113,14 +113,35 @@ class WebpackThemeJsonPlugin {
 					`$settings-palette: (\n\t${palette.join(',\n\t')}\n);\n`
 				);
 			},
+			'settings-color-gradients'(key, value) {
+				let result = '';
+				const gradients = [];
+
+				for (const gradient of value) {
+					const gradientVar = getVariableName(
+						'settings-gradient-' + gradient.slug
+					);
+					result += `${gradientVar}: ${gradient.gradient};\n`;
+					gradients.push(
+						`${formatMapKey(gradient.slug)}: ${gradientVar}`
+					);
+				}
+
+				if (gradients.length === 0) {
+					return result + '$settings-gradients: ();\n';
+				}
+
+				return (
+					result +
+					`$settings-gradients: (\n\t${gradients.join(',\n\t')}\n);\n`
+				);
+			},
 			'settings-custom': 'default',
 			'settings-spacing-spacingSizes'(key, value) {
 				let result = '';
 
 				for (const spacing of value) {
-					result += `${getVariableName(
-						'settings-spacing-' + spacing.slug
-					)}: ${spacing.size};\n`;
+					result += `${getVariableName('settings-spacing-' + spacing.slug)}: ${spacing.size};\n`;
 				}
 
 				return result;
@@ -142,6 +163,11 @@ class WebpackThemeJsonPlugin {
 		// format the scss variable name
 		function getVariableName(id) {
 			return `$${id.replace(/([A-Z])/g, '-$1').toLowerCase()}`;
+		}
+
+		// Quote map keys so slugs like black/white are strings, not Sass color literals.
+		function formatMapKey(slug) {
+			return JSON.stringify(String(slug));
 		}
 
 		// traverse the theme.json file and generate the scss variables
