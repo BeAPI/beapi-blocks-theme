@@ -40,7 +40,7 @@ class WebpackThemeJsonPlugin {
 	/**
 	 * apply
 	 */
-	apply() { }
+	apply() {}
 
 	/**
 	 * Generate theme json file
