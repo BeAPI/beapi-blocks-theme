@@ -10,7 +10,6 @@ module.exports = {
 		path: path.resolve(__dirname, '../dist'),
 		publicPath: '',
 		assetModuleFilename: 'assets/[hash][ext][query]',
-		clean: true,
 	},
 	optimization: {
 		minimizer: [
