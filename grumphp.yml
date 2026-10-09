@@ -13,6 +13,10 @@ grumphp:
         - "beapi.xyz"
         - "lndo.site"
       whitelist_patterns: []
+      ignore_patterns:
+        - /^node_modules\//
+        - /^config\//
+        - /^dist\//
       triggered_by: ['php', 'js', 'scss', 'css']
       regexp_type: G
     phplint:
