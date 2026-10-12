@@ -13,6 +13,7 @@ const BundleAnalyzerPlugin =
 const WebpackThemeJsonPlugin = require('./webpack-theme-json-plugin');
 const WatchedGlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
 const SpriteHashPlugin = require('./webpack-sprite-hash-plugin');
+const WebpackIconFilesPlugin = require('./webpack-icon-files-plugin');
 
 module.exports = {
 	get(mode) {
@@ -21,7 +22,14 @@ module.exports = {
 				watch: mode !== 'production',
 			}),
 			new SpriteHashPlugin(),
-			new CleanWebpackPlugin(),
+			new WebpackIconFilesPlugin({
+				sourcePath: 'src/img/icons',
+				outputPath: 'dist/images',
+				silence: true,
+			}),
+			new CleanWebpackPlugin({
+				cleanOnceBeforeBuildPatterns: ['**/*', '!images', '!images/**'],
+			}),
 			new ESLintPlugin({
 				overrideConfigFile: path.resolve(__dirname, '../.eslintrc'),
 				context: path.resolve(__dirname, '../src/js'),
