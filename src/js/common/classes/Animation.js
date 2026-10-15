@@ -1,5 +1,5 @@
 import AbstractDomElement from './AbstractDomElement';
-import { ScrollObserver, SplittedText, ThrottledEvent } from 'oneloop.js';
+import { SplittedText } from 'oneloop.js';
 import noop from '../utils/noop';
 
 // ----
@@ -7,8 +7,9 @@ import noop from '../utils/noop';
 // ----
 const instances = [];
 const animationClass = 'js-animation';
-let scrollObserver;
-let resize;
+// one IntersectionObserver per rootMargin, shared by all instances using it
+const observers = new Map();
+const lastScroll = { x: window.scrollX, y: window.scrollY };
 
 // ----
 // class Animation
@@ -27,16 +28,10 @@ class Animation extends AbstractDomElement {
 			return instance;
 		}
 
-		const that = this;
 		const el = this._element;
 		const s = this._settings;
-		const start = getValue(el, s.start);
-		const end = getValue(el, s.end);
 		const callbacksSharedData = {};
 
-		this._elementHeight = this._element.offsetHeight;
-		this._windowHeight = window.innerHeight;
-		this._onResize = onResize.bind(this);
 		this._isVisible = false;
 		this._callbacksSharedData = callbacksSharedData;
 
@@ -48,77 +43,109 @@ class Animation extends AbstractDomElement {
 			window.addEventListener('afterprint', onAfterPrint);
 		}
 
-		// init scrollObserver and throttledEvent
-		if (!scrollObserver) {
-			scrollObserver = new ScrollObserver();
-			resize = new ThrottledEvent(window, 'resize');
-		}
-
-		resize.add('resize', this._onResize);
-
 		// add animation class
 		el.classList.add(s.animationClass);
 
 		// intialize callback
-		s.onInit(el, scrollObserver.getScrollInfos(), callbacksSharedData);
+		s.onInit(el, getScrollInfos(), callbacksSharedData);
 
-		// add element to scrollObserver
-		scrollObserver.observe(el, {
-			onVisible(scrollInfos, percentRTW) {
-				const pStart =
-					(this.distanceRTW.y * percentRTW.y) / that._windowHeight;
-				const pEnd =
-					(this.distanceRTW.y * percentRTW.y) /
-					(that._windowHeight + that._elementHeight);
+		// without IntersectionObserver support, never leave content hidden
+		if (typeof window.IntersectionObserver === 'undefined') {
+			this._show(getScrollInfos());
+			return;
+		}
 
-				if (!that._isVisible && pStart >= start && pEnd <= end) {
-					// show element
-					that._isVisible = true;
-					s.onShow(el, scrollInfos, callbacksSharedData);
-					el.classList.add(s.visibleClass);
-
-					// destroy if playOnce = true
-					if (s.playOnce) {
-						that.destroy(el, scrollInfos, callbacksSharedData);
-					}
-				} else if (
-					that._isVisible &&
-					(pStart < start || (pEnd > end && s.hideOnReachEnd))
-				) {
-					// hide element
-					that._isVisible = false;
-					s.onHide(el, scrollInfos, callbacksSharedData);
-					el.classList.remove(s.visibleClass);
-				}
-			},
-		});
+		this._rootMargin = getRootMargin(
+			getValue(el, s.start),
+			getValue(el, s.end),
+			s.hideOnReachEnd
+		);
+		getObserver(this._rootMargin).observe(el);
 	}
 
 	/**
 	 * Is visible
-	 * @return {boolean} - Whether the element is visible
+	 * @return {boolean} Whether the element is currently shown.
 	 */
 	isVisible() {
 		return this._isVisible;
 	}
 
 	/**
+	 * Show the element
+	 * @param {Object} scrollInfos
+	 * @return {undefined}
+	 */
+	_show(scrollInfos) {
+		const el = this._element;
+		const s = this._settings;
+
+		this._isVisible = true;
+		s.onShow(el, scrollInfos, this._callbacksSharedData);
+		el.classList.add(s.visibleClass);
+
+		// destroy if playOnce = true
+		if (s.playOnce) {
+			this.destroy();
+		}
+	}
+
+	/**
+	 * Hide the element
+	 * @param {Object} scrollInfos
+	 * @return {undefined}
+	 */
+	_hide(scrollInfos) {
+		const el = this._element;
+		const s = this._settings;
+
+		this._isVisible = false;
+		s.onHide(el, scrollInfos, this._callbacksSharedData);
+		el.classList.remove(s.visibleClass);
+	}
+
+	/**
+	 * Handle an intersection change of the element
+	 * @param {IntersectionObserverEntry} entry
+	 * @param {Object}                    scrollInfos
+	 * @return {undefined}
+	 */
+	_onIntersection(entry, scrollInfos) {
+		if (entry.isIntersecting) {
+			if (!this._isVisible) {
+				this._show(scrollInfos);
+			}
+			return;
+		}
+
+		if (!this._isVisible) {
+			return;
+		}
+
+		// element went back below the start line (scroll up), or above the end line when hideOnReachEnd is set
+		if (entry.boundingClientRect.top > 0 || this._settings.hideOnReachEnd) {
+			this._hide(scrollInfos);
+		}
+	}
+
+	/**
 	 * Destroy
-	 * @return {void} - No return value
+	 * @return {undefined}
 	 */
 	destroy() {
 		const el = this._element;
 		const s = this._settings;
 		const index = instances.indexOf(this);
-		const callbacksSharedData = this._callbacksSharedData;
 
 		if (index === -1) {
 			return;
 		}
 
+		const callbacksSharedData = this._callbacksSharedData;
+		const scrollInfos = getScrollInfos();
+
 		super.destroy();
 
-		const scrollInfos = scrollObserver.getScrollInfos();
 		instances.splice(index, 1);
 
 		if (s.showOnDestroy) {
@@ -126,15 +153,13 @@ class Animation extends AbstractDomElement {
 			el.classList.add(s.visibleClass);
 		}
 
-		scrollObserver.unobserve(el);
-		resize.remove('resize', this._onResize);
-
-		if (!scrollObserver.hasEntry()) {
-			scrollObserver = scrollObserver.destroy();
-			resize = resize.destroy();
+		if (this._rootMargin && observers.has(this._rootMargin)) {
+			observers.get(this._rootMargin).unobserve(el);
 		}
 
 		if (instances.length === 0) {
+			observers.forEach((observer) => observer.disconnect());
+			observers.clear();
 			window.removeEventListener('beforeprint', onBeforePrint);
 			window.removeEventListener('afterprint', onAfterPrint);
 		}
@@ -154,9 +179,9 @@ class Animation extends AbstractDomElement {
 
 	/**
 	 * Static are animations enabled
-	 * @return {boolean} - Whether animations are enabled
+	 * @return {boolean} Whether the document still has the animation class.
 	 */
-	static areAnimationsEnbaled() {
+	static areAnimationsEnabled() {
 		return document.documentElement.classList.contains(animationClass);
 	}
 }
@@ -172,6 +197,7 @@ Animation.defaults = {
 	// start (relative to bottom of the screen), can be a float, a function (element) {} or an array of two values (range) []
 	start: 0.25,
 	// end (relative to bottom of the screen), can be a float, a function (element) {} or an array of two values (range) []
+	// only used when hideOnReachEnd is true
 	end: 0.75,
 	// if true, the instance will be destroyed after the element is visible
 	playOnce: false,
@@ -190,24 +216,33 @@ Animation.defaults = {
 // events
 // ----
 /**
- * On resize
- * @return {void} - No return value
+ * Dispatch intersection entries to their instances
+ * @param {IntersectionObserverEntry[]} entries
+ * @return {undefined}
  */
-function onResize() {
-	this._elementHeight = this._element.offsetHeight;
-	this._windowHeight = window.innerHeight;
+function onIntersection(entries) {
+	const scrollInfos = getScrollInfos();
+
+	for (const entry of entries) {
+		const instance =
+			entry.target.beapi && entry.target.beapi[Animation.nameSpace];
+
+		if (instance) {
+			instance._onIntersection(entry, scrollInfos);
+		}
+	}
 }
 
 /**
  * On before print
- * @return {void} - No return value
+ * @return {undefined}
  */
 function onBeforePrint() {
 	document.documentElement.classList.remove(animationClass);
 }
 /**
  * On after print
- * @return {void} - No return value
+ * @return {undefined}
  */
 function onAfterPrint() {
 	document.documentElement.classList.add(animationClass);
@@ -217,10 +252,10 @@ function onAfterPrint() {
 // utils
 // ----
 /**
- * Get value
- * @param {HTMLElement} element - The element to get the value from
- * @param {any}         value   - The value to get
- * @return {any} - The value
+ * get value
+ * @param {HTMLElement}           element
+ * @param {number|Function|Array} value
+ * @return {*} Resolved numeric value.
  */
 function getValue(element, value) {
 	let rt = value;
@@ -232,6 +267,65 @@ function getValue(element, value) {
 	}
 
 	return rt;
+}
+
+/**
+ * Convert start / end settings (fractions of the viewport) to an IntersectionObserver rootMargin.
+ * Values are rounded to whole percents so instances share observers.
+ * @param {number}  start
+ * @param {number}  end
+ * @param {boolean} hideOnReachEnd
+ * @return {string} rootMargin accepted by IntersectionObserver.
+ */
+function getRootMargin(start, end, hideOnReachEnd) {
+	const bottom = Math.round(clamp(start) * 100);
+	const top = hideOnReachEnd ? Math.round((1 - clamp(end)) * 100) : 0;
+
+	return `-${top}% 0px -${bottom}% 0px`;
+}
+
+/**
+ * Clamp a value between 0 and 1
+ * @param {number} value
+ * @return {number} Value limited to the 0..1 range.
+ */
+function clamp(value) {
+	return Math.min(1, Math.max(0, Number(value) || 0));
+}
+
+/**
+ * Get (or create) the shared observer for a rootMargin
+ * @param {string} rootMargin
+ * @return {IntersectionObserver} Shared observer for this margin.
+ */
+function getObserver(rootMargin) {
+	if (!observers.has(rootMargin)) {
+		observers.set(
+			rootMargin,
+			new window.IntersectionObserver(onIntersection, { rootMargin })
+		);
+	}
+
+	return observers.get(rootMargin);
+}
+
+/**
+ * Scroll infos passed to callbacks, same shape as oneloop.js ScrollObserver (direction.y = 1 when scrolling down).
+ * Computed on demand: no scroll listener is attached.
+ * @return {Object} scroll, delta and direction, matching oneloop ScrollObserver.
+ */
+function getScrollInfos() {
+	const scroll = { x: window.scrollX, y: window.scrollY };
+	const delta = { x: scroll.x - lastScroll.x, y: scroll.y - lastScroll.y };
+
+	lastScroll.x = scroll.x;
+	lastScroll.y = scroll.y;
+
+	return {
+		scroll,
+		delta,
+		direction: { x: Math.sign(delta.x), y: Math.sign(delta.y) },
+	};
 }
 
 // ----
@@ -277,7 +371,7 @@ Animation.preset = {
 				});
 
 				const children = el.getElementsByClassName('st-line');
-				const length = children.length;
+				const { length } = children;
 				let i;
 
 				if (length > 1) {
@@ -291,7 +385,9 @@ Animation.preset = {
 			});
 		},
 		onDestroy(el, scrollInfos, data) {
-			data.splittedText.destroy();
+			if (data.splittedText) {
+				data.splittedText.destroy();
+			}
 		},
 	},
 };
