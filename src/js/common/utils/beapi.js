@@ -2,6 +2,7 @@ import AbstractDomElement from '../classes/AbstractDomElement';
 import scrollDirection from '../classes/ScrollDirection';
 import * as oneloop from 'oneloop.js';
 import extend from './extend';
+import deferInitialization from './deferInitialization';
 
 // ----
 // First declaration of beapi object is normally done in Assets.php
@@ -20,5 +21,8 @@ extend(true, window.beapi, {
 	},
 	instances: {
 		scrollDirection,
+	},
+	utils: {
+		deferInitialization,
 	},
 });

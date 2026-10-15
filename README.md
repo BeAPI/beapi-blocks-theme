@@ -176,3 +176,40 @@ Sera nommé :
 ```bash
 styles-blocks-coreParagraph.json
 ```
+
+## Core Web Vitals
+
+### Ce que le thème fournit
+
+- **Image LCP** : passer `'is_lcp' => true` dans les réglages de `get_the_image()` pour l'image principale au-dessus de la ligne de flottaison (hero, cover). Cela retire `loading="lazy"` et ajoute `fetchpriority="high"` et `decoding="sync"`. Une seule image par page.
+
+```php
+the_image( $image_id, [ 'alt' => '' ], [ 'size' => 'hero', 'is_lcp' => true ] );
+```
+
+- **Images décoratives** : passer `'alt' => ''` pour produire `alt=""`. Omettre l'attribut n'est pas équivalent pour les technologies d'assistance.
+- **Images statiques du thème** (logos, placeholders, illustrations de `dist/`) : `get_theme_static_image_markup()` / `the_theme_static_image()`. `width` et `height` sont lus dans le fichier (SVG ou raster) pour limiter le CLS.
+
+```php
+the_theme_static_image( 'dist/images/placeholder.svg', [ 'class' => 'card__image', 'loading' => 'lazy' ] );
+```
+
+- **Logo du header** : `fetchpriority="low"`, pour qu'il ne concurrence pas la vraie image LCP.
+- **Preload des fonts** : opt-in, uniquement pour les fichiers réellement affichés au premier rendu. Les déclarer à partir des fichiers référencés dans `theme.json`, pas d'une police du starter.
+
+```php
+add_filter( 'bea_theme_framework_preload_fonts', fn() => [ 'assets/fonts/my-font.woff2' ] );
+```
+
+- **JS** : `Animation` s'appuie sur `IntersectionObserver` (plus de boucle de scroll). `deferInitialization` est exposé sur `window.beapi.utils` pour lancer le code non critique au repos du navigateur (INP).
+
+### Ce que chaque projet doit encore configurer
+
+Cela dépend de l'hébergement, des extensions et du contenu, donc ce n'est pas dans le thème :
+
+- Cache de page et réglages WP Rocket (Remove Unused CSS, defer / delay JS et leurs exclusions, exclusion du lazyload pour l'image LCP, preconnect limité aux tiers chargés tôt).
+- `robots.txt` (endpoints techniques et AJAX) et en-têtes `Cache-Control` des assets statiques.
+- Réglages de l'extension SEO : canoniques sur une pagination custom, doublons de données structurées.
+- Fonts : sous-ensemble aux graisses et glyphes réellement utilisés, suppression des fichiers inutiles.
+- Embeds tiers (vidéos, formulaires, webinaires) : chargement au clic ou à l'entrée dans le viewport.
+- Assets d'extensions : les retirer du front sur les pages qui ne s'en servent pas.
