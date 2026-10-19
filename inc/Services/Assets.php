@@ -464,6 +464,71 @@ class Assets implements Service {
 	}
 
 	/**
+	 * Return intrinsic dimensions for a static theme image from the build manifest.
+	 *
+	 * @param string $relative_theme_path Path relative to the theme root (e.g. dist/images/logo.svg).
+	 *
+	 * @return array{width:int,height:int}|null Null when dimensions are not in the manifest.
+	 */
+	public function get_static_image_dimensions( string $relative_theme_path ): ?array {
+		$relative_theme_path = ltrim( $relative_theme_path, '/' );
+		$dimensions_map      = $this->get_static_image_dimensions_manifest();
+
+		if ( empty( $dimensions_map ) ) {
+			return null;
+		}
+
+		$dimensions = $dimensions_map[ $relative_theme_path ] ?? null;
+
+		if ( ! is_array( $dimensions ) ) {
+			return null;
+		}
+
+		$width  = isset( $dimensions['width'] ) ? (int) $dimensions['width'] : 0;
+		$height = isset( $dimensions['height'] ) ? (int) $dimensions['height'] : 0;
+
+		if ( $width <= 0 || $height <= 0 ) {
+			return null;
+		}
+
+		return [
+			'width'  => $width,
+			'height' => $height,
+		];
+	}
+
+	/**
+	 * Read and decode `dist/image-dimensions.json` once per request.
+	 *
+	 * @return array<string, array{width:int,height:int}>
+	 */
+	private function get_static_image_dimensions_manifest(): array {
+		static $dimensions_map = null;
+
+		if ( null !== $dimensions_map ) {
+			return $dimensions_map;
+		}
+
+		$dimensions_map = [];
+		$manifest_path  = get_theme_file_path( self::BUILD_DIR . '/image-dimensions.json' );
+
+		if ( ! is_readable( $manifest_path ) ) {
+			return $dimensions_map;
+		}
+
+		$json = file_get_contents( $manifest_path ); // phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents
+		$data = json_decode( $json, true );
+
+		if ( ! is_array( $data ) || empty( $data['imageDimensions'] ) || ! is_array( $data['imageDimensions'] ) ) {
+			return $dimensions_map;
+		}
+
+		$dimensions_map = $data['imageDimensions'];
+
+		return $dimensions_map;
+	}
+
+	/**
 	 * Load assets manifest.
 	 *
 	 * @return array{js: array, css: array}

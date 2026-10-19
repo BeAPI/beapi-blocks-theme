@@ -181,14 +181,14 @@ styles-blocks-coreParagraph.json
 
 ### Ce que le thème fournit
 
-- **Image LCP** : passer `'is_lcp' => true` dans les réglages de `get_the_image()` pour l'image principale au-dessus de la ligne de flottaison (hero, cover). Cela retire `loading="lazy"` et ajoute `fetchpriority="high"` et `decoding="sync"`. Une seule image par page.
+- **Image LCP** : passer `'is_lcp' => true` dans les réglages de `get_the_image()` pour l'image principale au-dessus de la ligne de flottaison (hero, cover). Cela retire `loading="lazy"` et ajoute `fetchpriority="high"`. Définir `decoding` explicitement dans `$attributes` si une mesure (ex. WebPageTest) le justifie. Une seule image par page.
 
 ```php
 the_image( $image_id, [ 'alt' => '' ], [ 'size' => 'hero', 'is_lcp' => true ] );
 ```
 
 - **Images décoratives** : passer `'alt' => ''` pour produire `alt=""`. Omettre l'attribut n'est pas équivalent pour les technologies d'assistance.
-- **Images statiques du thème** (logos, placeholders, illustrations de `dist/`) : `get_theme_static_image_markup()` / `the_theme_static_image()`. `width` et `height` sont lus dans le fichier (SVG ou raster) pour limiter le CLS.
+- **Images statiques du thème** (logos, placeholders, illustrations de `dist/`) : `get_theme_static_image_markup()` / `the_theme_static_image()`. `width` et `height` proviennent de `dist/image-dimensions.json` (`imageDimensions`, généré au build) pour limiter le CLS sans lecture disque répétée. Hors manifeste : une lecture par chemin et par requête.
 
 ```php
 the_theme_static_image( 'dist/images/placeholder.svg', [ 'class' => 'card__image', 'loading' => 'lazy' ] );
