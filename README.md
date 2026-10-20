@@ -187,11 +187,20 @@ styles-blocks-coreParagraph.json
 the_image( $image_id, [ 'alt' => '' ], [ 'size' => 'hero', 'is_lcp' => true ] );
 ```
 
-- **Images décoratives** : passer `'alt' => ''` pour produire `alt=""`. Omettre l'attribut n'est pas équivalent pour les technologies d'assistance.
-- **Images statiques du thème** (logos, placeholders, illustrations de `dist/`) : `get_theme_static_image_markup()` / `the_theme_static_image()`. `width` et `height` proviennent de `dist/image-dimensions.json` (`imageDimensions`, généré au build) pour limiter le CLS sans lecture disque répétée. Hors manifeste : une lecture par chemin et par requête.
+- **Images décoratives (`alt=""`)** — même objectif, deux helpers selon la source :
+  - **Médiathèque** (`the_image` / `get_the_image`) : passez `'alt' => ''` explicitement si l’image est décorative. Sinon WordPress reprend l’alt saisi dans le BO. Omettre la clé `alt` n’est pas équivalent à `alt=""`.
+  - **Fichiers buildés** dans `dist/` (`the_theme_static_image` / `get_theme_static_image_markup`) : décoratif par défaut (`alt=""` si vous ne passez pas `alt`). Indiquez un texte d’alt si l’image porte du sens (ex. logo + nom du site). Ne pas utiliser `the_image` pour ces fichiers (pas d’ID attachment).
+- **Images statiques du thème** (placeholders, illustrations dans `dist/`) : le helper statique ajoute aussi `width` et `height` via `dist/image-dimensions.json` (`imageDimensions`, généré au build) pour limiter le CLS, sans lecture disque répétée lorsque le manifeste est présent. Hors manifeste : une lecture par chemin et par requête.
 
 ```php
+// Média (décoratif)
+the_image( $image_id, [ 'alt' => '', 'class' => 'card__thumb' ], [ 'size' => 'card' ] );
+
+// Asset dist/ (décoratif par défaut)
 the_theme_static_image( 'dist/images/placeholder.svg', [ 'class' => 'card__image', 'loading' => 'lazy' ] );
+
+// Asset dist/ (alt porteur de sens)
+the_theme_static_image( 'dist/images/logo.svg', [ 'alt' => get_bloginfo( 'name' ), 'class' => 'header__logo' ] );
 ```
 
 - **Logo du header** : `fetchpriority="low"`, pour qu'il ne concurrence pas la vraie image LCP.
