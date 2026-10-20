@@ -49,13 +49,13 @@ class Icon implements Service {
 			[
 				self::COLLECTION_SPRITE => [
 					'source_subdir' => 'sprite',
-					'label'         => __( 'General', 'beapi-frontend-framework' ),
-					'description'   => __( 'Theme UI icons.', 'beapi-frontend-framework' ),
+					'label'         => __( 'General', 'beapi-blocks-theme' ),
+					'description'   => __( 'Theme UI icons.', 'beapi-blocks-theme' ),
 				],
 				self::COLLECTION_SOCIAL => [
 					'source_subdir' => 'social',
-					'label'         => __( 'Social', 'beapi-frontend-framework' ),
-					'description'   => __( 'Social network icons.', 'beapi-frontend-framework' ),
+					'label'         => __( 'Social', 'beapi-blocks-theme' ),
+					'description'   => __( 'Social network icons.', 'beapi-blocks-theme' ),
 				],
 			]
 		);
