@@ -187,7 +187,7 @@ styles-blocks-coreParagraph.json
 the_image( $image_id, [ 'alt' => '' ], [ 'size' => 'hero', 'is_lcp' => true ] );
 ```
 
-- **ARI (Auto Responsive Images)** : sur les projets avec ARI, ne pas activer `is_lcp` sur les images déjà gérées par ARI (taille / `data-location` au bon format). ARI pilote la priorité et le lazy-load ; `is_lcp` sur la même image est redondant ou incompatible. Réserver `is_lcp` aux projets sans ARI, ou valider manuellement (page hero avec ARI, sans `is_lcp`).
+- **ARI (Advanced Responsive Images)** : sur les projets avec ARI, ne pas activer `is_lcp` sur les images déjà gérées par ARI (taille / `data-location` au bon format). ARI pilote la priorité et le lazy-load ; `is_lcp` sur la même image est redondant ou incompatible. Réserver `is_lcp` aux projets sans ARI, ou valider manuellement (page hero avec ARI, sans `is_lcp`).
 
 - **Images décoratives (`alt=""`)** — même objectif, deux helpers selon la source :
   - **Médiathèque** (`the_image` / `get_the_image`) : passez `'alt' => ''` explicitement si l’image est décorative. Sinon WordPress reprend l’alt saisi dans le BO. Omettre la clé `alt` n’est pas équivalent à `alt=""`.
