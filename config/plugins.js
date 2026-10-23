@@ -14,6 +14,7 @@ const WebpackThemeJsonPlugin = require('./webpack-theme-json-plugin');
 const WatchedGlobEntriesPlugin = require('webpack-watched-glob-entries-plugin');
 const SpriteHashPlugin = require('./webpack-sprite-hash-plugin');
 const WebpackIconFilesPlugin = require('./webpack-icon-files-plugin');
+const WebpackStaticImageDimensionsPlugin = require('./webpack-static-image-dimensions-plugin');
 
 module.exports = {
 	get(mode) {
@@ -74,6 +75,7 @@ module.exports = {
 			new WebpackPHPManifestPlugin({
 				output: 'assets',
 			}),
+			new WebpackStaticImageDimensionsPlugin(),
 			new RemoveEmptyScriptsPlugin()
 		);
 

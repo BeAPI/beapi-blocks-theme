@@ -176,3 +176,50 @@ Sera nommé :
 ```bash
 styles-blocks-coreParagraph.json
 ```
+
+## Core Web Vitals
+
+### Ce que le thème fournit
+
+- **Image LCP** : passez `'is_lcp' => true` dans les réglages de `get_the_image()` pour l’image principale au-dessus de la ligne de flottaison (hero, couverture). Cela retire `loading="lazy"` et ajoute `fetchpriority="high"`. Définissez `decoding` dans `$attributes` uniquement si une mesure le justifie (ex. WebPageTest). Une seule image par page. Par défaut `is_lcp => false` (opt-in).
+
+```php
+the_image( $image_id, [ 'alt' => '' ], [ 'size' => 'hero', 'is_lcp' => true ] );
+```
+
+- **ARI (Advanced Responsive Images)** : sur les projets avec ARI, ne pas activer `is_lcp` sur les images déjà gérées par ARI (taille / `data-location` au bon format). ARI pilote la priorité et le lazy-load ; `is_lcp` sur la même image est redondant ou incompatible. Réserver `is_lcp` aux projets sans ARI, ou valider manuellement (page hero avec ARI, sans `is_lcp`).
+
+- **Images décoratives (`alt=""`)** — même objectif, deux helpers selon la source :
+  - **Médiathèque** (`the_image` / `get_the_image`) : passez `'alt' => ''` explicitement si l’image est décorative. Sinon WordPress reprend l’alt saisi dans le BO. Omettre la clé `alt` n’est pas équivalent à `alt=""`.
+  - **Fichiers buildés** dans `dist/` (`the_theme_static_image` / `get_theme_static_image_markup`) : décoratif par défaut (`alt=""` si vous ne passez pas `alt`). Indiquez un texte d’alt si l’image porte du sens (ex. logo + nom du site). Ne pas utiliser `the_image` pour ces fichiers (pas d’ID attachment).
+- **Images statiques du thème** (placeholders, illustrations dans `dist/`) : le helper statique ajoute aussi `width` et `height` via `dist/image-dimensions.json` (`imageDimensions`, généré au build) pour limiter le CLS, sans lecture disque répétée lorsque le manifeste est présent. Hors manifeste : une lecture par chemin et par requête.
+
+```php
+// Média (décoratif)
+the_image( $image_id, [ 'alt' => '', 'class' => 'card__thumb' ], [ 'size' => 'card' ] );
+
+// Asset dist/ (décoratif par défaut)
+the_theme_static_image( 'dist/images/placeholder.svg', [ 'class' => 'card__image', 'loading' => 'lazy' ] );
+
+// Asset dist/ (alt porteur de sens)
+the_theme_static_image( 'dist/images/logo.svg', [ 'alt' => get_bloginfo( 'name' ), 'class' => 'header__logo' ] );
+```
+
+- **Preload des polices** : opt-in, uniquement pour les polices rendues au premier affichage. Indiquez le chemin **après build** (ex. polices Fontsource ou custom dans `dist/fonts/`, en `.woff2`). Sur un thème bloc, ne préchargez que les fichiers réellement utilisés au premier rendu (cohérents avec `theme.json`).
+
+```php
+add_filter( 'bea_theme_framework_preload_fonts', fn() => [ 'dist/fonts/my-font-regular.woff2' ] );
+```
+
+- **JS** : `Animation` s’appuie sur `IntersectionObserver` (pas de boucle au scroll). `deferInitialization` est exposé sur `window.beapi.utils` pour exécuter du code non critique lorsque le navigateur est inactif (INP).
+
+### Ce que chaque projet doit encore configurer
+
+Cela dépend de l’hébergement, des extensions et du contenu ; ce n’est donc pas inclus dans le thème :
+
+- Cache de page et réglages WP Rocket (suppression du CSS inutilisé, différer / retarder le JS et leurs exclusions, exclusions du lazyload pour l’image LCP, preconnect limités aux tiers chargés tôt).
+- `robots.txt` (endpoints techniques et AJAX) et en-têtes `Cache-Control` pour les assets statiques.
+- Réglages du plugin SEO : URLs canoniques sur pagination personnalisée, doublons de données structurées.
+- Polices : sous-ensemble des fichiers aux graisses et glyphes réellement utilisés, suppression des fichiers inutiles (italiques, graisses supplémentaires).
+- Intégrations tierces (vidéos, formulaires, webinars) : chargement à l’interaction ou à l’entrée dans le viewport.
+- Assets des extensions : retirer les scripts et styles front (dequeue) sur les pages qui ne les utilisent pas.
