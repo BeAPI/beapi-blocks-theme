@@ -1,13 +1,6 @@
 const fs = require('fs')
 const path = require('path')
-
-let sharp
-
-try {
-	sharp = require('sharp')
-} catch (error) {
-	sharp = null
-}
+const { imageSizeFromFile } = require('image-size/fromFile')
 
 const IMAGE_EXT_PATTERN = /\.(png|jpe?g|gif|svg|webp|avif)$/i
 
@@ -60,20 +53,16 @@ async function getImageDimensions(filePath) {
 		return getSvgDimensionsFromContents(contents)
 	}
 
-	if (!sharp) {
-		return null
-	}
-
 	try {
-		const metadata = await sharp(filePath).metadata()
+		const dimensions = await imageSizeFromFile(filePath)
 
-		if (!metadata.width || !metadata.height) {
+		if (!dimensions.width || !dimensions.height) {
 			return null
 		}
 
 		return {
-			width: metadata.width,
-			height: metadata.height,
+			width: dimensions.width,
+			height: dimensions.height,
 		}
 	} catch (error) {
 		return null
