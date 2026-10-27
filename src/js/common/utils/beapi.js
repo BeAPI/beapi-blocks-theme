@@ -1,4 +1,5 @@
 import AbstractDomElement from '../classes/AbstractDomElement';
+import Slider from '../classes/Slider';
 import scrollDirection from '../classes/ScrollDirection';
 import * as oneloop from 'oneloop.js';
 import extend from './extend';
@@ -15,6 +16,7 @@ window.beapi = window.beapi || {};
 extend(true, window.beapi, {
 	classes: {
 		AbstractDomElement,
+		Slider,
 	},
 	libraries: {
 		oneloop,
