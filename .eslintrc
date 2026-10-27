@@ -6,6 +6,9 @@
 	"plugins": [
 		"prettier"
 	],
+	"env": {
+		"browser": true
+	},
 	"globals": {
 		"jQuery": true,
 		"wp": true
