@@ -338,27 +338,27 @@ msgid "Footer"
 msgstr ""
 
 #: components/parts/common/swiper-controls.php:14
-#: dist/app.js
+#: dist/app-min.js
 msgid "Previous slide"
 msgstr ""
 
 #: components/parts/common/swiper-controls.php:15
-#: dist/app.js
+#: dist/app-min.js
 msgid "Next slide"
 msgstr ""
 
-#: dist/app.js
+#: dist/app-min.js
 msgid "This is the first slide"
 msgstr ""
 
-#: dist/app.js
+#: dist/app-min.js
 msgid "This is the last slide"
 msgstr ""
 
-#: dist/app.js
+#: dist/app-min.js
 msgid "Go to slide {{index}}"
 msgstr ""
 
-#: dist/app.js
+#: dist/app-min.js
 msgid "{{index}} of {{slidesLength}}"
 msgstr ""
