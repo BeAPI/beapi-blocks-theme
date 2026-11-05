@@ -88,7 +88,7 @@ class Assets implements Service {
 			$this->assets_tools->register_script(
 				'scripts',
 				$asset['file'],
-				array_merge( [ 'jquery' ], $asset['dependencies'] ), // ensure jQuery dependency is set even if not declared explicitly in the JS
+				array_merge( [ 'jquery', 'wp-i18n' ], $asset['dependencies'] ), // ensure jQuery dependency is set even if not declared explicitly in the JS
 				$asset['version'],
 				[ 'strategy' => 'defer' ]
 			);
@@ -127,6 +127,12 @@ class Assets implements Service {
 	public function enqueue_scripts(): void {
 		// JS
 		$this->assets_tools->enqueue_script( 'scripts' );
+
+		wp_set_script_translations(
+			'scripts',
+			'beapi-blocks-theme',
+			\get_theme_file_path( 'languages' )
+		);
 	}
 
 	/**
