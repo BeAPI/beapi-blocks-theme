@@ -54,6 +54,9 @@ class Theme implements Service {
 		add_theme_support( 'wp-block-styles' );
 		add_theme_support( 'html5', [ 'comment-list', 'comment-form', 'search-form', 'gallery', 'caption', 'script', 'style' ] );
 		add_theme_support( 'yoast-seo-breadcrumbs' );
+
+		// Mobile sub menus of Be API Mega Menu Block open as panels instead of an accordion.
+		add_theme_support( 'beapi-mega-menu-panel' );
 	}
 
 	/**
