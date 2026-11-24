@@ -48,3 +48,32 @@
 		}
 	}
 }
+
+/*
+ * Be API Mega Menu Block - mobile panel mode
+ *
+ * The panel covers the closest positioned ancestor of the menu item. Without these rules, it is the
+ * overlay itself, so the panel hides (and the plugin makes inert) the button closing the overlay.
+ * Positioning the overlay content, stretched to the full overlay height, keeps the close button
+ * visible and usable above the panel. The plugin panel mode only applies below 782px.
+ */
+@include breakpoints(2xs, max) {
+	.beapi-mega-menu-mobile-panel .wp-block-navigation__responsive-container.is-menu-open {
+		.wp-block-navigation__responsive-close,
+		.wp-block-navigation__responsive-dialog {
+			display: flex;
+			flex: 1 0 auto;
+			flex-direction: column;
+		}
+
+		.wp-block-navigation__responsive-container-content {
+			position: relative;
+			flex: 1 0 auto;
+		}
+
+		// Start the panel below the close button, in the top padding of the overlay content.
+		.wp-block-navigation__responsive-container-content .mega-menu__wrapper {
+			top: var(--bbt-mega-menu-panel--top, calc(2rem + 24px));
+		}
+	}
+}
